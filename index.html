@@ -62,29 +62,49 @@
   <p id="status">Appuie sur le bouton pour recevoir une notification.</p>
 
   <script>
-    async function sendNotif() {
-      const status = document.getElementById('status');
+    const status = document.getElementById('status');
 
-      // Vérifie si le navigateur supporte les notifications
+    // Dès le chargement, on demande la permission
+    window.addEventListener('load', async () => {
       if (!('Notification' in window)) {
-        status.textContent = '❌ Ton navigateur ne supporte pas les notifications.';
+        status.textContent = '❌ Notifications non supportées sur ce navigateur.';
+        document.getElementById('btn').disabled = true;
         return;
       }
 
-      // Demande la permission si pas encore accordée
+      status.textContent = '🔔 Permission actuelle : ' + Notification.permission;
+
+      if (Notification.permission === 'default') {
+        const perm = await Notification.requestPermission();
+        status.textContent = '🔔 Permission : ' + perm;
+      }
+    });
+
+    async function sendNotif() {
+      if (!('Notification' in window)) {
+        status.textContent = '❌ Notifications non supportées.';
+        return;
+      }
+
       let permission = Notification.permission;
+
       if (permission === 'default') {
         permission = await Notification.requestPermission();
       }
 
+      status.textContent = '🔔 Permission : ' + permission;
+
       if (permission === 'granted') {
-        new Notification('Test', {
-          body: 'Test ✅',
-          icon: 'https://cdn-icons-png.flaticon.com/512/179/179330.png'
-        });
-        status.textContent = '✅ Notification envoyée !';
+        try {
+          new Notification('Test', {
+            body: 'Test ✅',
+          });
+          status.textContent = '✅ Notification envoyée !';
+        } catch(e) {
+          status.textContent = '❌ Erreur : ' + e.message;
+        }
       } else {
-        status.textContent = '⚠️ Permission refusée. Active les notifications dans les réglages.';
+        status.textContent = '⚠️ Permission refusée. Va dans Paramètres Chrome → Paramètres des sites → Notifications → autorise ce site.';
       }
     }
   </script>
