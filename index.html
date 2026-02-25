@@ -3,98 +3,513 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ma Page Notif</title>
+  <title>Jules 👁️ Cache-œil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --blue: #4A90D9;
+      --blue-light: #EAF4FF;
+      --blue-mid: #C8E4FA;
+      --green: #5BBF8E;
+      --green-light: #E8F7F1;
+      --orange: #F9A825;
+      --orange-light: #FFF8E1;
+      --text: #2C3E50;
+      --text-light: #7F8C8D;
+      --white: #FFFFFF;
+      --bg: #F4F9FF;
+      --radius: 20px;
+      --shadow: 0 4px 20px rgba(74,144,217,0.12);
+      --shadow-hover: 0 8px 30px rgba(74,144,217,0.22);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
+      background: var(--bg);
+      font-family: 'Quicksand', sans-serif;
+      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #0f0f0f;
-      font-family: 'Courier New', monospace;
-      gap: 24px;
+      padding: 24px 16px 40px;
     }
-    h1 { color: #ffffff; font-size: 1.4rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
-    #btn {
-      background: #ff3c3c;
-      color: #fff;
-      border: none;
-      padding: 20px 48px;
-      font-size: 1.2rem;
-      font-family: 'Courier New', monospace;
-      font-weight: bold;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: transform 0.1s, background 0.2s;
-      box-shadow: 0 0 30px rgba(255,60,60,0.4);
-    }
-    #btn:active { transform: scale(0.96); }
-    #btn:hover { background: #ff5555; }
-    #status {
-      color: #aaa;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      min-height: 20px;
+
+    /* PAGE PRINCIPALE */
+    #page-main, #page-observance { display: block; }
+    #page-observance { display: none; }
+
+    /* HEADER */
+    .header {
       text-align: center;
-      padding: 0 20px;
-      max-width: 320px;
-      line-height: 1.6;
+      margin-bottom: 32px;
+      animation: fadeDown 0.6s ease;
+    }
+
+    .header .emoji-big {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 8px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .header h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--blue);
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
+    .card-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    /* BOUTONS */
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 18px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-blue {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 4px 16px rgba(74,144,217,0.35);
+    }
+    .btn-blue:hover { box-shadow: 0 6px 24px rgba(74,144,217,0.45); }
+
+    .btn-green {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 4px 16px rgba(91,191,142,0.35);
+    }
+    .btn-green:hover { box-shadow: 0 6px 24px rgba(91,191,142,0.45); }
+
+    .btn-orange {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 4px 16px rgba(249,168,37,0.35);
+    }
+
+    .btn .btn-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .btn .btn-text { line-height: 1.3; }
+    .btn .btn-sub {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 500;
+      font-size: 0.78rem;
+      opacity: 0.85;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* STATUS */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 30px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 12px;
+      min-height: 32px;
+    }
+
+    /* OBSERVANCE PAGE */
+    .obs-header {
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeDown 0.5s ease;
+    }
+
+    .obs-header .emoji-big { font-size: 3rem; display: block; margin-bottom: 8px; }
+
+    .obs-header h2 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .obs-header p { color: var(--text-light); font-size: 0.9rem; margin-top: 4px; }
+
+    /* HOURS SELECTOR */
+    .hours-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .hour-btn {
+      background: var(--blue-light);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 14px 8px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--blue);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .hour-btn:hover, .hour-btn.selected {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+      transform: scale(1.05);
+    }
+
+    .hour-btn .label {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      opacity: 0.8;
+      margin-top: 2px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .congrats-box {
+      background: linear-gradient(135deg, var(--green-light), #d4f0e5);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .congrats-box .emoji { font-size: 2.5rem; }
+    .congrats-box h3 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--green);
+      margin: 8px 0 4px;
+    }
+    .congrats-box p { color: var(--text-light); font-size: 0.85rem; }
+
+    .btn-back {
+      background: none;
+      border: 2px solid var(--blue-mid);
+      color: var(--blue);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+      transition: all 0.15s;
+    }
+    .btn-back:hover { background: var(--blue-light); }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PERMISSION BANNER */
+    .perm-banner {
+      background: var(--orange-light);
+      border: 2px solid var(--orange);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: none;
+      animation: fadeUp 0.4s ease;
+    }
+    .perm-banner p { font-size: 0.85rem; color: var(--text); font-weight: 600; }
+    .perm-banner button {
+      margin-top: 8px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-  <h1>Notifications</h1>
-  <button id="btn" onclick="sendNotif()">🔔 Envoyer Test</button>
-  <p id="status">Chargement...</p>
+<!-- PAGE PRINCIPALE -->
+<div id="page-main">
 
-  <script>
-    const status = document.getElementById('status');
-    let swReg = null;
+  <div class="header">
+    <span class="emoji-big">👁️</span>
+    <h1>Jules & son cache</h1>
+    <p>Suivi quotidien de l'orthoptie</p>
+  </div>
 
-    window.addEventListener('load', async () => {
-      if (!('serviceWorker' in navigator)) {
-        status.textContent = '❌ Service Worker non supporté.';
-        return;
-      }
-      if (!('Notification' in window)) {
-        status.textContent = '❌ Notifications non supportées.';
-        return;
-      }
+  <div class="perm-banner" id="perm-banner">
+    <p>🔔 Active les notifications pour recevoir les rappels de Jules !</p>
+    <button onclick="demanderPermission()">Activer les notifications</button>
+  </div>
+
+  <!-- CARD RAPPELS -->
+  <div class="card">
+    <div class="card-title">📣 Rappels</div>
+    <button class="btn btn-blue" onclick="envoyerNotif('cache')">
+      <span class="btn-icon">🏴‍☠️</span>
+      <span class="btn-text">
+        Rappel : mettre le cache
+        <span class="btn-sub">Envoie une notif à Jules</span>
+      </span>
+    </button>
+    <div class="status-badge" id="status-cache">💤 En attente</div>
+  </div>
+
+  <!-- CARD OBSERVANCE -->
+  <div class="card">
+    <div class="card-title">✅ Observance</div>
+    <button class="btn btn-green" onclick="envoyerNotif('retirer')">
+      <span class="btn-icon">🎉</span>
+      <span class="btn-text">
+        Prêt à remplir l'observance
+        <span class="btn-sub">Notifie Jules de retirer son cache</span>
+      </span>
+    </button>
+    <div class="status-badge" id="status-retirer">💤 En attente</div>
+  </div>
+
+  <!-- CARD SAISIE RAPIDE -->
+  <div class="card">
+    <div class="card-title">⏱️ Saisie rapide</div>
+    <button class="btn btn-orange" onclick="allerObservance()">
+      <span class="btn-icon">📋</span>
+      <span class="btn-text">
+        Remplir le temps de port
+        <span class="btn-sub">Saisir les heures d'aujourd'hui</span>
+      </span>
+    </button>
+  </div>
+
+</div>
+
+<!-- PAGE OBSERVANCE -->
+<div id="page-observance">
+
+  <div class="obs-header">
+    <span class="emoji-big">🌟</span>
+    <h2>Bravo Jules !</h2>
+    <p>Combien d'heures as-tu porté ton cache aujourd'hui ?</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⏱️ Heures de port</div>
+    <div class="hours-selector" id="hours-selector">
+      <!-- généré en JS -->
+    </div>
+
+    <div class="congrats-box" id="congrats-box">
+      <span class="emoji">🏆</span>
+      <h3 id="congrats-text">Super !</h3>
+      <p id="congrats-sub">Continue comme ça !</p>
+    </div>
+
+    <button class="btn-back" onclick="retourMain()">← Retour</button>
+  </div>
+
+</div>
+
+<script>
+  let swReg = null;
+  let heureSelectionnee = null;
+
+  // --- SERVICE WORKER ---
+  window.addEventListener('load', async () => {
+    if ('serviceWorker' in navigator) {
       try {
         swReg = await navigator.serviceWorker.register('sw.js');
-        status.textContent = '✅ Prêt. Appuie sur le bouton !';
       } catch(e) {
-        status.textContent = '❌ Erreur SW : ' + e.message;
-      }
-    });
-
-    async function sendNotif() {
-      if (!swReg) {
-        status.textContent = '❌ Service Worker pas encore chargé, réessaie.';
-        return;
-      }
-      let permission = Notification.permission;
-      if (permission === 'default') {
-        permission = await Notification.requestPermission();
-      }
-      status.textContent = '🔔 Permission : ' + permission;
-      if (permission === 'granted') {
-        try {
-          await swReg.showNotification('Test', { body: 'Test ✅' });
-          status.textContent = '✅ Notification envoyée !';
-        } catch(e) {
-          status.textContent = '❌ Erreur : ' + e.message;
-        }
-      } else {
-        status.textContent = '⚠️ Permission refusée. Active les notifications dans Chrome → Paramètres des sites.';
+        console.log('SW error:', e);
       }
     }
-  </script>
+
+    // Affiche banner si permission pas encore donnée
+    if (Notification.permission === 'default') {
+      document.getElementById('perm-banner').style.display = 'block';
+    }
+
+    // Génère les boutons heures
+    genererHeures();
+
+    // Si on arrive depuis la notif "retirer le cache"
+    if (window.location.hash === '#observance') {
+      allerObservance();
+    }
+  });
+
+  async function demanderPermission() {
+    const perm = await Notification.requestPermission();
+    if (perm === 'granted') {
+      document.getElementById('perm-banner').style.display = 'none';
+    }
+  }
+
+  // --- NOTIFICATIONS ---
+  async function envoyerNotif(type) {
+    let statusId, message, body;
+
+    if (type === 'cache') {
+      statusId = 'status-cache';
+      message = 'Cache-œil de Jules 🏴‍☠️';
+      body = "Bonjour Jules, aujourd'hui mets le cache sur l'OD 👁️";
+    } else {
+      statusId = 'status-retirer';
+      message = 'Bravo Jules ! 🎉';
+      body = "Tu peux retirer ton cache ! Félicitation, viens nous dire le temps passé avec le cache 🌟";
+    }
+
+    const statusEl = document.getElementById(statusId);
+
+    if (Notification.permission === 'default') {
+      await demanderPermission();
+    }
+
+    if (Notification.permission !== 'granted') {
+      statusEl.innerHTML = '⚠️ Permission refusée';
+      statusEl.style.background = '#FFF3E0';
+      statusEl.style.color = '#E65100';
+      return;
+    }
+
+    try {
+      if (swReg) {
+        await swReg.showNotification(message, {
+          body: body,
+          icon: '👁️',
+          badge: '👁️',
+          vibrate: [200, 100, 200],
+          data: { url: type === 'retirer' ? window.location.href + '#observance' : window.location.href }
+        });
+      } else {
+        new Notification(message, { body });
+      }
+      statusEl.innerHTML = '✅ Notification envoyée !';
+      statusEl.style.background = '#E8F7F1';
+      statusEl.style.color = '#27AE60';
+    } catch(e) {
+      statusEl.innerHTML = '❌ ' + e.message;
+    }
+
+    setTimeout(() => {
+      statusEl.innerHTML = '💤 En attente';
+      statusEl.style.background = '';
+      statusEl.style.color = '';
+    }, 4000);
+  }
+
+  // --- NAVIGATION ---
+  function allerObservance() {
+    document.getElementById('page-main').style.display = 'none';
+    document.getElementById('page-observance').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function retourMain() {
+    document.getElementById('page-main').style.display = 'block';
+    document.getElementById('page-observance').style.display = 'none';
+    heureSelectionnee = null;
+    document.querySelectorAll('.hour-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('congrats-box').style.display = 'none';
+  }
+
+  // --- HEURES ---
+  function genererHeures() {
+    const selector = document.getElementById('hours-selector');
+    for (let h = 1; h <= 8; h++) {
+      const btn = document.createElement('button');
+      btn.className = 'hour-btn';
+      btn.innerHTML = `${h}<span class="label">heure${h > 1 ? 's' : ''}</span>`;
+      btn.onclick = () => selectionnerHeure(h, btn);
+      selector.appendChild(btn);
+    }
+  }
+
+  function selectionnerHeure(h, btn) {
+    document.querySelectorAll('.hour-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    heureSelectionnee = h;
+
+    const box = document.getElementById('congrats-box');
+    const text = document.getElementById('congrats-text');
+    const sub = document.getElementById('congrats-sub');
+
+    box.style.display = 'block';
+
+    if (h >= 3) {
+      text.textContent = `🏆 ${h}h de port, bravo Jules !`;
+      sub.textContent = "C'est excellent ! Continue comme ça 💪";
+    } else if (h === 2) {
+      text.textContent = `👍 ${h}h enregistrées !`;
+      sub.textContent = "Bonne journée, on continue demain !";
+    } else {
+      text.textContent = `📝 ${h}h enregistrée.`;
+      sub.textContent = "C'est noté ! On essaie d'en faire plus demain 😊";
+    }
+  }
+</script>
 
 </body>
 </html>
