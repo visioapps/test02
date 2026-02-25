@@ -6,545 +6,317 @@
 <meta name="theme-color" content="#4A90D9">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Mon Œil">
+<meta name="apple-mobile-web-app-title" content="Amblyup">
 <link rel="manifest" href="manifest.json">
-<title>Jules 👁 — Mon Cache</title>
+<title>Amblyup — Jules</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ════════════════════════════════════════
-   PALETTE — identique à la page observance
-   ════════════════════════════════════════ */
 :root {
-  --blue:       #4A90D9;
-  --blue-light: #EAF4FF;
-  --blue-mid:   #C8E4FA;
-  --blue-dark:  #2E6DB4;
-  --green:      #5BBF8E;
-  --green-light:#E8F7F1;
-  --green-dark: #3A8F68;
-  --orange:     #F9A825;
-  --orange-light:#FFF8E1;
-  --orange-dark: #E65100;
-  --red:        #E74C3C;
-  --red-light:  #FDEDEC;
-  --text:       #2C3E50;
-  --text-mid:   #7F8C8D;
-  --text-light: #BDC3C7;
-  --white:      #FFFFFF;
-  --bg:         #F4F9FF;
-  --border:     #C8E4FA;
-  --radius:     20px;
-  --shadow:     0 4px 20px rgba(74,144,217,0.12);
-  --shadow-lg:  0 8px 30px rgba(74,144,217,0.22);
+  --blue:#4A90D9; --blue-l:#EAF4FF; --blue-mid:#C8E4FA; --blue-d:#2E6DB4;
+  --green:#5BBF8E; --green-l:#E8F7F1; --green-d:#3A8F68;
+  --orange:#F9A825; --orange-l:#FFF8E1; --orange-d:#E65100;
+  --red:#E74C3C; --red-l:#FDEDEC;
+  --teal:#3ABFBF; --teal-l:#E0F5F5;
+  --text:#2C3E50; --text-m:#7F8C8D; --text-l:#BDC3C7;
+  --white:#FFFFFF; --bg:#F4F9FF; --border:#C8E4FA;
+  --shadow:0 4px 20px rgba(74,144,217,.12);
+  --shadow-lg:0 8px 30px rgba(74,144,217,.20);
+  --r:20px;
 }
-
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html { scroll-behavior:smooth; }
-
-body {
-  font-family: 'Quicksand', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
-  padding-bottom: 84px;
-}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;padding-bottom:80px;}
 
 /* ── PAGES ── */
-.page { display:none; }
-.page.active { display:block; animation: fadeUp 0.4s ease; }
+.page{display:none;}
+.page.active{display:block;animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes popIn{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
 
-@keyframes fadeUp   { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
-@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:none} }
-@keyframes bounce   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-@keyframes popIn    { 0%{transform:scale(0)} 80%{transform:scale(1.2)} 100%{transform:scale(1)} }
-@keyframes spin     { to{transform:rotate(360deg)} }
-
-/* ── HEADER GLOBAL ── */
-.app-header {
-  padding: 20px 16px 0;
-  display: flex; align-items:center; justify-content:space-between;
-}
-.logo {
-  display:flex; align-items:center; gap:8px;
-  font-family:'Nunito',sans-serif; font-weight:900; font-size:1.1rem; color:var(--text);
-}
-.logo-eye {
-  width:34px; height:34px; border-radius:50%;
-  background: var(--blue);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1rem; box-shadow:0 4px 12px rgba(74,144,217,.3);
-}
-.notif-btn {
-  width:38px; height:38px; border-radius:12px;
-  background:var(--white); border:1.5px solid var(--border);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.1rem; cursor:pointer; position:relative;
-  box-shadow:var(--shadow);
-}
-.notif-dot {
-  position:absolute; top:6px; right:6px;
-  width:8px; height:8px; background:var(--red);
-  border-radius:50%; border:2px solid var(--white);
-}
+/* ── HEADER ── */
+.app-header{padding:18px 16px 0;display:flex;align-items:center;justify-content:space-between;}
+.header-logo{height:34px;object-fit:contain;}
+.header-right{display:flex;align-items:center;gap:8px;}
+.notif-btn{width:38px;height:38px;border-radius:12px;background:var(--white);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.05rem;cursor:pointer;position:relative;box-shadow:var(--shadow);}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--white);}
 
 /* ── CARD ── */
-.card {
-  background:var(--white);
-  border-radius:var(--radius);
-  padding:20px;
-  margin:12px 16px 0;
-  box-shadow:var(--shadow);
-}
-.card-title {
-  font-family:'Nunito',sans-serif;
-  font-size:.72rem; font-weight:800;
-  text-transform:uppercase; letter-spacing:.12em;
-  color:var(--text-mid);
-  margin-bottom:14px;
-}
-
-/* ── SECTION TITLE ── */
-.section-title {
-  font-family:'Nunito',sans-serif;
-  font-size:.72rem; font-weight:800;
-  text-transform:uppercase; letter-spacing:.12em;
-  color:var(--text-mid);
-  padding:16px 16px 6px;
-}
+.card{background:var(--white);border-radius:var(--r);padding:18px;margin:10px 16px 0;box-shadow:var(--shadow);}
+.card-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);margin-bottom:12px;}
+.section-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);padding:14px 16px 6px;}
 
 /* ── HERO ── */
-.hero {
-  margin:14px 16px 0;
-  background:var(--blue);
-  border-radius:var(--radius);
-  padding:20px;
-  color:white;
-  position:relative; overflow:hidden;
-  box-shadow: 0 8px 28px rgba(74,144,217,.35);
-}
-.hero::before {
-  content:''; position:absolute;
-  top:-30px; right:-30px;
-  width:110px; height:110px;
-  background:rgba(255,255,255,.12); border-radius:50%;
-}
-.hero::after {
-  content:''; position:absolute;
-  bottom:-20px; left:20px;
-  width:70px; height:70px;
-  background:rgba(255,255,255,.08); border-radius:50%;
-}
-.hero-top {
-  display:flex; align-items:flex-start; justify-content:space-between;
-  margin-bottom:16px; position:relative; z-index:1;
-}
-.hero-greeting {
-  font-size:.72rem; font-weight:700;
-  opacity:.85; text-transform:uppercase; letter-spacing:.5px;
-}
-.hero-name {
-  font-family:'Nunito',sans-serif;
-  font-size:1.3rem; font-weight:900; margin-top:2px;
-}
-.hero-mascot {
-  font-size:2.6rem;
-  animation:bounce 2.5s ease-in-out infinite;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));
-}
-.hero-stats {
-  display:grid; grid-template-columns:1fr 1fr 1fr;
-  gap:8px; position:relative; z-index:1;
-}
-.hstat {
-  background:rgba(255,255,255,.2);
-  border-radius:14px; padding:10px 8px; text-align:center;
-}
-.hstat-val {
-  font-family:'Nunito',sans-serif;
-  font-size:1.15rem; font-weight:900; line-height:1;
-}
-.hstat-label { font-size:.6rem; font-weight:600; opacity:.85; margin-top:3px; }
+.hero{margin:12px 16px 0;background:var(--blue);border-radius:var(--r);padding:18px;color:white;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(74,144,217,.35);}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,.12);border-radius:50%;}
+.hero::after{content:'';position:absolute;bottom:-20px;left:20px;width:65px;height:65px;background:rgba(255,255,255,.08);border-radius:50%;}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1;}
+.hero-greeting{font-size:.7rem;font-weight:700;opacity:.85;text-transform:uppercase;letter-spacing:.5px;}
+.hero-name{font-family:'Nunito',sans-serif;font-size:1.25rem;font-weight:900;margin-top:2px;}
+.hero-mascot{font-size:2.5rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;position:relative;z-index:1;}
+.hstat{background:rgba(255,255,255,.2);border-radius:14px;padding:10px 6px;text-align:center;}
+.hstat-val{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;line-height:1;}
+.hstat-label{font-size:.58rem;font-weight:600;opacity:.85;margin-top:3px;}
 
-/* ── PERMISSION BANNER ── */
-.perm-banner {
-  background:var(--orange-light);
-  border:2px solid var(--orange);
-  border-radius:14px;
-  padding:14px 16px;
-  margin:12px 16px 0;
-  display:none;
-  animation:fadeUp .4s ease;
-}
-.perm-banner p { font-size:.85rem; color:var(--text); font-weight:600; }
-.perm-banner button {
-  margin-top:8px;
-  background:var(--orange); color:white; border:none;
-  border-radius:10px; padding:8px 16px;
-  font-family:'Nunito',sans-serif; font-weight:700;
-  cursor:pointer; font-size:.85rem;
-  display:flex; align-items:center; gap:6px;
-}
-.perm-banner button:active { transform:scale(.96); }
+/* ── RAPPEL DU JOUR ── */
+.rappel-jour{margin:12px 16px 0;background:linear-gradient(135deg,var(--blue-l),#dceffe);border:2px solid var(--blue);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);}
+.rappel-jour-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--blue-d);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.rappel-jour-text{font-size:.85rem;color:var(--text);line-height:1.55;font-weight:600;}
+.rappel-jour-sub{font-size:.75rem;color:var(--text-m);margin-top:8px;}
 
-/* ── INSTRUCTION DU JOUR ── */
-.instruction-card {
-  margin:12px 16px 0;
-  background:var(--white);
-  border:2px solid var(--blue);
-  border-radius:var(--radius);
-  padding:16px;
-  display:flex; align-items:center; gap:14px;
-  box-shadow:var(--shadow);
-}
-.instr-icon {
-  width:48px; height:48px; border-radius:14px;
-  background:var(--blue-light);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.6rem; flex-shrink:0;
-}
-.instr-body { flex:1; }
-.instr-title {
-  font-family:'Nunito',sans-serif;
-  font-weight:800; font-size:.95rem; color:var(--text);
-}
-.instr-detail { font-size:.78rem; color:var(--text-mid); margin-top:4px; }
-.instr-detail strong { color:var(--blue); font-weight:700; }
-.instr-badge {
-  background:var(--blue); border-radius:12px;
-  padding:8px 12px; color:white; text-align:center; flex-shrink:0;
-}
-.instr-dur {
-  font-family:'Nunito',sans-serif;
-  font-weight:900; font-size:1.3rem; line-height:1;
-}
-.instr-dur-sub { font-size:.6rem; font-weight:700; opacity:.9; }
+/* ── PATCH POSÉ ── */
+.patch-card{margin:10px 16px 0;}
+.patch-question{font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.patch-jours{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.patch-jour-item{display:flex;align-items:center;justify-content:space-between;background:var(--orange-l);border:1.5px solid var(--orange);border-radius:14px;padding:10px 14px;}
+.patch-jour-label{font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;color:var(--orange-d);}
+.patch-fait-btn{background:var(--green);color:white;border:none;border-radius:10px;padding:7px 14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;transition:all .15s;}
+.patch-fait-btn:active{transform:scale(.95);}
 
-/* ── JOURS EN ATTENTE ── */
-.pending-section { margin:0 16px; }
-.pending-header {
-  font-family:'Nunito',sans-serif;
-  font-size:.72rem; font-weight:800;
-  text-transform:uppercase; letter-spacing:.1em;
-  color:var(--orange-dark);
-  padding:14px 0 6px;
-}
-.pending-item {
-  background:var(--white);
-  border-radius:16px;
-  border:2px solid var(--orange-light);
-  padding:12px 14px;
-  display:flex; align-items:center; gap:12px;
-  margin-bottom:8px;
-  box-shadow:var(--shadow);
-  flex-wrap:wrap;
-  transition:opacity .4s, transform .4s;
-}
-.pending-date-box {
-  width:44px; height:48px; border-radius:12px;
-  background:var(--orange-light); border:2px solid var(--orange);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
-.pending-day { font-family:'Nunito',sans-serif; font-weight:900; font-size:1.1rem; color:var(--orange-dark); line-height:1; }
-.pending-month { font-family:'Nunito',sans-serif; font-weight:700; font-size:.6rem; color:var(--orange-dark); text-transform:uppercase; }
-.pending-info { flex:1; }
-.pending-name { font-family:'Nunito',sans-serif; font-weight:800; font-size:.85rem; }
-.pending-sub { font-size:.72rem; color:var(--text-mid); margin-top:2px; }
-.pending-btn {
-  padding:6px 12px; border-radius:10px;
-  background:var(--blue-light); border:1.5px solid var(--blue);
-  color:var(--blue); font-family:'Nunito',sans-serif;
-  font-weight:700; font-size:.74rem; cursor:pointer;
-  transition:all .15s; white-space:nowrap;
-}
-.pending-btn:active { transform:scale(.95); }
-.pending-hours-wrap {
-  width:100%; margin-top:10px; padding-top:10px;
-  border-top:1px solid var(--border);
-  display:none;
-}
-.pending-hours-wrap.open { display:block; }
-.pending-hours-grid {
-  display:grid; grid-template-columns:repeat(5,1fr); gap:8px;
-  margin-bottom:10px;
-}
-.phbtn {
-  aspect-ratio:1; border-radius:12px;
-  border:2px solid transparent; background:var(--blue-light);
-  font-family:'Nunito',sans-serif; font-weight:800; font-size:.95rem;
-  color:var(--blue); cursor:pointer; transition:all .15s;
-  display:flex; align-items:center; justify-content:center;
-}
-.phbtn:hover,.phbtn.sel { background:var(--blue); color:white; border-color:var(--blue); transform:scale(1.05); }
-.phbtn.sel-green { background:var(--green); color:white; border-color:var(--green); transform:scale(1.05); }
-.phbtn.sel-orange { background:var(--orange); color:white; border-color:var(--orange); transform:scale(1.05); }
-.pending-valider {
-  width:100%; padding:12px; border-radius:14px; border:none;
-  background:var(--green); color:white;
-  font-family:'Nunito',sans-serif; font-weight:800; font-size:.9rem;
-  cursor:pointer; box-shadow:0 4px 16px rgba(91,191,142,.35);
-  display:flex; align-items:center; justify-content:center; gap:6px;
-}
-.pending-valider:disabled { background:var(--border); color:var(--text-light); box-shadow:none; cursor:not-allowed; }
-.pending-valider:not(:disabled):active { transform:scale(.97); }
-
-/* ── SAISIE DU SOIR ── */
-.saisie-card { margin:12px 16px 0; }
-.saisie-card.done { border:2px solid var(--green) !important; }
-.saisie-hd { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
-.saisie-icon {
-  width:44px; height:44px; border-radius:14px;
-  background:var(--blue-light);
-  display:flex; align-items:center; justify-content:center; font-size:1.4rem;
-  flex-shrink:0;
-}
-.saisie-title { font-family:'Nunito',sans-serif; font-weight:800; font-size:.95rem; }
-.saisie-date { font-size:.74rem; color:var(--text-mid); margin-top:2px; }
-
-/* Objectif row */
-.obj-row {
-  display:flex; align-items:center; justify-content:space-between;
-  font-size:.78rem; color:var(--text-mid); margin-bottom:12px;
-}
-.obj-badge {
-  background:var(--orange-light); color:var(--orange-dark);
-  border-radius:20px; padding:4px 10px;
-  font-family:'Nunito',sans-serif; font-weight:700; font-size:.72rem;
-}
-
-/* ── BOUTONS HEURES — style observance ── */
-.hours-grid {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  gap:10px; margin-bottom:16px;
-}
-.hbtn {
-  aspect-ratio:1; border-radius:12px;
-  border:2px solid transparent;
-  background:var(--blue-light);
-  font-family:'Nunito',sans-serif; font-weight:800; font-size:1.2rem;
-  color:var(--blue); cursor:pointer; transition:all .15s;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
-}
-.hbtn .hbtn-sub { font-size:.58rem; font-weight:600; opacity:.8; font-family:'Quicksand',sans-serif; }
-.hbtn:hover, .hbtn.selected { background:var(--blue); color:white; border-color:var(--blue); transform:scale(1.05); }
-.hbtn.zero:hover, .hbtn.zero.selected { background:var(--red); color:white; border-color:var(--red); }
-.hbtn.target { background:var(--orange-light); color:var(--orange-dark); border-color:var(--orange); }
-.hbtn.target:hover, .hbtn.target.selected { background:var(--orange); color:white; border-color:var(--orange); transform:scale(1.05); }
-.hbtn.over { background:var(--green-light); color:var(--green-dark); border-color:var(--green); }
-.hbtn.over:hover, .hbtn.over.selected { background:var(--green); color:white; border-color:var(--green); transform:scale(1.05); }
-
-/* ── BOUTON VALIDER ── */
-.valider-btn {
-  width:100%; padding:16px 20px; border-radius:14px; border:none;
-  background:var(--blue); color:white;
-  font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
-  cursor:pointer; transition:transform .15s, box-shadow .15s;
-  box-shadow:0 4px 16px rgba(74,144,217,.35);
-  display:flex; align-items:center; justify-content:center; gap:8px;
-}
-.valider-btn:disabled { background:var(--border); color:var(--text-light); box-shadow:none; cursor:not-allowed; }
-.valider-btn:not(:disabled):hover { box-shadow:0 6px 24px rgba(74,144,217,.45); }
-.valider-btn:not(:disabled):active { transform:scale(.97); }
-
-/* ── CONGRATS BOX — style observance ── */
-.congrats-box {
-  background:linear-gradient(135deg, var(--green-light), #d4f0e5);
-  border-radius:var(--radius);
-  padding:20px; text-align:center; margin-top:12px;
-  display:none;
-}
-.congrats-box .c-emoji { font-size:2.5rem; display:block; margin-bottom:8px; animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
-.congrats-box h3 { font-family:'Nunito',sans-serif; font-weight:900; font-size:1.2rem; color:var(--green); margin-bottom:4px; }
-.congrats-box p { color:var(--text-mid); font-size:.85rem; }
+/* ── HOURS GRID ── */
+.obj-row{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--text-m);margin-bottom:10px;}
+.obj-badge{background:var(--orange-l);color:var(--orange-d);border-radius:20px;padding:4px 10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.72rem;}
+.hours-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.hbtn{aspect-ratio:1;border-radius:12px;border:2px solid transparent;background:var(--blue-l);font-family:'Nunito',sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue);cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.hbtn .hbtn-sub{font-size:.56rem;font-weight:600;opacity:.8;font-family:'Quicksand',sans-serif;}
+.hbtn:hover,.hbtn.sel{background:var(--blue);color:white;border-color:var(--blue);transform:scale(1.05);}
+.hbtn.zero:hover,.hbtn.zero.sel{background:var(--red);color:white;border-color:var(--red);}
+.hbtn.target{background:var(--orange-l);color:var(--orange-d);border-color:var(--orange);}
+.hbtn.target:hover,.hbtn.target.sel{background:var(--orange);color:white;border-color:var(--orange);transform:scale(1.05);}
+.hbtn.over{background:var(--green-l);color:var(--green-d);border-color:var(--green);}
+.hbtn.over:hover,.hbtn.over.sel{background:var(--green);color:white;border-color:var(--green);transform:scale(1.05);}
+.valider-btn{width:100%;padding:15px;border-radius:14px;border:none;background:var(--blue);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;transition:all .15s;box-shadow:0 4px 16px rgba(74,144,217,.35);display:flex;align-items:center;justify-content:center;gap:8px;}
+.valider-btn:disabled{background:var(--border);color:var(--text-l);box-shadow:none;cursor:not-allowed;}
+.valider-btn:not(:disabled):active{transform:scale(.97);}
+.congrats-box{background:linear-gradient(135deg,var(--green-l),#d4f0e5);border-radius:var(--r);padding:20px;text-align:center;margin-top:12px;display:none;}
+.congrats-box .c-emoji{font-size:2.5rem;display:block;margin-bottom:8px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
+.congrats-box h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.2rem;color:var(--green);margin-bottom:4px;}
+.congrats-box p{color:var(--text-m);font-size:.85rem;}
 
 /* ── CALENDRIER ── */
-.cal-hd { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
-.cal-title { font-family:'Nunito',sans-serif; font-weight:800; font-size:.95rem; }
-.cal-month-label { font-size:.74rem; color:var(--text-mid); margin-top:2px; }
-.cal-score-val { font-family:'Nunito',sans-serif; font-weight:900; font-size:1.5rem; color:var(--blue); line-height:1; text-align:right; }
-.cal-score-label { font-size:.65rem; color:var(--text-mid); }
-.cal-day-labels { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:4px; }
-.cdl { text-align:center; font-family:'Nunito',sans-serif; font-size:.62rem; font-weight:700; color:var(--text-light); text-transform:uppercase; }
-.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-.cday {
-  aspect-ratio:1; border-radius:10px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  font-family:'Nunito',sans-serif; font-size:.68rem; font-weight:700;
-  transition:transform .15s; cursor:default;
-}
-.cday.empty { background:none; }
-.cday.future { background:var(--bg); color:var(--text-light); }
-.cday.ok { background:var(--green); color:white; }
-.cday.partial { background:var(--orange); color:white; }
-.cday.miss { background:var(--red-light); color:var(--red); border:1.5px solid #FECACA; }
-.cday.today { background:var(--blue); color:white; box-shadow:0 4px 12px rgba(74,144,217,.35); }
-.cday.ok:hover, .cday.partial:hover, .cday.today:hover { transform:scale(1.1); }
-.cday-num { font-size:.65rem; line-height:1; }
-.cday-h { font-size:.52rem; opacity:.85; line-height:1; margin-top:1px; }
-.cal-legend { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
-.cal-leg { display:flex; align-items:center; gap:6px; font-size:.7rem; color:var(--text-mid); }
-.cal-leg-dot { width:10px; height:10px; border-radius:4px; flex-shrink:0; }
+.cal-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+.cal-score-val{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.4rem;color:var(--blue);line-height:1;text-align:right;}
+.cal-score-label{font-size:.63rem;color:var(--text-m);}
+.cal-day-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px;}
+.cdl{text-align:center;font-family:'Nunito',sans-serif;font-size:.6rem;font-weight:700;color:var(--text-l);text-transform:uppercase;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cday{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:700;transition:transform .15s;}
+.cday.empty{background:none;}
+.cday.future{background:var(--bg);color:var(--text-l);}
+.cday.ok{background:var(--green);color:white;}
+.cday.partial{background:var(--orange);color:white;}
+.cday.miss{background:var(--red-l);color:var(--red);border:1.5px solid #FECACA;}
+.cday.today{background:var(--blue);color:white;box-shadow:0 3px 10px rgba(74,144,217,.35);}
+.cday.ok:hover,.cday.partial:hover,.cday.today:hover{transform:scale(1.12);}
+.cday-num{font-size:.63rem;line-height:1;}
+.cday-h{font-size:.5rem;opacity:.85;line-height:1;margin-top:1px;}
+.cal-legend{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.cal-leg{display:flex;align-items:center;gap:5px;font-size:.68rem;color:var(--text-m);}
+.cal-leg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
 
-/* ── COURBE VISION ── */
-.vision-hd { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.vision-tabs { display:flex; gap:4px; }
-.vtab {
-  padding:4px 10px; border-radius:8px;
-  font-family:'Nunito',sans-serif; font-size:.7rem; font-weight:700;
-  border:1.5px solid var(--border); background:var(--bg);
-  color:var(--text-mid); cursor:pointer; transition:all .15s;
-}
-.vtab.active { background:var(--blue); border-color:var(--blue); color:white; }
-.vision-eyes { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
-.eye-stat { border-radius:14px; padding:12px; text-align:center; border:2px solid var(--border); }
-.eye-od { border-color:var(--blue); background:var(--blue-light); }
-.eye-og { border-color:var(--green); background:var(--green-light); }
-.eye-label { font-size:.65rem; font-weight:700; color:var(--text-mid); text-transform:uppercase; letter-spacing:.4px; margin-bottom:4px; }
-.eye-val { font-family:'Nunito',sans-serif; font-weight:900; font-size:1.6rem; line-height:1; }
-.eye-od .eye-val { color:var(--blue); }
-.eye-og .eye-val { color:var(--green-dark); }
-.eye-prog { font-size:.7rem; font-weight:700; margin-top:4px; color:var(--green-dark); }
-.chart-wrap { position:relative; height:150px; }
-.chart-labels-y { position:absolute; left:0; top:0; bottom:20px; width:26px; display:flex; flex-direction:column; justify-content:space-between; align-items:flex-end; padding-right:4px; }
-.chart-labels-y span { font-size:.56rem; color:var(--text-light); font-family:'Nunito',sans-serif; font-weight:700; }
-.chart-svg { position:absolute; left:26px; right:0; top:0; bottom:0; }
-.vision-legend { display:flex; gap:16px; margin-top:10px; }
-.vleg { display:flex; align-items:center; gap:6px; font-size:.7rem; color:var(--text-mid); font-weight:600; }
-.vleg-line { width:18px; height:3px; border-radius:2px; }
+/* ── AJOUTER ÉVÉNEMENT ── */
+.add-event-btn{width:100%;padding:13px;border-radius:14px;border:2px dashed var(--blue-mid);background:var(--blue-l);color:var(--blue);font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.add-event-btn:active{transform:scale(.97);}
 
 /* ── RDV ── */
-.rdv-list { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); margin:12px 16px 0; }
-.rdv-item { background:var(--white); padding:14px 16px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
-.rdv-item:last-child { border-bottom:none; }
-.rdv-item:active { background:var(--bg); }
-.rdv-date { width:48px; height:52px; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
-.rdv-date.prochain { background:var(--blue); box-shadow:0 4px 12px rgba(74,144,217,.3); }
-.rdv-date.futur { background:var(--bg); border:2px solid var(--border); }
-.rdv-day { font-family:'Nunito',sans-serif; font-weight:900; font-size:1.15rem; line-height:1; color:white; }
-.rdv-date.futur .rdv-day { color:var(--text); }
-.rdv-mois { font-family:'Nunito',sans-serif; font-weight:700; font-size:.6rem; color:rgba(255,255,255,.85); text-transform:uppercase; }
-.rdv-date.futur .rdv-mois { color:var(--text-mid); }
-.rdv-info { flex:1; }
-.rdv-type { font-family:'Nunito',sans-serif; font-weight:800; font-size:.88rem; }
-.rdv-detail { font-size:.73rem; color:var(--text-mid); margin-top:3px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.rdv-badge { display:inline-flex; padding:3px 8px; border-radius:20px; font-size:.65rem; font-weight:700; font-family:'Nunito',sans-serif; }
-.rdv-badge.prochain { background:var(--blue-light); color:var(--blue); }
-.rdv-badge.ok { background:var(--green-light); color:var(--green-dark); }
-.rdv-badge.attente { background:var(--orange-light); color:var(--orange-dark); }
-.rdv-arrow { color:var(--text-light); font-size:1rem; }
+.rdv-list{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin:10px 16px 0;}
+.rdv-item{background:var(--white);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
+.rdv-item:last-child{border-bottom:none;}
+.rdv-item:active{background:var(--bg);}
+.rdv-date-box{width:46px;height:50px;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.rdv-date-box.next{background:var(--blue);box-shadow:0 4px 12px rgba(74,144,217,.3);}
+.rdv-date-box.fut{background:var(--bg);border:2px solid var(--border);}
+.rdv-date-box.warn{background:var(--orange-l);border:2px solid var(--orange);}
+.rdv-day{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.1rem;line-height:1;color:white;}
+.rdv-date-box.fut .rdv-day,.rdv-date-box.warn .rdv-day{color:var(--text);}
+.rdv-date-box.warn .rdv-day{color:var(--orange-d);}
+.rdv-mois{font-family:'Nunito',sans-serif;font-weight:700;font-size:.58rem;color:rgba(255,255,255,.85);text-transform:uppercase;}
+.rdv-date-box.fut .rdv-mois{color:var(--text-m);}
+.rdv-date-box.warn .rdv-mois{color:var(--orange-d);}
+.rdv-info{flex:1;}
+.rdv-type{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;}
+.rdv-detail{font-size:.72rem;color:var(--text-m);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.rdv-badge{display:inline-flex;padding:3px 8px;border-radius:20px;font-size:.63rem;font-weight:700;font-family:'Nunito',sans-serif;}
+.rdv-badge.next{background:var(--blue-l);color:var(--blue);}
+.rdv-badge.ok{background:var(--green-l);color:var(--green-d);}
+.rdv-badge.attente{background:var(--orange-l);color:var(--orange-d);}
+.rdv-arrow{color:var(--text-l);font-size:1rem;}
+.rdv-link-btn{width:100%;padding:12px;border-radius:14px;border:none;margin-top:4px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.rdv-link-btn.ortho{background:var(--blue);color:white;box-shadow:0 4px 14px rgba(74,144,217,.3);}
+.rdv-link-btn.ophtalmo{background:var(--teal);color:white;box-shadow:0 4px 14px rgba(58,191,191,.3);}
+.rdv-link-btn:active{transform:scale(.97);}
 
-/* ── RAPPELS ── */
-.rappel-btn {
-  width:100%; border:none; border-radius:14px;
-  padding:18px 20px; margin-bottom:10px;
-  font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
-  cursor:pointer; transition:transform .15s, box-shadow .15s;
-  display:flex; align-items:center; gap:12px; text-align:left; color:white;
-}
-.rappel-btn:last-of-type { margin-bottom:0; }
-.rappel-btn:active { transform:scale(.97); }
-.rappel-btn .rb-icon { font-size:1.5rem; flex-shrink:0; }
-.rappel-btn .rb-text { line-height:1.3; }
-.rappel-btn .rb-sub { font-family:'Quicksand',sans-serif; font-size:.78rem; font-weight:500; opacity:.85; display:block; margin-top:2px; }
-.rb-blue { background:var(--blue); box-shadow:0 4px 16px rgba(74,144,217,.35); }
-.rb-blue:hover { box-shadow:0 6px 24px rgba(74,144,217,.45); }
-.rb-green { background:var(--green); box-shadow:0 4px 16px rgba(91,191,142,.35); }
-.rb-green:hover { box-shadow:0 6px 24px rgba(91,191,142,.45); }
-.rb-orange { background:var(--orange); box-shadow:0 4px 16px rgba(249,168,37,.35); }
-.rb-orange:hover { box-shadow:0 6px 24px rgba(249,168,37,.45); }
-.status-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  background:var(--blue-light); color:var(--blue);
-  border-radius:30px; padding:6px 14px;
-  font-family:'Nunito',sans-serif; font-size:.8rem; font-weight:700;
-  margin-top:12px;
-}
+/* ── PROGRÈS ── */
+.vision-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.vision-tabs{display:flex;gap:4px;}
+.vtab{padding:4px 10px;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;border:1.5px solid var(--border);background:var(--bg);color:var(--text-m);cursor:pointer;transition:all .15s;}
+.vtab.active{background:var(--blue);border-color:var(--blue);color:white;}
+.vision-eyes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.eye-stat{border-radius:14px;padding:12px;text-align:center;border:2px solid var(--border);}
+.eye-od{border-color:var(--blue);background:var(--blue-l);}
+.eye-og{border-color:var(--green);background:var(--green-l);}
+.eye-label{font-size:.63rem;font-weight:700;color:var(--text-m);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.eye-val{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.55rem;line-height:1;}
+.eye-od .eye-val{color:var(--blue);}
+.eye-og .eye-val{color:var(--green-d);}
+.eye-prog{font-size:.7rem;font-weight:700;margin-top:3px;color:var(--green-d);}
+.chart-wrap{position:relative;height:140px;}
+.chart-labels-y{position:absolute;left:0;top:0;bottom:20px;width:24px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:4px;}
+.chart-labels-y span{font-size:.54rem;color:var(--text-l);font-family:'Nunito',sans-serif;font-weight:700;}
+.chart-svg{position:absolute;left:24px;right:0;top:0;bottom:0;}
+.vision-legend{display:flex;gap:14px;margin-top:8px;}
+.vleg{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--text-m);font-weight:600;}
+.vleg-line{width:16px;height:3px;border-radius:2px;}
 
-/* ── NOTIFS HISTORIQUE ── */
-.notif-item { background:var(--white); border-radius:16px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; border:1px solid var(--border); box-shadow:var(--shadow); margin-bottom:8px; }
-.notif-item.unread { background:var(--blue-light); border-color:var(--blue-mid); }
-.notif-ico { width:38px; height:38px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
-.notif-ico.blue   { background:var(--blue-light); }
-.notif-ico.green  { background:var(--green-light); }
-.notif-ico.orange { background:var(--orange-light); }
-.notif-msg { flex:1; }
-.notif-text { font-size:.82rem; font-weight:700; line-height:1.4; color:var(--text); }
-.notif-time { font-size:.68rem; color:var(--text-mid); margin-top:3px; }
-.notif-unread-dot { width:8px; height:8px; background:var(--blue); border-radius:50%; margin-top:4px; flex-shrink:0; }
+/* ── TAUX OBSERVANCE ── */
+.obs-big{text-align:center;padding:10px 0 6px;}
+.obs-pct{font-family:'Nunito',sans-serif;font-weight:900;font-size:3rem;color:var(--blue);line-height:1;}
+.obs-label{font-size:.8rem;color:var(--text-m);margin-top:4px;}
+.obs-bar-wrap{height:16px;background:var(--bg);border-radius:20px;overflow:hidden;margin:12px 0;}
+.obs-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:20px;transition:width 1s ease;}
+.obs-months{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;}
+.obs-month{background:var(--bg);border-radius:12px;padding:10px 8px;text-align:center;border:1.5px solid var(--border);}
+.obs-month-val{font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;color:var(--blue);}
+.obs-month-label{font-size:.65rem;color:var(--text-m);margin-top:2px;}
 
-/* ── BADGES / RÉCOMPENSES ── */
-.stars-row { display:flex; justify-content:center; gap:4px; flex-wrap:wrap; margin-bottom:12px; }
-.star { font-size:1.4rem; transition:transform .2s cubic-bezier(.34,1.56,.64,1); }
-.star.filled { animation:popIn .3s ease-out both; }
-.stars-sub { text-align:center; font-size:.75rem; color:var(--text-mid); margin-bottom:14px; }
+/* ── BADGES ── */
+.stars-row{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin-bottom:10px;}
+.star{font-size:1.35rem;transition:transform .2s cubic-bezier(.34,1.56,.64,1);}
+.star.filled{animation:popIn .3s ease-out both;}
+.stars-sub{text-align:center;font-size:.75rem;color:var(--text-m);margin-bottom:12px;}
+.badges-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 5px;border-radius:14px;border:2px solid var(--border);background:var(--bg);opacity:.4;}
+.badge-item.unlocked{background:var(--orange-l);border-color:var(--orange);opacity:1;}
+.badge-item.unlocked:hover{transform:scale(1.06);transition:transform .15s cubic-bezier(.34,1.56,.64,1);}
+.badge-icon{font-size:1.5rem;}
+.badge-name{font-family:'Nunito',sans-serif;font-size:.58rem;font-weight:800;color:var(--text-m);text-align:center;line-height:1.2;}
+.badge-item.unlocked .badge-name{color:var(--orange-d);}
+.badge-row{background:var(--white);border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px;border:1.5px solid var(--border);box-shadow:var(--shadow);margin-bottom:8px;}
+.badge-row.unlocked{border-color:var(--orange);background:var(--orange-l);}
+.badge-row-icon{width:48px;height:48px;border-radius:14px;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+.badge-row.unlocked .badge-row-icon{background:var(--white);border-color:var(--orange);}
+.badge-row-info{flex:1;}
+.badge-row-name{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;}
+.badge-row-desc{font-size:.72rem;color:var(--text-m);margin-top:2px;}
+.badge-row-status{font-size:.75rem;font-weight:700;}
+.badge-row.unlocked .badge-row-status{color:var(--green-d);}
+.badge-row:not(.unlocked) .badge-row-status{color:var(--text-l);}
 
-.badges-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-.badge-item {
-  display:flex; flex-direction:column; align-items:center; gap:6px;
-  padding:12px 6px; border-radius:14px; border:2px solid var(--border);
-  background:var(--bg); opacity:.45; cursor:default;
-}
-.badge-item.unlocked { background:var(--orange-light); border-color:var(--orange); opacity:1; }
-.badge-item.unlocked:hover { transform:scale(1.06); transition:transform .15s cubic-bezier(.34,1.56,.64,1); }
-.badge-icon { font-size:1.6rem; }
-.badge-name { font-family:'Nunito',sans-serif; font-size:.6rem; font-weight:800; color:var(--text-mid); text-align:center; line-height:1.2; }
-.badge-item.unlocked .badge-name { color:var(--orange-dark); }
+/* ── DOCS ── */
+.doc-section-hd{font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;padding:14px 16px 6px;color:var(--text-m);display:flex;align-items:center;gap:6px;}
+.doc-list{margin:0 16px 4px;display:flex;flex-direction:column;gap:6px;}
+.doc-item{background:var(--white);border-radius:16px;border:1.5px solid var(--border);box-shadow:var(--shadow);cursor:pointer;transition:all .15s;overflow:hidden;}
+.doc-item:active{transform:scale(.98);}
+.doc-item-hd{padding:13px 16px;display:flex;align-items:center;gap:12px;}
+.doc-item-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.doc-item-icon.blue{background:var(--blue-l);}
+.doc-item-icon.green{background:var(--green-l);}
+.doc-item-icon.orange{background:var(--orange-l);}
+.doc-item-icon.teal{background:var(--teal-l);}
+.doc-item-icon.red{background:var(--red-l);}
+.doc-item-info{flex:1;}
+.doc-item-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;color:var(--text);}
+.doc-item-sub{font-size:.72rem;color:var(--text-m);margin-top:2px;}
+.doc-item-arrow{color:var(--text-l);font-size:.95rem;transition:transform .2s;}
+.doc-item.open .doc-item-arrow{transform:rotate(90deg);}
+.doc-item-body{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+.doc-item.open .doc-item-body{max-height:500px;padding:0 16px 14px;}
+.doc-sub-list{display:flex;flex-direction:column;gap:6px;}
+.doc-sub-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background .1s;border:1px solid var(--border);}
+.doc-sub-item:active{background:var(--blue-l);}
+.doc-sub-icon{font-size:1rem;flex-shrink:0;}
+.doc-sub-text{font-size:.82rem;font-weight:600;color:var(--text);flex:1;}
+.doc-sub-badge{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:10px;}
+.doc-sub-badge.new{background:var(--blue-l);color:var(--blue);}
+.doc-sub-badge.pdf{background:var(--red-l);color:var(--red);}
+.doc-sub-badge.video{background:var(--orange-l);color:var(--orange-d);}
 
-.badge-row {
-  background:var(--white); border-radius:16px; padding:14px 16px;
-  display:flex; align-items:center; gap:14px;
-  border:1.5px solid var(--border); box-shadow:var(--shadow); margin-bottom:8px;
-}
-.badge-row.unlocked { border-color:var(--orange); background:var(--orange-light); }
-.badge-row-icon { width:50px; height:50px; border-radius:14px; background:var(--bg); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.7rem; flex-shrink:0; }
-.badge-row.unlocked .badge-row-icon { background:var(--white); border-color:var(--orange); }
-.badge-row-info { flex:1; }
-.badge-row-name { font-family:'Nunito',sans-serif; font-weight:800; font-size:.88rem; }
-.badge-row-desc { font-size:.73rem; color:var(--text-mid); margin-top:2px; }
-.badge-row-status { font-size:.78rem; font-weight:700; }
-.badge-row.unlocked .badge-row-status { color:var(--green-dark); }
-.badge-row:not(.unlocked) .badge-row-status { color:var(--text-light); }
+/* ── ORDONNANCES ── */
+.ordo-item{background:var(--white);border-radius:16px;border:2px solid var(--blue);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;box-shadow:var(--shadow);}
+.ordo-icon{width:44px;height:44px;border-radius:12px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.ordo-info{flex:1;}
+.ordo-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;}
+.ordo-date{font-size:.72rem;color:var(--text-m);margin-top:2px;}
+.ordo-btn{background:var(--blue);color:white;border:none;border-radius:10px;padding:7px 12px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer;}
+
+/* ── KITS ── */
+.kit-card{background:var(--white);border-radius:16px;border:1.5px solid var(--border);margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;}
+.kit-hd{padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.kit-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.kit-info{flex:1;}
+.kit-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;}
+.kit-sub{font-size:.72rem;color:var(--text-m);margin-top:2px;}
+.kit-body{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+.kit-card.open .kit-body{max-height:300px;padding:0 16px 14px;}
+.kit-dl-btn{width:100%;padding:11px;border-radius:12px;border:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;}
+.kit-dl-btn:active{transform:scale(.97);}
+.kit-dl-btn.blue{background:var(--blue);color:white;box-shadow:0 3px 12px rgba(74,144,217,.3);}
+.kit-dl-btn.orange{background:var(--orange);color:white;}
+.kit-dl-btn.green{background:var(--green);color:white;}
+
+/* ── RÉGLAGES ── */
+.settings-section{margin:0 16px 4px;}
+.settings-item{background:var(--white);border-radius:16px;border:1.5px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;box-shadow:var(--shadow);cursor:pointer;transition:background .1s;}
+.settings-item:active{background:var(--bg);}
+.settings-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.settings-info{flex:1;}
+.settings-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;}
+.settings-sub{font-size:.72rem;color:var(--text-m);margin-top:2px;}
+.settings-arrow{color:var(--text-l);font-size:.9rem;}
+.toggle-row{background:var(--white);border-radius:16px;border:1.5px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;box-shadow:var(--shadow);}
+.toggle-info{flex:1;}
+.toggle-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;}
+.toggle-sub{font-size:.72rem;color:var(--text-m);margin-top:2px;}
+.toggle{position:relative;width:42px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:20px;cursor:pointer;transition:.2s;}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.15);}
+.toggle input:checked + .toggle-slider{background:var(--blue);}
+.toggle input:checked + .toggle-slider::before{transform:translateX(18px);}
+
+/* ── PERMISSION BANNER ── */
+.perm-banner{background:var(--orange-l);border:2px solid var(--orange);border-radius:14px;padding:14px 16px;margin:10px 16px 0;display:none;animation:fadeUp .4s ease;}
+.perm-banner p{font-size:.85rem;color:var(--text);font-weight:600;}
+.perm-banner button{margin-top:8px;background:var(--orange);color:white;border:none;border-radius:10px;padding:8px 16px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;font-size:.85rem;display:flex;align-items:center;gap:6px;}
 
 /* ── BOTTOM NAV ── */
-.bottom-nav {
-  position:fixed; bottom:0; left:0; right:0;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border-top:1.5px solid var(--border);
-  display:grid; grid-template-columns:repeat(4,1fr);
-  padding:8px 0 16px; z-index:100;
-}
-.bnav {
-  display:flex; flex-direction:column; align-items:center; gap:3px;
-  cursor:pointer; padding:4px; border-radius:12px;
-  border:none; background:none; font-family:'Quicksand',sans-serif;
-  position:relative; transition:all .15s;
-}
-.bnav-icon { font-size:1.3rem; transition:transform .2s cubic-bezier(.34,1.56,.64,1); }
-.bnav-label { font-size:.6rem; font-weight:700; color:var(--text-mid); }
-.bnav.active .bnav-icon { transform:scale(1.15); }
-.bnav.active .bnav-label { color:var(--blue); font-weight:800; }
-.bnav-badge { position:absolute; top:0; right:50%; margin-right:-18px; background:var(--red); color:white; font-size:.52rem; font-weight:800; padding:2px 5px; border-radius:10px; font-family:'Nunito',sans-serif; min-width:16px; text-align:center; }
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1.5px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 16px;z-index:100;}
+.bnav{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px;border:none;background:none;font-family:'Quicksand',sans-serif;position:relative;transition:all .15s;}
+.bnav-icon{font-size:1.25rem;transition:transform .2s cubic-bezier(.34,1.56,.64,1);}
+.bnav-label{font-size:.58rem;font-weight:700;color:var(--text-m);}
+.bnav.active .bnav-icon{transform:scale(1.15);}
+.bnav.active .bnav-label{color:var(--blue);font-weight:800;}
+.bnav-badge{position:absolute;top:0;right:50%;margin-right:-18px;background:var(--red);color:white;font-size:.5rem;font-weight:800;padding:2px 5px;border-radius:10px;font-family:'Nunito',sans-serif;min-width:16px;text-align:center;}
 
 /* ── CONFETTI ── */
-.confetti-wrap { position:fixed; inset:0; pointer-events:none; z-index:999; display:none; }
-.confetti-wrap.show { display:block; }
-.confetti { position:absolute; border-radius:2px; animation:confettiFall var(--dur) ease-in forwards; animation-delay:var(--delay); }
-@keyframes confettiFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:999;display:none;}
+.confetti-wrap.show{display:block;}
+.confetti{position:absolute;border-radius:2px;animation:confettiFall var(--dur) ease-in forwards;animation-delay:var(--delay);}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* ── NOTIFICATION STATUS ── */
+.notif-status{display:inline-flex;align-items:center;gap:6px;background:var(--blue-l);color:var(--blue);border-radius:30px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;margin-top:10px;}
+
+/* spacing helpers */
+.pb8{padding-bottom:8px;}
+.mt8{margin-top:8px;}
 </style>
 </head>
 <body>
 
 <!-- ══════════════════════════════════════════
-     PAGE ACCUEIL
+     PAGE : MON AGENDA
 ════════════════════════════════════════════ -->
-<div class="page active" id="page-home">
+<div class="page active" id="page-agenda">
 
   <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" style="height:36px;object-fit:contain;">
-    <button class="notif-btn" onclick="goPage('page-notifs')">🔔<div class="notif-dot" id="notif-dot"></div></button>
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+    <div class="header-right">
+      <button class="notif-btn" onclick="envoyerNotif('cache')">🔔<div class="notif-dot" id="notif-dot"></div></button>
+    </div>
   </div>
 
   <!-- HERO -->
@@ -554,10 +326,10 @@ body {
         <div class="hero-greeting">Bonjour 👋</div>
         <div class="hero-name" id="hero-name">Jules !</div>
       </div>
-      <div class="hero-mascot" id="mascot">🦸</div>
+      <div id="mascot" style="font-size:2.5rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))">🦸</div>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-val">🔥 12</div><div class="hstat-label">Streak</div></div>
+      <div class="hstat"><div class="hstat-val">🔥 12</div><div class="hstat-label">Jours d'affilée</div></div>
       <div class="hstat"><div class="hstat-val">84%</div><div class="hstat-label">Ce mois</div></div>
       <div class="hstat"><div class="hstat-val">⭐ 47</div><div class="hstat-label">Étoiles</div></div>
     </div>
@@ -565,41 +337,22 @@ body {
 
   <!-- PERMISSION BANNER -->
   <div class="perm-banner" id="perm-banner">
-    <p>🔔 Active les notifications pour recevoir les rappels de Jules !</p>
-    <button onclick="demanderPermission()">🔔 Activer les notifications</button>
+    <p>🔔 Active les notifications pour les rappels de Jules !</p>
+    <button onclick="demanderPermission()">🔔 Activer</button>
   </div>
 
-  <!-- INSTRUCTION DU JOUR -->
-  <div class="section-title">Instruction du jour</div>
-  <div class="instruction-card">
-    <div class="instr-icon">🏴‍☠️</div>
-    <div class="instr-body">
-      <div class="instr-title">Cache sur l'œil droit</div>
-      <div class="instr-detail">De <strong>8h00</strong> à <strong>18h00</strong> · œil droit (OD)</div>
-    </div>
-    <div class="instr-badge">
-      <div class="instr-dur">4h</div>
-      <div class="instr-dur-sub">objectif</div>
-    </div>
+  <!-- RAPPEL DU JOUR -->
+  <div class="section-title">📣 Rappel du jour</div>
+  <div class="rappel-jour">
+    <div class="rappel-jour-title">🏴‍☠️ Cache-œil aujourd'hui</div>
+    <div class="rappel-jour-text">Bonjour Jules, aujourd'hui n'oublie pas de mettre ton cache sur ton œil droit. Objectif : le garder de <strong>8h à 18h</strong>. Bon courage champion !</div>
+    <div class="rappel-jour-sub" id="rappel-date"></div>
   </div>
 
-  <!-- JOURS EN ATTENTE -->
-  <div class="pending-section" id="pending-section">
-    <div class="pending-header">⏳ Jours non renseignés</div>
-    <div id="pending-list"></div>
-  </div>
-
-  <!-- SAISIE DU SOIR -->
-  <div class="section-title">Ce soir — valider le port</div>
-  <div class="card saisie-card" id="saisie-card">
-    <div class="saisie-hd">
-      <div class="saisie-icon">🌙</div>
-      <div>
-        <div class="saisie-title">Combien d'heures aujourd'hui ?</div>
-        <div class="saisie-date" id="saisie-date"></div>
-      </div>
-    </div>
-
+  <!-- PATCH POSÉ ? -->
+  <div class="section-title">✅ Patch posé aujourd'hui ?</div>
+  <div class="card patch-card" id="saisie-card">
+    <div class="patch-question">⏱ Combien d'heures as-tu porté ton cache ?</div>
     <div id="saisie-form">
       <div class="obj-row">
         <span>Heures de port</span>
@@ -608,8 +361,6 @@ body {
       <div class="hours-grid" id="hours-grid"></div>
       <button class="valider-btn" id="valider-btn" onclick="validerSaisie()" disabled>Valider</button>
     </div>
-
-    <!-- Congrats — style page observance de Jules -->
     <div class="congrats-box" id="congrats-box">
       <span class="c-emoji" id="c-emoji">🏆</span>
       <h3 id="c-title">Super !</h3>
@@ -617,11 +368,20 @@ body {
     </div>
   </div>
 
+  <!-- JOURS NON VALIDÉS -->
+  <div id="pending-section">
+    <div class="section-title">⏳ Jours non renseignés</div>
+    <div style="margin:0 16px" id="pending-list"></div>
+  </div>
+
   <!-- CALENDRIER -->
-  <div class="section-title">Mon calendrier</div>
+  <div class="section-title">📅 Calendrier mensuel</div>
   <div class="card">
     <div class="cal-hd">
-      <div><div class="cal-title">Observance cache</div><div class="cal-month-label">Février 2026</div></div>
+      <div>
+        <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;">Observance cache</div>
+        <div style="font-size:.74rem;color:var(--text-m);margin-top:2px;">Février 2026</div>
+      </div>
       <div><div class="cal-score-val">84%</div><div class="cal-score-label">ce mois</div></div>
     </div>
     <div class="cal-day-labels"><div class="cdl">L</div><div class="cdl">M</div><div class="cdl">M</div><div class="cdl">J</div><div class="cdl">V</div><div class="cdl">S</div><div class="cdl">D</div></div>
@@ -629,32 +389,69 @@ body {
     <div class="cal-legend">
       <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--green)"></div>Objectif ✓</div>
       <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--orange)"></div>Partiel</div>
-      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--red-light);border:1.5px solid #FECACA"></div>Manqué</div>
+      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--red-l);border:1.5px solid #FECACA"></div>Manqué</div>
     </div>
   </div>
 
-  <!-- BADGES MINI -->
-  <div class="section-title">Mes récompenses</div>
-  <div class="card">
-    <div class="card-title">⭐ Étoiles gagnées</div>
-    <div class="stars-row" id="stars-row"></div>
-    <div class="stars-sub">Continue comme ça Jules ! 💪</div>
-    <div class="badges-grid" id="badges-grid"></div>
+  <!-- AJOUTER ÉVÉNEMENT -->
+  <div style="margin:10px 16px 0;">
+    <button class="add-event-btn" onclick="showToast('Bientôt disponible 🚧','blue')">
+      ➕ Ajouter un événement (lunettes perdues, cassées...)
+    </button>
+  </div>
+
+  <!-- RDV -->
+  <div class="section-title">🗓 Mes rendez-vous</div>
+  <div class="rdv-list">
+    <div class="rdv-item">
+      <div class="rdv-date-box next"><div class="rdv-day">03</div><div class="rdv-mois">Mar</div></div>
+      <div class="rdv-info">
+        <div class="rdv-type">Bilan orthoptique</div>
+        <div class="rdv-detail">14h00 · Mme Lecomte <span class="rdv-badge next">Dans 8 jours</span></div>
+      </div>
+      <div class="rdv-arrow">›</div>
+    </div>
+    <div class="rdv-item">
+      <div class="rdv-date-box fut"><div class="rdv-day">07</div><div class="rdv-mois" style="color:var(--text-m)">Avr</div></div>
+      <div class="rdv-info">
+        <div class="rdv-type">Contrôle ophtalmologue</div>
+        <div class="rdv-detail">10h30 · Dr. Benali <span class="rdv-badge ok">Confirmé ✓</span></div>
+      </div>
+      <div class="rdv-arrow">›</div>
+    </div>
+    <div class="rdv-item">
+      <div class="rdv-date-box warn"><div class="rdv-day" style="color:var(--orange-d)">?</div><div class="rdv-mois" style="color:var(--orange-d)">Jun</div></div>
+      <div class="rdv-info">
+        <div class="rdv-type">Prochain suivi</div>
+        <div class="rdv-detail"><span class="rdv-badge attente">À planifier</span></div>
+      </div>
+      <div class="rdv-arrow">›</div>
+    </div>
+  </div>
+
+  <!-- PRENDRE RDV -->
+  <div class="section-title">📞 Prendre rendez-vous</div>
+  <div style="margin:0 16px;display:flex;flex-direction:column;gap:8px;padding-bottom:8px;">
+    <button class="rdv-link-btn ortho" onclick="showToast('Ouverture Doctolib…','blue')">📅 Prendre RDV orthoptiste</button>
+    <button class="rdv-link-btn ophtalmo" onclick="showToast('Ouverture Doctolib…','teal')">👁 Prendre RDV ophtalmologue</button>
   </div>
 
 </div>
 
 <!-- ══════════════════════════════════════════
-     PAGE MA VISION
+     PAGE : MES PROGRÈS
 ════════════════════════════════════════════ -->
-<div class="page" id="page-vision">
+<div class="page" id="page-progres">
+
   <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" style="height:32px;object-fit:contain;">
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
   </div>
-  <div class="section-title">Acuité visuelle</div>
+
+  <!-- COURBE VISION -->
+  <div class="section-title">👁 Courbe d'acuité visuelle</div>
   <div class="card">
     <div class="vision-hd">
-      <div class="cal-title">Progression</div>
+      <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;">Progression</div>
       <div class="vision-tabs">
         <button class="vtab active" onclick="activateVtab(this)">3 mois</button>
         <button class="vtab" onclick="activateVtab(this)">6 mois</button>
@@ -662,16 +459,8 @@ body {
       </div>
     </div>
     <div class="vision-eyes">
-      <div class="eye-stat eye-od">
-        <div class="eye-label">Œil droit (OD)</div>
-        <div class="eye-val">5/10</div>
-        <div class="eye-prog">↑ +2/10 depuis déc.</div>
-      </div>
-      <div class="eye-stat eye-og">
-        <div class="eye-label">Œil gauche (OG)</div>
-        <div class="eye-val">9/10</div>
-        <div class="eye-prog">↑ +1/10 depuis déc.</div>
-      </div>
+      <div class="eye-stat eye-od"><div class="eye-label">Œil droit (OD)</div><div class="eye-val">5/10</div><div class="eye-prog">↑ +2/10 depuis déc.</div></div>
+      <div class="eye-stat eye-og"><div class="eye-label">Œil gauche (OG)</div><div class="eye-val">9/10</div><div class="eye-prog">↑ +1/10 depuis déc.</div></div>
     </div>
     <div class="chart-wrap">
       <div class="chart-labels-y"><span>10</span><span>8</span><span>6</span><span>4</span><span>2</span></div>
@@ -686,23 +475,14 @@ body {
           <line x1="0" y1="48" x2="340" y2="48" stroke="#EAF4FF" stroke-width="1"/>
           <line x1="0" y1="72" x2="340" y2="72" stroke="#EAF4FF" stroke-width="1"/>
           <line x1="0" y1="96" x2="340" y2="96" stroke="#EAF4FF" stroke-width="1"/>
-          <!-- OD -->
           <polygon points="0,67 56,67 113,58 170,58 226,48 340,48 340,100 0,100" fill="url(#gOD)"/>
           <polyline points="0,67 56,67 113,58 170,58 226,48 340,48" fill="none" stroke="#4A90D9" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-          <circle cx="0" cy="67" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/>
-          <circle cx="113" cy="58" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/>
-          <circle cx="226" cy="48" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/>
-          <circle cx="340" cy="48" r="5" fill="#4A90D9" stroke="white" stroke-width="2.5"/>
-          <text x="328" y="41" font-size="9" fill="#2E6DB4" font-weight="800" font-family="Nunito">5/10</text>
-          <!-- OG -->
+          <circle cx="0" cy="67" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="113" cy="58" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="226" cy="48" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="340" cy="48" r="5" fill="#4A90D9" stroke="white" stroke-width="2.5"/>
+          <text x="326" y="41" font-size="9" fill="#2E6DB4" font-weight="800" font-family="Nunito">5/10</text>
           <polygon points="0,19 56,19 113,19 170,10 226,10 340,10 340,50 0,50" fill="url(#gOG)"/>
           <polyline points="0,19 56,19 113,19 170,10 226,10 340,10" fill="none" stroke="#5BBF8E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-          <circle cx="0" cy="19" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/>
-          <circle cx="113" cy="19" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/>
-          <circle cx="226" cy="10" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/>
-          <circle cx="340" cy="10" r="5" fill="#5BBF8E" stroke="white" stroke-width="2.5"/>
-          <text x="328" y="6" font-size="9" fill="#3A8F68" font-weight="800" font-family="Nunito">9/10</text>
-          <!-- Labels X -->
+          <circle cx="0" cy="19" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="113" cy="19" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="226" cy="10" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="340" cy="10" r="5" fill="#5BBF8E" stroke="white" stroke-width="2.5"/>
+          <text x="326" y="6" font-size="9" fill="#3A8F68" font-weight="800" font-family="Nunito">9/10</text>
           <text x="0" y="115" font-size="8" fill="#C8E4FA" font-family="Nunito" font-weight="700" text-anchor="middle">Nov</text>
           <text x="113" y="115" font-size="8" fill="#C8E4FA" font-family="Nunito" font-weight="700" text-anchor="middle">Jan</text>
           <text x="226" y="115" font-size="8" fill="#C8E4FA" font-family="Nunito" font-weight="700" text-anchor="middle">Mar</text>
@@ -716,131 +496,314 @@ body {
     </div>
   </div>
 
-  <div class="section-title">Mes rendez-vous</div>
-  <div class="rdv-list">
-    <div class="rdv-item">
-      <div class="rdv-date prochain"><div class="rdv-day">03</div><div class="rdv-mois">Mar</div></div>
-      <div class="rdv-info">
-        <div class="rdv-type">Bilan orthoptique</div>
-        <div class="rdv-detail">14h00 · Mme Lecomte <span class="rdv-badge prochain">Dans 8 jours</span></div>
-      </div>
-      <div class="rdv-arrow">›</div>
+  <!-- TAUX D'OBSERVANCE -->
+  <div class="section-title">📊 Taux d'observance</div>
+  <div class="card">
+    <div class="obs-big">
+      <div class="obs-pct">84%</div>
+      <div class="obs-label">Ce mois · objectif 4h/jour</div>
     </div>
-    <div class="rdv-item">
-      <div class="rdv-date futur"><div class="rdv-day">07</div><div class="rdv-mois" style="color:var(--text-mid)">Avr</div></div>
-      <div class="rdv-info">
-        <div class="rdv-type">Contrôle vision</div>
-        <div class="rdv-detail">10h30 · Mme Lecomte <span class="rdv-badge ok">Confirmé ✓</span></div>
-      </div>
-      <div class="rdv-arrow">›</div>
-    </div>
-    <div class="rdv-item">
-      <div class="rdv-date futur" style="background:var(--orange-light);border:2px solid var(--orange)">
-        <div class="rdv-day" style="color:var(--orange-dark)">?</div>
-        <div class="rdv-mois" style="color:var(--orange-dark)">Jun</div>
-      </div>
-      <div class="rdv-info">
-        <div class="rdv-type">Prochain suivi</div>
-        <div class="rdv-detail"><span class="rdv-badge attente">À planifier</span></div>
-      </div>
-      <div class="rdv-arrow">›</div>
+    <div class="obs-bar-wrap"><div class="obs-bar" id="obs-bar" style="width:0%"></div></div>
+    <div class="obs-months">
+      <div class="obs-month"><div class="obs-month-val">91%</div><div class="obs-month-label">Décembre</div></div>
+      <div class="obs-month"><div class="obs-month-val">78%</div><div class="obs-month-label">Janvier</div></div>
+      <div class="obs-month"><div class="obs-month-val">84%</div><div class="obs-month-label">Février</div></div>
     </div>
   </div>
-  <div style="height:12px"></div>
+
+  <!-- BADGES -->
+  <div class="section-title">🏆 Badges & récompenses</div>
+  <div class="card">
+    <div class="card-title">⭐ Étoiles gagnées</div>
+    <div class="stars-row" id="stars-row"></div>
+    <div class="stars-sub">47 étoiles sur 50 — continue comme ça Jules ! 💪</div>
+    <div class="badges-grid" id="badges-grid"></div>
+  </div>
+
+  <div style="margin:10px 16px;display:flex;flex-direction:column;gap:8px;" id="badges-list-prog"></div>
+  <div style="height:8px"></div>
+
 </div>
 
 <!-- ══════════════════════════════════════════
-     PAGE RAPPELS / NOTIFICATIONS
+     PAGE : MES DOCS
 ════════════════════════════════════════════ -->
-<div class="page" id="page-notifs">
+<div class="page" id="page-docs">
+
   <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" style="height:32px;object-fit:contain;">
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
   </div>
 
-  <div class="section-title">Envoyer un rappel</div>
-  <div class="card">
-    <button class="rappel-btn rb-blue" onclick="envoyerNotif('cache')">
-      <span class="rb-icon">🏴‍☠️</span>
-      <span class="rb-text">Rappel : mettre le cache
-        <span class="rb-sub">Envoie une notif à Jules</span>
-      </span>
-    </button>
-    <div class="status-badge" id="status-cache">💤 En attente</div>
-  </div>
-
-  <div class="card" style="margin-top:10px">
-    <button class="rappel-btn rb-green" onclick="envoyerNotif('retirer')">
-      <span class="rb-icon">🎉</span>
-      <span class="rb-text">Prêt à remplir l'observance
-        <span class="rb-sub">Notifie Jules de retirer son cache</span>
-      </span>
-    </button>
-    <div class="status-badge" id="status-retirer">💤 En attente</div>
-  </div>
-
-  <div class="card" style="margin-top:10px">
-    <button class="rappel-btn rb-orange" onclick="envoyerNotif('rdv')">
-      <span class="rb-icon">📅</span>
-      <span class="rb-text">Rappel rendez-vous
-        <span class="rb-sub">RDV bilan dans 8 jours chez Mme Lecomte</span>
-      </span>
-    </button>
-    <div class="status-badge" id="status-rdv">💤 En attente</div>
-  </div>
-
-  <div class="section-title">Historique</div>
+  <!-- ORDONNANCES -->
+  <div class="section-title">📄 Ordonnances</div>
   <div style="margin:0 16px">
-    <div class="notif-item unread">
-      <div class="notif-ico blue">⏰</div>
-      <div class="notif-msg"><div class="notif-text">N'oublie pas ton cache aujourd'hui ! Objectif : 4h 🎯</div><div class="notif-time">Aujourd'hui · 8h00</div></div>
-      <div class="notif-unread-dot"></div>
+    <div class="ordo-item">
+      <div class="ordo-icon">🩹</div>
+      <div class="ordo-info"><div class="ordo-title">Ordonnance cache-œil</div><div class="ordo-date">Dr. Benali · 15 janvier 2026 · 20 séances</div></div>
+      <button class="ordo-btn">Voir</button>
     </div>
-    <div class="notif-item unread">
-      <div class="notif-ico orange">📅</div>
-      <div class="notif-msg"><div class="notif-text">RDV bilan orthoptique dans 8 jours chez Mme Lecomte</div><div class="notif-time">Aujourd'hui · 9h00</div></div>
-      <div class="notif-unread-dot"></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-ico green">⭐</div>
-      <div class="notif-msg"><div class="notif-text">Bravo ! 7 jours d'affilée — badge Super Héros débloqué 🦸</div><div class="notif-time">Hier · 20h15</div></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-ico blue">📈</div>
-      <div class="notif-msg"><div class="notif-text">Ton œil droit progresse ! OD passe de 4/10 à 5/10 ✨</div><div class="notif-time">Il y a 3 jours</div></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-ico orange">🏆</div>
-      <div class="notif-msg"><div class="notif-text">Streak de 10 jours — badge Champion débloqué ! 🏆</div><div class="notif-time">Il y a 5 jours</div></div>
+    <div class="ordo-item" style="border-color:var(--green)">
+      <div class="ordo-icon" style="background:var(--green-l)">👓</div>
+      <div class="ordo-info"><div class="ordo-title">Ordonnance lunettes</div><div class="ordo-date">Dr. Benali · 15 janvier 2026</div></div>
+      <button class="ordo-btn" style="background:var(--green)">Voir</button>
     </div>
   </div>
-  <div style="height:12px"></div>
+
+  <!-- POUR LES PARENTS -->
+  <div class="doc-section-hd">👨‍👩‍👧 Pour les parents</div>
+
+  <!-- Comprendre -->
+  <div class="doc-list">
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon blue">📖</div>
+        <div class="doc-item-info"><div class="doc-item-title">Comprendre l'amblyopie</div><div class="doc-item-sub">Causes, dépistage, risques, traitement</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item" onclick="showToast('Ouverture…','blue')"><span class="doc-sub-icon">📘</span><span class="doc-sub-text">L'amblyopie : causes, dépistage, risques</span><span class="doc-sub-badge pdf">PDF</span></div>
+          <div class="doc-sub-item" onclick="showToast('Ouverture…','blue')"><span class="doc-sub-icon">📗</span><span class="doc-sub-text">L'amblyothérapie : objectifs, dispositifs, étapes clés</span><span class="doc-sub-badge pdf">PDF</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon orange">💡</div>
+        <div class="doc-item-info"><div class="doc-item-title">Conseils pratiques</div><div class="doc-item-sub">Poser, enlever, motiver, routine</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item"><span class="doc-sub-icon">🌅</span><span class="doc-sub-text">Les premiers jours : annoncer & préparer</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🩹</span><span class="doc-sub-text">Poser le patch / filtre (infographie)</span><span class="doc-sub-badge new">Infographie</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🌸</span><span class="doc-sub-text">Enlever le patch en douceur (soins de la peau)</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🎯</span><span class="doc-sub-text">Customiser le patch</span><span class="doc-sub-badge new">Idées</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon green">🎮</div>
+        <div class="doc-item-info"><div class="doc-item-title">Motiver & créer la routine</div><div class="doc-item-sub">Idées, poster, tableau de récompenses</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item"><span class="doc-sub-icon">💡</span><span class="doc-sub-text">Idées pour motiver</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🖨</span><span class="doc-sub-text">Poster à imprimer</span><span class="doc-sub-badge pdf">PDF</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">⭐</span><span class="doc-sub-text">Tableau de récompenses</span><span class="doc-sub-badge pdf">PDF</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">⏱</span><span class="doc-sub-text">Timer visuel (mini-app)</span><span class="doc-sub-badge new">App</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon teal">💬</div>
+        <div class="doc-item-info"><div class="doc-item-title">Témoignages & aller plus loin</div><div class="doc-item-sub">Familles, articles, guides officiels</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item"><span class="doc-sub-icon">👨‍👩‍👧</span><span class="doc-sub-text">Témoignages parents / enfants, courbes</span><span class="doc-sub-badge video">Vidéo</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">📰</span><span class="doc-sub-text">Articles vulgarisés</span><span class="doc-sub-badge pdf">PDF</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">📋</span><span class="doc-sub-text">Guides officiels (HAS, SFO)</span><span class="doc-sub-badge pdf">PDF</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🤝</span><span class="doc-sub-text">Associations & groupes conseillés</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POUR L'ENFANT -->
+  <div class="doc-section-hd">🧒 Pour l'enfant</div>
+  <div class="doc-list">
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon orange">📚</div>
+        <div class="doc-item-info"><div class="doc-item-title">Comprendre avec les enfants</div><div class="doc-item-sub">BD, infographies, mini-jeux</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item"><span class="doc-sub-icon">🎨</span><span class="doc-sub-text">BD : pourquoi je porte un cache ?</span><span class="doc-sub-badge new">Nouveau</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🖼</span><span class="doc-sub-text">Infographies illustrées</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🎮</span><span class="doc-sub-text">Mini-jeux pédagogiques</span><span class="doc-sub-badge new">App</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon blue">🗣</div>
+        <div class="doc-item-info"><div class="doc-item-title">Expliquer à mes copains</div><div class="doc-item-sub">Cartes prêtes à l'emploi</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item"><span class="doc-sub-icon">🃏</span><span class="doc-sub-text">Cartes d'explication simples</span><span class="doc-sub-badge pdf">PDF</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-item" onclick="toggleDoc(this)">
+      <div class="doc-item-hd">
+        <div class="doc-item-icon green">💪</div>
+        <div class="doc-item-info"><div class="doc-item-title">Rester motivé</div><div class="doc-item-sub">Livres, films, FAQ, témoignages</div></div>
+        <div class="doc-item-arrow">›</div>
+      </div>
+      <div class="doc-item-body">
+        <div class="doc-sub-list">
+          <div class="doc-sub-item"><span class="doc-sub-icon">📖</span><span class="doc-sub-text">Livres / films par âge</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">❓</span><span class="doc-sub-text">FAQ enfant — mes questions</span></div>
+          <div class="doc-sub-item"><span class="doc-sub-icon">🎥</span><span class="doc-sub-text">Témoignages d'anciens amblyopes</span><span class="doc-sub-badge video">Vidéo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KITS PRATIQUES -->
+  <div class="doc-section-hd">🖨 Kits pratiques à imprimer</div>
+  <div style="margin:0 16px">
+    <div class="kit-card" onclick="toggleKit(this)">
+      <div class="kit-hd">
+        <div class="kit-icon" style="background:var(--blue-l)">🏫</div>
+        <div class="kit-info"><div class="kit-title">Kit instituteur</div><div class="kit-sub">Pour expliquer à l'école</div></div>
+        <div style="color:var(--text-l);font-size:.95rem;transition:transform .2s">›</div>
+      </div>
+      <div class="kit-body">
+        <button class="kit-dl-btn blue">📄 Fiche "Amblyopie en 2 min"</button>
+        <button class="kit-dl-btn orange">📅 Rythme actualisé de l'enfant</button>
+        <button class="kit-dl-btn green">🎓 Expliquer aux autres enfants</button>
+      </div>
+    </div>
+
+    <div class="kit-card" onclick="toggleKit(this)">
+      <div class="kit-hd">
+        <div class="kit-icon" style="background:var(--green-l)">👨‍👩‍👦</div>
+        <div class="kit-info"><div class="kit-title">Kit famille élargie</div><div class="kit-sub">Grands-parents, oncles, tantes...</div></div>
+        <div style="color:var(--text-l);font-size:.95rem;transition:transform .2s">›</div>
+      </div>
+      <div class="kit-body">
+        <button class="kit-dl-btn blue">📄 Fiche "Comprendre en 2 min"</button>
+        <button class="kit-dl-btn green">🖨 Planning imprimable (période au choix)</button>
+      </div>
+    </div>
+  </div>
+  <div style="height:8px"></div>
+
 </div>
 
 <!-- ══════════════════════════════════════════
-     PAGE BADGES
+     PAGE : RÉGLAGES
 ════════════════════════════════════════════ -->
-<div class="page" id="page-badges">
+<div class="page" id="page-reglages">
+
   <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" style="height:32px;object-fit:contain;">
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
   </div>
 
-  <div class="section-title">⭐ Étoiles — 47 gagnées</div>
+  <!-- PROFIL -->
+  <div class="section-title">👤 Profil</div>
+  <div class="card" style="display:flex;align-items:center;gap:14px;">
+    <div style="width:56px;height:56px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;font-family:'Nunito',sans-serif;font-weight:900;flex-shrink:0;">J</div>
+    <div style="flex:1">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;">Jules</div>
+      <div style="font-size:.75rem;color:var(--text-m);margin-top:2px;">8 ans · Amblyopie OD · Dr. Benali</div>
+    </div>
+    <button style="background:var(--blue-l);border:none;border-radius:10px;padding:7px 12px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;color:var(--blue);cursor:pointer;">Modifier</button>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="section-title">🔔 Notifications</div>
+  <div class="settings-section">
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Rappel matin — mettre le cache</div><div class="toggle-sub">Chaque jour à 8h00</div></div>
+      <label class="toggle"><input type="checkbox" checked id="t-matin"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Rappel soir — valider l'observance</div><div class="toggle-sub">Chaque jour à 18h00</div></div>
+      <label class="toggle"><input type="checkbox" checked id="t-soir"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Rappels de rendez-vous</div><div class="toggle-sub">J-2 et J-1 avant chaque RDV</div></div>
+      <label class="toggle"><input type="checkbox" checked id="t-rdv"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Notifications badges & étoiles</div><div class="toggle-sub">Quand Jules débloque une récompense</div></div>
+      <label class="toggle"><input type="checkbox" checked id="t-badges"><span class="toggle-slider"></span></label>
+    </div>
+  </div>
+
+  <!-- TESTER NOTIFS -->
+  <div class="section-title">📣 Tester les rappels</div>
   <div class="card">
-    <div class="stars-row" id="stars-row-big"></div>
-    <div class="stars-sub">Tu gagnes une ⭐ chaque jour où tu atteins ton objectif !</div>
+    <div class="perm-banner" id="perm-banner-2" style="margin:0 0 12px;display:none;">
+      <p>🔔 Active les notifications d'abord !</p>
+      <button onclick="demanderPermission()">🔔 Activer</button>
+    </div>
+    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--blue);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(74,144,217,.3);" onclick="envoyerNotif('cache')">
+      <span style="font-size:1.4rem">🏴‍☠️</span>
+      <span>Rappel : mettre le cache<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Envoie une notif à Jules maintenant</span></span>
+    </button>
+    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--green);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(91,191,142,.3);" onclick="envoyerNotif('retirer')">
+      <span style="font-size:1.4rem">🎉</span>
+      <span>Prêt à remplir l'observance<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Notifie Jules de retirer son cache</span></span>
+    </button>
+    <div class="notif-status" id="notif-status">💤 En attente</div>
   </div>
 
-  <div class="section-title">Badges débloqués</div>
-  <div style="margin:0 16px" id="badges-list"></div>
-  <div style="height:12px"></div>
+  <!-- PARAMÈTRES TRAITEMENT -->
+  <div class="section-title">⚙️ Paramètres du traitement</div>
+  <div class="settings-section">
+    <div class="settings-item">
+      <div class="settings-icon" style="background:var(--blue-l)">🎯</div>
+      <div class="settings-info"><div class="settings-title">Objectif quotidien de cache</div><div class="settings-sub">Actuellement : 4h / jour</div></div>
+      <div class="settings-arrow">›</div>
+    </div>
+    <div class="settings-item">
+      <div class="settings-icon" style="background:var(--orange-l)">⏰</div>
+      <div class="settings-info"><div class="settings-title">Plage horaire du cache</div><div class="settings-sub">8h00 – 18h00</div></div>
+      <div class="settings-arrow">›</div>
+    </div>
+    <div class="settings-item">
+      <div class="settings-icon" style="background:var(--green-l)">👁</div>
+      <div class="settings-info"><div class="settings-title">Œil amblyope</div><div class="settings-sub">Œil droit (OD)</div></div>
+      <div class="settings-arrow">›</div>
+    </div>
+  </div>
+
+  <!-- COMPTE -->
+  <div class="section-title">🔧 Compte</div>
+  <div class="settings-section">
+    <div class="settings-item">
+      <div class="settings-icon" style="background:var(--blue-l)">📱</div>
+      <div class="settings-info"><div class="settings-title">Installer sur l'écran d'accueil</div><div class="settings-sub">Accès rapide comme une vraie app</div></div>
+      <div class="settings-arrow">›</div>
+    </div>
+    <div class="settings-item">
+      <div class="settings-icon" style="background:var(--green-l)">🔒</div>
+      <div class="settings-info"><div class="settings-title">Confidentialité & données</div><div class="settings-sub">RGPD · HDS certifié</div></div>
+      <div class="settings-arrow">›</div>
+    </div>
+    <div class="settings-item" onclick="showToast('Version 1.0.0 — Amblyup','blue')">
+      <div class="settings-icon" style="background:var(--bg)">ℹ️</div>
+      <div class="settings-info"><div class="settings-title">À propos d'Amblyup</div><div class="settings-sub">Version 1.0.0</div></div>
+      <div class="settings-arrow">›</div>
+    </div>
+  </div>
+  <div style="height:8px"></div>
+
 </div>
 
 <!-- ── BOTTOM NAV ── -->
 <nav class="bottom-nav">
-  <button class="bnav active" onclick="goPage('page-home')"><span class="bnav-icon">🏠</span><span class="bnav-label">Accueil</span></button>
-  <button class="bnav" onclick="goPage('page-vision')"><span class="bnav-icon">👁</span><span class="bnav-label">Ma vision</span></button>
-  <button class="bnav" onclick="goPage('page-notifs')"><span class="bnav-icon">🔔</span><span class="bnav-label">Rappels</span><span class="bnav-badge" id="bnav-badge">2</span></button>
-  <button class="bnav" onclick="goPage('page-badges')"><span class="bnav-icon">⭐</span><span class="bnav-label">Badges</span></button>
+  <button class="bnav active" onclick="goPage('page-agenda')"><span class="bnav-icon">📅</span><span class="bnav-label">Mon agenda</span></button>
+  <button class="bnav" onclick="goPage('page-progres')"><span class="bnav-icon">📈</span><span class="bnav-label">Mes progrès</span></button>
+  <button class="bnav" onclick="goPage('page-docs')"><span class="bnav-icon">📚</span><span class="bnav-label">Mes Docs</span></button>
+  <button class="bnav" onclick="goPage('page-reglages')"><span class="bnav-icon">⚙️</span><span class="bnav-label">Réglages</span></button>
 </nav>
 
 <!-- CONFETTI -->
@@ -848,69 +811,59 @@ body {
 
 <script>
 'use strict';
-
 let swReg = null;
 let selectedH = null;
 const OBJ = 4;
 
-// ── SERVICE WORKER ──
 window.addEventListener('load', async () => {
   if ('serviceWorker' in navigator) {
-    try { swReg = await navigator.serviceWorker.register('sw.js'); }
-    catch(e) { console.log('SW:', e); }
+    try { swReg = await navigator.serviceWorker.register('sw.js'); } catch(e) {}
   }
   if ('Notification' in window && Notification.permission === 'default') {
     document.getElementById('perm-banner').style.display = 'block';
+    document.getElementById('perm-banner-2').style.display = 'block';
   }
   initDate();
   buildHoursGrid();
   buildCalendar();
   buildStars('stars-row', 47, 10);
-  buildStars('stars-row-big', 47, 10);
   buildBadgesGrid();
-  buildBadgesList();
+  buildBadgesList('badges-list-prog');
   buildPending();
-
-  if (window.location.hash === '#saisie') {
-    setTimeout(() => document.getElementById('saisie-card').scrollIntoView({behavior:'smooth'}), 300);
-  }
+  // Animate observance bar
+  setTimeout(() => { const b = document.getElementById('obs-bar'); if(b) b.style.width = '84%'; }, 400);
 });
 
-// ── PERMISSION ──
 async function demanderPermission() {
   const perm = await Notification.requestPermission();
   if (perm === 'granted') {
     document.getElementById('perm-banner').style.display = 'none';
+    document.getElementById('perm-banner-2').style.display = 'none';
+    showToast('🔔 Notifications activées !','green');
   }
 }
 
-// ── NAVIGATION ──
 function goPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.bnav').forEach(b => b.classList.remove('active'));
-  const map = {'page-home':0,'page-vision':1,'page-notifs':2,'page-badges':3};
+  const map = {'page-agenda':0,'page-progres':1,'page-docs':2,'page-reglages':3};
   const idx = map[id];
   if (idx !== undefined) document.querySelectorAll('.bnav')[idx].classList.add('active');
   window.scrollTo(0,0);
-  if (id === 'page-notifs') {
-    document.getElementById('bnav-badge').style.display = 'none';
-    document.getElementById('notif-dot').style.display = 'none';
-  }
 }
 
-// ── DATE ──
 function initDate() {
   const d = new Date();
   const J = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
   const M = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  document.getElementById('saisie-date').textContent = J[d.getDay()] + ' ' + d.getDate() + ' ' + M[d.getMonth()];
+  const el = document.getElementById('rappel-date');
+  if(el) el.textContent = J[d.getDay()] + ' ' + d.getDate() + ' ' + M[d.getMonth()] + ' ' + d.getFullYear();
 }
 
-// ── HEURES — style observance ──
 function buildHoursGrid() {
   const grid = document.getElementById('hours-grid');
-  // 0h à 7h = 8 boutons, 4 colonnes × 2 lignes
+  if(!grid) return;
   for (let h = 0; h <= 7; h++) {
     const btn = document.createElement('button');
     let cls = 'hbtn';
@@ -918,7 +871,7 @@ function buildHoursGrid() {
     else if (h === OBJ) cls += ' target';
     else if (h > OBJ) cls += ' over';
     btn.className = cls;
-    const sub = h === 0 ? '😔' : h === OBJ ? '⭐ objectif' : h > OBJ ? '🏆 super !' : (h === 1 ? 'heure' : 'heures');
+    const sub = h === 0 ? '😔' : h === OBJ ? '⭐ objectif' : h > OBJ ? '🏆 super !' : (h===1?'heure':'heures');
     btn.innerHTML = h + 'h<span class="hbtn-sub">' + sub + '</span>';
     btn.onclick = () => selectHeure(btn, h);
     grid.appendChild(btn);
@@ -926,23 +879,19 @@ function buildHoursGrid() {
 }
 
 function selectHeure(btn, h) {
-  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
   selectedH = h;
-
   const vbtn = document.getElementById('valider-btn');
   vbtn.disabled = false;
   if (h >= OBJ) {
     vbtn.style.background = 'var(--green)';
-    vbtn.style.boxShadow = '0 4px 16px rgba(91,191,142,.35)';
     vbtn.textContent = h > OBJ ? '🏆 Valider — Super Jules !' : '⭐ Valider — Objectif atteint !';
   } else if (h === 0) {
     vbtn.style.background = 'var(--red)';
-    vbtn.style.boxShadow = 'none';
     vbtn.textContent = 'Valider 😔';
   } else {
     vbtn.style.background = 'var(--blue)';
-    vbtn.style.boxShadow = '0 4px 16px rgba(74,144,217,.35)';
     vbtn.textContent = 'Valider ✓';
   }
 }
@@ -950,25 +899,19 @@ function selectHeure(btn, h) {
 function validerSaisie() {
   if (selectedH === null) return;
   const h = selectedH;
-  const form = document.getElementById('saisie-form');
-  const box = document.getElementById('congrats-box');
-  const card = document.getElementById('saisie-card');
-
-  form.style.display = 'none';
-  box.style.display = 'block';
-
+  document.getElementById('saisie-form').style.display = 'none';
+  document.getElementById('congrats-box').style.display = 'block';
+  document.getElementById('saisie-card').classList.add('done');
   if (h >= OBJ) {
-    card.classList.add('done');
     document.getElementById('c-emoji').textContent = h > OBJ ? '🏆' : '🎉';
-    document.getElementById('c-title').textContent = h > OBJ ? '🏆 ' + h + 'h de port, incroyable !' : '🎉 Bravo Jules !';
-    document.getElementById('c-sub').textContent = h >= OBJ ? "C'est excellent ! Continue comme ça 💪" : '';
-    lancerConfetti();
+    document.getElementById('c-title').textContent = h > OBJ ? '🏆 ' + h + 'h, incroyable Jules !' : '🎉 Bravo Jules !';
+    document.getElementById('c-sub').textContent = "C'est excellent ! Continue comme ça 💪";
     document.getElementById('mascot').textContent = h > OBJ ? '👑' : '🏆';
+    lancerConfetti();
   } else if (h === 0) {
     document.getElementById('c-emoji').textContent = '😔';
     document.getElementById('c-title').textContent = 'Pas de cache aujourd\'hui...';
     document.getElementById('c-sub').textContent = "N'oublie pas demain ! Tu peux le faire 💪";
-    document.getElementById('mascot').textContent = '🦸';
   } else {
     document.getElementById('c-emoji').textContent = '👍';
     document.getElementById('c-title').textContent = '👍 ' + h + 'h enregistrées !';
@@ -977,10 +920,9 @@ function validerSaisie() {
   }
 }
 
-// ── CALENDRIER ──
 function buildCalendar() {
   const data = [
-    null,null,null,null,null,null, // 1er fév = dimanche → 6 cases vides (lun–sam)
+    null,null,null,null,null,null,
     {d:1,s:'ok',h:'4h'},{d:2,s:'ok',h:'5h'},{d:3,s:'ok',h:'4h'},
     {d:4,s:'partial',h:'2h'},{d:5,s:'ok',h:'4h'},{d:6,s:'ok',h:'4h'},
     {d:7,s:'partial',h:'3h'},{d:8,s:'ok',h:'4h'},{d:9,s:'miss',h:'0h'},
@@ -989,167 +931,155 @@ function buildCalendar() {
     {d:16,s:'ok',h:'4h'},{d:17,s:'ok',h:'3h'},{d:18,s:'ok',h:'4h'},
     {d:19,s:'ok',h:'4h'},{d:20,s:'ok',h:'4h'},{d:21,s:'partial',h:'3h'},
     {d:22,s:'ok',h:'4h'},{d:23,s:'today',h:'?'},
-    {d:24,s:'future'},{d:25,s:'future'},{d:26,s:'future'},
-    {d:27,s:'future'},{d:28,s:'future'},
+    {d:24,s:'future'},{d:25,s:'future'},{d:26,s:'future'},{d:27,s:'future'},{d:28,s:'future'},
   ];
   const grid = document.getElementById('cal-grid');
+  if(!grid) return;
   data.forEach(day => {
     const el = document.createElement('div');
     if (!day) { el.className = 'cday empty'; }
     else {
       el.className = 'cday ' + day.s;
-      el.innerHTML = '<span class="cday-num">' + day.d + '</span>' + (day.h ? '<span class="cday-h">' + day.h + '</span>' : '');
+      el.innerHTML = '<span class="cday-num">'+day.d+'</span>' + (day.h?'<span class="cday-h">'+day.h+'</span>':'');
     }
     grid.appendChild(el);
   });
 }
 
-// ── ÉTOILES ──
-function buildStars(id, total, max) {
-  const row = document.getElementById(id);
-  if (!row) return;
-  row.innerHTML = '';
-  const filled = Math.min(total % max || max, max);
-  for (let i = 0; i < max; i++) {
-    const s = document.createElement('span');
-    s.className = 'star' + (i < filled ? ' filled' : '');
-    s.textContent = i < filled ? '⭐' : '☆';
-    s.style.animationDelay = (i * 0.06) + 's';
-    row.appendChild(s);
-  }
-}
-
-// ── BADGES DATA ──
-const BADGES = [
-  {icon:'🦸', name:'Super Héros',    desc:'7 jours d\'affilée',    unlocked:true},
-  {icon:'🏆', name:'Champion',       desc:'10 jours streak',        unlocked:true},
-  {icon:'🌟', name:'Étoile filante', desc:'30 étoiles',             unlocked:true},
-  {icon:'💪', name:'Persévérant',    desc:'20 jours ce mois',       unlocked:true},
-  {icon:'👑', name:'Roi du cache',   desc:'Objectif 7j/7',          unlocked:false},
-  {icon:'🚀', name:'Décollage',      desc:'1er mois complet',       unlocked:false},
-  {icon:'🌈', name:'Arc-en-ciel',    desc:'50 étoiles',             unlocked:false},
-  {icon:'🎯', name:'Précision',      desc:'100% en 1 semaine',      unlocked:false},
-];
-
-function buildBadgesGrid() {
-  const grid = document.getElementById('badges-grid');
-  if (!grid) return;
-  BADGES.forEach(b => {
-    const el = document.createElement('div');
-    el.className = 'badge-item' + (b.unlocked ? ' unlocked' : '');
-    el.innerHTML = '<span class="badge-icon">' + b.icon + '</span><span class="badge-name">' + b.name + '</span>';
-    grid.appendChild(el);
-  });
-}
-
-function buildBadgesList() {
-  const list = document.getElementById('badges-list');
-  if (!list) return;
-  BADGES.forEach(b => {
-    const el = document.createElement('div');
-    el.className = 'badge-row' + (b.unlocked ? ' unlocked' : '');
-    el.innerHTML =
-      '<div class="badge-row-icon">' + b.icon + '</div>' +
-      '<div class="badge-row-info">' +
-        '<div class="badge-row-name">' + b.name + '</div>' +
-        '<div class="badge-row-desc">' + b.desc + '</div>' +
-      '</div>' +
-      '<div class="badge-row-status">' + (b.unlocked ? '✓ Obtenu' : '🔒') + '</div>';
-    list.appendChild(el);
-  });
-}
-
-// ── JOURS EN ATTENTE ──
-const PENDING = [
-  {d:19, label:'Jeudi 19 fév'},
-  {d:21, label:'Samedi 21 fév'},
-  {d:22, label:'Dim. 22 fév'},
-];
+const PENDING = [{d:19,label:'Jeudi 19 fév'},{d:21,label:'Sam. 21 fév'},{d:22,label:'Dim. 22 fév'}];
 let pendingDone = 0;
-
 function buildPending() {
   const list = document.getElementById('pending-list');
+  if(!list) return;
   PENDING.forEach((day, i) => {
     const el = document.createElement('div');
     el.className = 'pending-item';
     el.id = 'pi-' + i;
+    el.style.cssText = 'background:white;border-radius:16px;border:2px solid var(--orange-l);padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;box-shadow:var(--shadow);flex-wrap:wrap;transition:opacity .4s,transform .4s;';
     el.innerHTML =
-      '<div class="pending-date-box"><div class="pending-day">' + day.d + '</div><div class="pending-month">Fév</div></div>' +
-      '<div class="pending-info"><div class="pending-name">' + day.label + '</div><div class="pending-sub">Cache OD · objectif ' + OBJ + 'h</div></div>' +
-      '<button class="pending-btn" onclick="togglePending(' + i + ')">Renseigner →</button>' +
-      '<div class="pending-hours-wrap" id="phw-' + i + '">' +
-        '<div class="pending-hours-grid" id="phg-' + i + '"></div>' +
-        '<button class="pending-valider" id="pval-' + i + '" onclick="resolvePending(' + i + ')" disabled>✓ Valider ce jour</button>' +
+      '<div style="width:42px;height:46px;border-radius:12px;background:var(--orange-l);border:2px solid var(--orange);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;"><div style="font-family:Nunito,sans-serif;font-weight:900;font-size:1rem;color:var(--orange-d);line-height:1;">'+day.d+'</div><div style="font-size:.58rem;font-weight:700;color:var(--orange-d);text-transform:uppercase">Fév</div></div>'+
+      '<div style="flex:1"><div style="font-family:Nunito,sans-serif;font-weight:800;font-size:.85rem;">'+day.label+'</div><div style="font-size:.7rem;color:var(--text-m);margin-top:2px;">Cache OD · objectif '+OBJ+'h</div></div>'+
+      '<button style="padding:6px 12px;border-radius:10px;background:var(--blue-l);border:1.5px solid var(--blue);color:var(--blue);font-family:Nunito,sans-serif;font-weight:700;font-size:.74rem;cursor:pointer;" onclick="togglePi('+i+')">Renseigner →</button>'+
+      '<div id="piw-'+i+'" style="width:100%;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:none;">'+
+        '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px" id="pig-'+i+'"></div>'+
+        '<button id="piv-'+i+'" style="width:100%;padding:11px;border-radius:12px;border:none;background:var(--green);color:white;font-family:Nunito,sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;opacity:.5;pointer-events:none;" onclick="resolvePi('+i+')">✓ Valider ce jour</button>'+
       '</div>';
     list.appendChild(el);
-    buildPendingGrid(i);
+    buildPiGrid(i);
   });
 }
 
-function buildPendingGrid(i) {
-  const grid = document.getElementById('phg-' + i);
+function buildPiGrid(i) {
+  const grid = document.getElementById('pig-'+i);
   for (let h = 0; h <= 4; h++) {
     const btn = document.createElement('button');
-    btn.className = 'phbtn';
-    btn.textContent = h + 'h';
+    btn.style.cssText = 'aspect-ratio:1;border-radius:12px;border:2px solid transparent;background:var(--blue-l);font-family:Nunito,sans-serif;font-weight:800;font-size:.88rem;color:var(--blue);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;';
+    btn.textContent = h+'h';
     btn.onclick = () => {
-      grid.querySelectorAll('.phbtn').forEach(b => { b.className = 'phbtn'; });
-      btn.className = 'phbtn ' + (h >= OBJ ? 'sel-green' : h > 0 ? 'sel' : 'sel');
-      if (h === 0) { btn.style.background = 'var(--red)'; btn.style.color = 'white'; btn.style.borderColor = 'var(--red)'; }
-      document.getElementById('pval-' + i).disabled = false;
+      grid.querySelectorAll('button').forEach(b => { b.style.background='var(--blue-l)';b.style.color='var(--blue)';b.style.borderColor='transparent'; });
+      btn.style.background = h >= OBJ ? 'var(--green)' : h > 0 ? 'var(--blue)' : 'var(--red)';
+      btn.style.color = 'white';
+      btn.style.borderColor = btn.style.background;
+      const vbtn = document.getElementById('piv-'+i);
+      vbtn.style.opacity = '1'; vbtn.style.pointerEvents = 'auto';
     };
     grid.appendChild(btn);
   }
 }
 
-function togglePending(i) {
-  const wrap = document.getElementById('phw-' + i);
-  const isOpen = wrap.classList.contains('open');
-  document.querySelectorAll('.pending-hours-wrap').forEach(w => w.classList.remove('open'));
-  if (!isOpen) wrap.classList.add('open');
+function togglePi(i) {
+  const wrap = document.getElementById('piw-'+i);
+  const open = wrap.style.display === 'block';
+  document.querySelectorAll('[id^="piw-"]').forEach(w => w.style.display='none');
+  if (!open) wrap.style.display = 'block';
 }
 
-function resolvePending(i) {
-  const el = document.getElementById('pi-' + i);
-  el.style.opacity = '0'; el.style.transform = 'translateX(20px)';
+function resolvePi(i) {
+  const el = document.getElementById('pi-'+i);
+  el.style.opacity='0'; el.style.transform='translateX(20px)';
   pendingDone++;
-  setTimeout(() => {
-    el.remove();
-    if (pendingDone >= PENDING.length) document.getElementById('pending-section').style.display = 'none';
-  }, 400);
+  setTimeout(() => { el.remove(); if(pendingDone>=PENDING.length) document.getElementById('pending-section').style.display='none'; }, 400);
 }
 
-// ── NOTIFICATIONS ──
+// BADGES
+const BADGES = [
+  {icon:'🦸',name:'Super Héros',desc:'7 jours d\'affilée',unlocked:true},
+  {icon:'🏆',name:'Champion',desc:'10 jours streak',unlocked:true},
+  {icon:'🌟',name:'Étoile filante',desc:'30 étoiles',unlocked:true},
+  {icon:'💪',name:'Persévérant',desc:'20 jours ce mois',unlocked:true},
+  {icon:'👑',name:'Roi du cache',desc:'Objectif 7j/7',unlocked:false},
+  {icon:'🚀',name:'Décollage',desc:'1er mois complet',unlocked:false},
+  {icon:'🌈',name:'Arc-en-ciel',desc:'50 étoiles',unlocked:false},
+  {icon:'🎯',name:'Précision',desc:'100% en 1 semaine',unlocked:false},
+];
+
+function buildStars(id, total, max) {
+  const row = document.getElementById(id); if(!row) return;
+  const filled = Math.min(total % max || max, max);
+  for (let i = 0; i < max; i++) {
+    const s = document.createElement('span');
+    s.className = 'star'+(i<filled?' filled':'');
+    s.textContent = i<filled ? '⭐' : '☆';
+    s.style.animationDelay = (i*.06)+'s';
+    row.appendChild(s);
+  }
+}
+
+function buildBadgesGrid() {
+  const grid = document.getElementById('badges-grid'); if(!grid) return;
+  BADGES.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'badge-item'+(b.unlocked?' unlocked':'');
+    el.innerHTML = '<span class="badge-icon">'+b.icon+'</span><span class="badge-name">'+b.name+'</span>';
+    grid.appendChild(el);
+  });
+}
+
+function buildBadgesList(id) {
+  const list = document.getElementById(id); if(!list) return;
+  BADGES.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'badge-row'+(b.unlocked?' unlocked':'');
+    el.innerHTML = '<div class="badge-row-icon">'+b.icon+'</div><div class="badge-row-info"><div class="badge-row-name">'+b.name+'</div><div class="badge-row-desc">'+b.desc+'</div></div><div class="badge-row-status">'+(b.unlocked?'✓ Obtenu':'🔒')+'</div>';
+    list.appendChild(el);
+  });
+}
+
+// DOCS accordion
+function toggleDoc(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.doc-item.open').forEach(d => d.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+
+function toggleKit(el) {
+  el.classList.toggle('open');
+}
+
+// NOTIFICATIONS
 async function envoyerNotif(type) {
-  const ids = {cache:'status-cache', retirer:'status-retirer', rdv:'status-rdv'};
-  const statusEl = document.getElementById(ids[type]);
-  if (!('Notification' in window)) { statusEl.innerHTML = '⚠️ Non supporté'; return; }
+  const statusEl = document.getElementById('notif-status');
+  if (!('Notification' in window)) { showToast('⚠️ Non supporté sur ce navigateur','orange'); return; }
   if (Notification.permission === 'default') await demanderPermission();
   if (Notification.permission !== 'granted') {
-    statusEl.innerHTML = '⚠️ Permission refusée';
-    statusEl.style.background = 'var(--orange-light)'; statusEl.style.color = 'var(--orange-dark)';
-    setTimeout(() => { statusEl.innerHTML = '💤 En attente'; statusEl.style = ''; }, 4000);
+    if(statusEl) { statusEl.innerHTML='⚠️ Permission refusée'; statusEl.style.background='var(--orange-l)'; statusEl.style.color='var(--orange-d)'; }
+    setTimeout(() => { if(statusEl){statusEl.innerHTML='💤 En attente';statusEl.style='';} }, 4000);
     return;
   }
   const notifs = {
-    cache:   { title:'Cache-œil de Jules 🏴‍☠️', body:"Bonjour Jules, aujourd'hui mets le cache sur l'OD 👁️", url: window.location.href },
-    retirer: { title:'Bravo Jules ! 🎉', body:"Tu peux retirer ton cache ! Viens nous dire le temps passé 🌟", url: window.location.href + '#saisie' },
-    rdv:     { title:'Rappel rendez-vous 📅', body:"RDV bilan orthoptique dans 8 jours chez Mme Lecomte. Le 3 mars à 14h00.", url: window.location.href },
+    cache:   {title:'Cache-œil de Jules 🏴‍☠️', body:"Bonjour Jules, aujourd'hui mets le cache sur l'OD 👁️", url:window.location.href},
+    retirer: {title:'Bravo Jules ! 🎉', body:"Tu peux retirer ton cache ! Dis-nous combien d'heures 🌟", url:window.location.href+'#saisie'},
   };
-  const n = notifs[type];
+  const n = notifs[type] || notifs.cache;
   try {
-    if (swReg) {
-      await swReg.showNotification(n.title, { body:n.body, icon:'icon-192.png', badge:'icon-192.png', vibrate:[200,100,200], tag:type, data:{url:n.url} });
-    } else {
-      new Notification(n.title, {body:n.body});
-    }
-    statusEl.innerHTML = '✅ Notification envoyée !';
-    statusEl.style.background = 'var(--green-light)'; statusEl.style.color = 'var(--green-dark)';
-  } catch(e) { statusEl.innerHTML = '❌ ' + e.message; }
-  setTimeout(() => { statusEl.innerHTML = '💤 En attente'; statusEl.style.background = ''; statusEl.style.color = ''; }, 4000);
+    if (swReg) await swReg.showNotification(n.title, {body:n.body,icon:'icon-192.png',badge:'icon-192.png',vibrate:[200,100,200],tag:type,data:{url:n.url}});
+    else new Notification(n.title, {body:n.body});
+    if(statusEl) { statusEl.innerHTML='✅ Notification envoyée !'; statusEl.style.background='var(--green-l)'; statusEl.style.color='var(--green-d)'; }
+  } catch(e) { if(statusEl) statusEl.innerHTML='❌ '+e.message; }
+  setTimeout(() => { if(statusEl){statusEl.innerHTML='💤 En attente';statusEl.style.background='';statusEl.style.color='';} }, 4000);
 }
 
-// ── CONFETTI ──
+// CONFETTI
 function lancerConfetti() {
   const wrap = document.getElementById('confetti');
   wrap.classList.add('show'); wrap.innerHTML = '';
@@ -1157,10 +1087,19 @@ function lancerConfetti() {
   for (let i = 0; i < 70; i++) {
     const el = document.createElement('div');
     el.className = 'confetti';
-    el.style.cssText = 'left:'+Math.random()*100+'%;top:'+(-Math.random()*30)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';width:'+(6+Math.random()*8)+'px;height:'+(6+Math.random()*8)+'px;border-radius:'+(Math.random()>.5?'50%':'2px')+';--dur:'+(1+Math.random()*1.2)+'s;--delay:'+(Math.random()*.8)+'s';
+    el.style.cssText = 'left:'+Math.random()*100+'%;top:'+(-Math.random()*30)+'px;background:'+colors[~~(Math.random()*colors.length)]+';width:'+(6+Math.random()*8)+'px;height:'+(6+Math.random()*8)+'px;border-radius:'+(Math.random()>.5?'50%':'2px')+';--dur:'+(1+Math.random()*1.2)+'s;--delay:'+(Math.random()*.8)+'s';
     wrap.appendChild(el);
   }
-  setTimeout(() => { wrap.classList.remove('show'); wrap.innerHTML = ''; }, 3000);
+  setTimeout(() => { wrap.classList.remove('show'); wrap.innerHTML=''; }, 3000);
+}
+
+// TOAST
+function showToast(msg, color) {
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--'+color+');color:white;padding:10px 18px;border-radius:12px;font-size:.82rem;font-weight:700;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.15);font-family:Nunito,sans-serif;white-space:nowrap;animation:fadeUp .3s ease;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
 }
 
 function activateVtab(el) {
