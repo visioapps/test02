@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ma Page Notif</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f0f;
+      font-family: 'Courier New', monospace;
+      gap: 24px;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    #btn {
+      background: #ff3c3c;
+      color: #fff;
+      border: none;
+      padding: 20px 48px;
+      font-size: 1.2rem;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.2s;
+      box-shadow: 0 0 30px rgba(255,60,60,0.4);
+    }
+
+    #btn:active { transform: scale(0.96); }
+    #btn:hover { background: #ff5555; }
+
+    #status {
+      color: #aaa;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      min-height: 20px;
+      text-align: center;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Notifications</h1>
+  <button id="btn" onclick="sendNotif()">🔔 Envoyer Test</button>
+  <p id="status">Appuie sur le bouton pour recevoir une notification.</p>
+
+  <script>
+    async function sendNotif() {
+      const status = document.getElementById('status');
+
+      // Vérifie si le navigateur supporte les notifications
+      if (!('Notification' in window)) {
+        status.textContent = '❌ Ton navigateur ne supporte pas les notifications.';
+        return;
+      }
+
+      // Demande la permission si pas encore accordée
+      let permission = Notification.permission;
+      if (permission === 'default') {
+        permission = await Notification.requestPermission();
+      }
+
+      if (permission === 'granted') {
+        new Notification('Test', {
+          body: 'Test ✅',
+          icon: 'https://cdn-icons-png.flaticon.com/512/179/179330.png'
+        });
+        status.textContent = '✅ Notification envoyée !';
+      } else {
+        status.textContent = '⚠️ Permission refusée. Active les notifications dans les réglages.';
+      }
+    }
+  </script>
+
+</body>
+</html>
