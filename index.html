@@ -6,7 +6,6 @@
   <title>Ma Page Notif</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       min-height: 100vh;
       display: flex;
@@ -17,15 +16,7 @@
       font-family: 'Courier New', monospace;
       gap: 24px;
     }
-
-    h1 {
-      color: #ffffff;
-      font-size: 1.4rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.7;
-    }
-
+    h1 { color: #ffffff; font-size: 1.4rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
     #btn {
       background: #ff3c3c;
       color: #fff;
@@ -41,10 +32,8 @@
       transition: transform 0.1s, background 0.2s;
       box-shadow: 0 0 30px rgba(255,60,60,0.4);
     }
-
     #btn:active { transform: scale(0.96); }
     #btn:hover { background: #ff5555; }
-
     #status {
       color: #aaa;
       font-size: 0.85rem;
@@ -52,6 +41,8 @@
       min-height: 20px;
       text-align: center;
       padding: 0 20px;
+      max-width: 320px;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -59,52 +50,48 @@
 
   <h1>Notifications</h1>
   <button id="btn" onclick="sendNotif()">🔔 Envoyer Test</button>
-  <p id="status">Appuie sur le bouton pour recevoir une notification.</p>
+  <p id="status">Chargement...</p>
 
   <script>
     const status = document.getElementById('status');
+    let swReg = null;
 
-    // Dès le chargement, on demande la permission
     window.addEventListener('load', async () => {
-      if (!('Notification' in window)) {
-        status.textContent = '❌ Notifications non supportées sur ce navigateur.';
-        document.getElementById('btn').disabled = true;
+      if (!('serviceWorker' in navigator)) {
+        status.textContent = '❌ Service Worker non supporté.';
         return;
       }
-
-      status.textContent = '🔔 Permission actuelle : ' + Notification.permission;
-
-      if (Notification.permission === 'default') {
-        const perm = await Notification.requestPermission();
-        status.textContent = '🔔 Permission : ' + perm;
-      }
-    });
-
-    async function sendNotif() {
       if (!('Notification' in window)) {
         status.textContent = '❌ Notifications non supportées.';
         return;
       }
+      try {
+        swReg = await navigator.serviceWorker.register('sw.js');
+        status.textContent = '✅ Prêt. Appuie sur le bouton !';
+      } catch(e) {
+        status.textContent = '❌ Erreur SW : ' + e.message;
+      }
+    });
 
+    async function sendNotif() {
+      if (!swReg) {
+        status.textContent = '❌ Service Worker pas encore chargé, réessaie.';
+        return;
+      }
       let permission = Notification.permission;
-
       if (permission === 'default') {
         permission = await Notification.requestPermission();
       }
-
       status.textContent = '🔔 Permission : ' + permission;
-
       if (permission === 'granted') {
         try {
-          new Notification('Test', {
-            body: 'Test ✅',
-          });
+          await swReg.showNotification('Test', { body: 'Test ✅' });
           status.textContent = '✅ Notification envoyée !';
         } catch(e) {
           status.textContent = '❌ Erreur : ' + e.message;
         }
       } else {
-        status.textContent = '⚠️ Permission refusée. Va dans Paramètres Chrome → Paramètres des sites → Notifications → autorise ce site.';
+        status.textContent = '⚠️ Permission refusée. Active les notifications dans Chrome → Paramètres des sites.';
       }
     }
   </script>
