@@ -493,7 +493,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       </div>
 
     </div>
-  <!-- AJOUTER ÉVÉNEMENT -->
+  </div>
   <div style="margin:10px 16px 0;">
     <button class="add-event-btn" onclick="showToast('Bientôt disponible 🚧','blue')">
       ➕ Ajouter un événement (lunettes perdues, cassées...)
@@ -914,24 +914,31 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 let swReg = null;
 let selectedH = null;
 const OBJ = 4;
+let calYear = 2026, calMonth = 1;
+const CAL_CACHE = {};
+const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const NEXT_RDV = new Date(2026, 2, 3); // 3 mars 2026
 
 window.addEventListener('load', async () => {
-  if ('serviceWorker' in navigator) {
-    try { swReg = await navigator.serviceWorker.register('sw.js'); } catch(e) {}
-  }
-  if ('Notification' in window && Notification.permission === 'default') {
-    document.getElementById('perm-banner').style.display = 'block';
-    document.getElementById('perm-banner-2').style.display = 'block';
-  }
-  initDate();
-  buildHoursGrid();
-  buildCalendar();
-  buildStars('stars-row', 47, 10);
-  buildBadgesGrid();
-  buildBadgesList('badges-list-prog');
-  buildPending();
-  // Animate observance bar
-  setTimeout(() => { const b = document.getElementById('obs-bar'); if(b) b.style.width = '84%'; }, 400);
+  try {
+    if ('serviceWorker' in navigator) {
+      try { swReg = await navigator.serviceWorker.register('sw.js'); } catch(e) {}
+    }
+    if ('Notification' in window && Notification.permission === 'default') {
+      const b1 = document.getElementById('perm-banner');
+      const b2 = document.getElementById('perm-banner-2');
+      if(b1) b1.style.display = 'block';
+      if(b2) b2.style.display = 'block';
+    }
+    initDate();
+    buildHoursGrid();
+    buildCalendar();
+    buildStars('stars-row', 47, 10);
+    buildBadgesGrid();
+    buildBadgesList('badges-list-prog');
+    buildPending();
+    setTimeout(() => { const b = document.getElementById('obs-bar'); if(b) b.style.width = '84%'; }, 400);
+  } catch(e) { console.error('Init error:', e); }
 });
 
 async function demanderPermission() {
@@ -944,13 +951,17 @@ async function demanderPermission() {
 }
 
 function goPage(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  target.classList.add('active');
   document.querySelectorAll('.bnav').forEach(b => b.classList.remove('active'));
   const map = {'page-agenda':0,'page-progres':1,'page-docs':2,'page-reglages':3};
   const idx = map[id];
-  if (idx !== undefined) document.querySelectorAll('.bnav')[idx].classList.add('active');
-  window.scrollTo(0,0);
+  const bnavs = document.querySelectorAll('.bnav');
+  if (idx !== undefined && bnavs[idx]) bnavs[idx].classList.add('active');
+  try { window.scrollTo(0,0); } catch(e) {}
+  try { target.scrollTop = 0; document.documentElement.scrollTop = 0; document.body.scrollTop = 0; } catch(e) {}
 }
 
 function initDate() {
@@ -982,9 +993,7 @@ function updateDayBar() {
 }
 
 // ── Prescription : Lun+Mar = OD, Mer+Jeu+Ven = OG, Sam+Dim = pas de cache
-const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 // Prochain RDV : 3 mars 2026 → on remplit jusqu'au 3 mars inclus
-const NEXT_RDV = new Date(2026, 2, 3); // 3 mars 2026
 
 function eyeForDate(date) {
   const dow = date.getDay(); // 0=dim, 1=lun, 2=mar, 3=mer, 4=jeu, 5=ven, 6=sam
@@ -1046,14 +1055,12 @@ function generateRichMonth(year, month) {
   return {days, score};
 }
 
-const CAL_CACHE = {};
+
 function getCalData(year, month) {
   const key = year+'-'+String(month+1).padStart(2,'0');
   if (!CAL_CACHE[key]) CAL_CACHE[key] = generateRichMonth(year, month);
   return CAL_CACHE[key];
 }
-
-let calYear=2026, calMonth=1;
 
 function buildCalendar() {
   const data = getCalData(calYear, calMonth);
