@@ -38,7 +38,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
 /* ── HEADER ── */
 .app-header{padding:18px 16px 0;display:flex;align-items:center;justify-content:space-between;}
-.header-logo{height:34px;object-fit:contain;}
+.header-logo{height:52px;object-fit:contain;}
 .header-right{display:flex;align-items:center;gap:8px;}
 .notif-btn{width:38px;height:38px;border-radius:12px;background:var(--white);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.05rem;cursor:pointer;position:relative;box-shadow:var(--shadow);}
 .notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--white);}
@@ -49,13 +49,22 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 .section-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);padding:14px 16px 6px;}
 
 /* ── HERO ── */
-.hero{margin:12px 16px 0;background:var(--blue);border-radius:var(--r);padding:18px;color:white;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(74,144,217,.35);}
-.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,.12);border-radius:50%;}
-.hero::after{content:'';position:absolute;bottom:-20px;left:20px;width:65px;height:65px;background:rgba(255,255,255,.08);border-radius:50%;}
-.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1;}
+.hero{margin:12px 16px 0;background:var(--blue);border-radius:var(--r);padding:22px 20px 20px;color:white;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(74,144,217,.35);}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.12);border-radius:50%;}
+.hero::after{content:'';position:absolute;bottom:-20px;left:20px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%;}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;position:relative;z-index:1;}
 .hero-greeting{font-size:.7rem;font-weight:700;opacity:.85;text-transform:uppercase;letter-spacing:.5px;}
-.hero-name{font-family:'Nunito',sans-serif;font-size:1.25rem;font-weight:900;margin-top:2px;}
-.hero-mascot{font-size:2.5rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));}
+.hero-name{font-family:'Nunito',sans-serif;font-size:1.45rem;font-weight:900;margin-top:2px;}
+.hero-msg{font-size:.88rem;font-weight:600;line-height:1.55;opacity:.95;position:relative;z-index:1;margin-bottom:16px;background:rgba(255,255,255,.15);border-radius:14px;padding:12px 14px;}
+.hero-msg strong{font-weight:900;opacity:1;}
+.hero-mascot{font-size:2.8rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));flex-shrink:0;}
+/* Barre progression journée */
+.hero-day-progress{position:relative;z-index:1;margin-bottom:14px;}
+.hero-day-label{display:flex;justify-content:space-between;font-size:.68rem;font-weight:700;opacity:.85;margin-bottom:5px;}
+.hero-day-bar-bg{height:10px;background:rgba(255,255,255,.25);border-radius:20px;overflow:hidden;position:relative;}
+.hero-day-bar{height:100%;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,.6));border-radius:20px;transition:width 1s ease;}
+.hero-day-marker{position:absolute;top:-3px;width:16px;height:16px;background:white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.2);margin-left:-8px;transition:left 1s ease;}
+/* Stats */
 .hero-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;position:relative;z-index:1;}
 .hstat{background:rgba(255,255,255,.2);border-radius:14px;padding:10px 6px;text-align:center;}
 .hstat-val{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;line-height:1;}
@@ -97,25 +106,50 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 .congrats-box p{color:var(--text-m);font-size:.85rem;}
 
 /* ── CALENDRIER ── */
-.cal-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
-.cal-score-val{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.4rem;color:var(--blue);line-height:1;text-align:right;}
-.cal-score-label{font-size:.63rem;color:var(--text-m);}
+.cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cal-nav{display:flex;align-items:center;gap:8px;}
+.cal-nav-btn{width:30px;height:30px;border-radius:9px;background:var(--blue-l);border:1.5px solid var(--blue-mid);color:var(--blue);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-weight:800;}
+.cal-nav-btn:active{background:var(--blue);color:white;transform:scale(.93);}
+.cal-month-label{font-family:'Nunito',sans-serif;font-weight:900;font-size:.95rem;color:var(--text);min-width:100px;text-align:center;}
+.cal-score-val{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.35rem;color:var(--blue);line-height:1;text-align:right;}
+.cal-score-label{font-size:.62rem;color:var(--text-m);}
 .cal-day-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px;}
 .cdl{text-align:center;font-family:'Nunito',sans-serif;font-size:.6rem;font-weight:700;color:var(--text-l);text-transform:uppercase;}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
-.cday{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:700;transition:transform .15s;}
+.cday{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:.62rem;font-weight:700;transition:transform .15s;position:relative;cursor:default;}
+/* ── CDAY : fond = œil, point = observance ── */
 .cday.empty{background:none;}
 .cday.future{background:var(--bg);color:var(--text-l);}
-.cday.ok{background:var(--green);color:white;}
-.cday.partial{background:var(--orange);color:white;}
-.cday.miss{background:var(--red-l);color:var(--red);border:1.5px solid #FECACA;}
-.cday.today{background:var(--blue);color:white;box-shadow:0 3px 10px rgba(74,144,217,.35);}
-.cday.ok:hover,.cday.partial:hover,.cday.today:hover{transform:scale(1.12);}
-.cday-num{font-size:.63rem;line-height:1;}
-.cday-h{font-size:.5rem;opacity:.85;line-height:1;margin-top:1px;}
-.cal-legend{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
-.cal-leg{display:flex;align-items:center;gap:5px;font-size:.68rem;color:var(--text-m);}
-.cal-leg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+/* Œil droit → bleu */
+.cday.od-day  { background:#4A90D9; color:white; }
+/* Œil gauche → teal */
+.cday.og-day  { background:#3ABFBF; color:white; }
+/* Pas de cache → gris neutre */
+.cday.no-day  { background:#CBD5E1; color:#64748B; }
+/* Aujourd'hui → anneau bleu foncé */
+.cday.today   { background:#2E6DB4; color:white; box-shadow:0 3px 10px rgba(74,144,217,.45); }
+.cday.od-day:hover,.cday.og-day:hover,.cday.no-day:hover,.cday.today:hover{ transform:scale(1.1); }
+
+/* Point observance sous la date */
+.cday-obs-dot {
+  width:6px; height:6px; border-radius:50%; margin-top:2px; flex-shrink:0;
+  border:1px solid rgba(255,255,255,.5);
+}
+.cday-obs-dot.dot-ok      { background:#5BBF8E; }   /* objectif rempli → vert */
+.cday-obs-dot.dot-partial { background:#F0C040; }   /* partiel → ambre */
+.cday-obs-dot.dot-miss    { background:#E74C3C; }   /* pas de cache → rouge */
+.cday-obs-dot.dot-none    { background:transparent; border-color:transparent; }
+.cday-num{font-size:.6rem;line-height:1;font-weight:800;}
+.cday-eye{font-size:.44rem;font-weight:900;background:rgba(255,255,255,.25);border-radius:3px;padding:0 2px;line-height:1.4;margin-top:1px;}
+/* Légende */
+.cal-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:12px;}
+.cal-leg{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--text-m);font-weight:600;}
+.cal-leg-dot{width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;color:white;}
+.cal-leg-dot.ok{background:var(--green);}
+.cal-leg-dot.partial{background:var(--orange);}
+.cal-leg-dot.miss{background:var(--red-l);color:var(--red);border:1.5px solid #FECACA;}
+.cal-leg-dot.future{background:var(--bg);border:1.5px solid var(--border);color:var(--text-l);}
+.cal-leg-desc{line-height:1.3;}
 
 /* ── AJOUTER ÉVÉNEMENT ── */
 .add-event-btn{width:100%;padding:13px;border-radius:14px;border:2px dashed var(--blue-mid);background:var(--blue-l);color:var(--blue);font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
@@ -285,9 +319,9 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 /* ── BOTTOM NAV ── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1.5px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 16px;z-index:100;}
 .bnav{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px;border:none;background:none;font-family:'Quicksand',sans-serif;position:relative;transition:all .15s;}
-.bnav-icon{font-size:1.25rem;transition:transform .2s cubic-bezier(.34,1.56,.64,1);}
+.bnav-img{width:28px;height:28px;object-fit:contain;transition:transform .2s cubic-bezier(.34,1.56,.64,1);filter:grayscale(40%) opacity(.7);}
 .bnav-label{font-size:.58rem;font-weight:700;color:var(--text-m);}
-.bnav.active .bnav-icon{transform:scale(1.15);}
+.bnav.active .bnav-img{transform:scale(1.15);filter:grayscale(0%) opacity(1);}
 .bnav.active .bnav-label{color:var(--blue);font-weight:800;}
 .bnav-badge{position:absolute;top:0;right:50%;margin-right:-18px;background:var(--red);color:white;font-size:.5rem;font-weight:800;padding:2px 5px;border-radius:10px;font-family:'Nunito',sans-serif;min-width:16px;text-align:center;}
 
@@ -323,10 +357,28 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
   <div class="hero">
     <div class="hero-top">
       <div>
-        <div class="hero-greeting">Bonjour 👋</div>
+        <div class="hero-greeting">👋 Bonjour</div>
         <div class="hero-name" id="hero-name">Jules !</div>
       </div>
-      <div id="mascot" style="font-size:2.5rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))">🦸</div>
+      <div id="mascot" style="font-size:2.8rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));flex-shrink:0">🦸</div>
+    </div>
+    <!-- Message du jour -->
+    <div class="hero-msg" id="hero-msg-day">
+      Nous sommes <strong id="hero-date-str">...</strong><br>
+      Aujourd'hui tu dois mettre le cache sur <strong>ton œil droit</strong> de <strong>8h à 18h</strong>.<br>
+      <span style="margin-top:4px;display:block">Bon courage champion ! 💪</span>
+    </div>
+    <!-- Barre de progression de la journée -->
+    <div class="hero-day-progress">
+      <div class="hero-day-label">
+        <span>8h00 🏴‍☠️ Cache posé</span>
+        <span id="hero-now-label">maintenant</span>
+        <span>18h00 ✅</span>
+      </div>
+      <div class="hero-day-bar-bg">
+        <div class="hero-day-bar" id="hero-day-bar" style="width:0%"></div>
+        <div class="hero-day-marker" id="hero-day-marker" style="left:0%"></div>
+      </div>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-val">🔥 12</div><div class="hstat-label">Jours d'affilée</div></div>
@@ -341,18 +393,11 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     <button onclick="demanderPermission()">🔔 Activer</button>
   </div>
 
-  <!-- RAPPEL DU JOUR -->
-  <div class="section-title">📣 Rappel du jour</div>
-  <div class="rappel-jour">
-    <div class="rappel-jour-title">🏴‍☠️ Cache-œil aujourd'hui</div>
-    <div class="rappel-jour-text">Bonjour Jules, aujourd'hui n'oublie pas de mettre ton cache sur ton œil droit. Objectif : le garder de <strong>8h à 18h</strong>. Bon courage champion !</div>
-    <div class="rappel-jour-sub" id="rappel-date"></div>
-  </div>
 
-  <!-- PATCH POSÉ ? -->
-  <div class="section-title">✅ Patch posé aujourd'hui ?</div>
+
+  <!-- SAISIE HEURES -->
   <div class="card patch-card" id="saisie-card">
-    <div class="patch-question">⏱ Combien d'heures as-tu porté ton cache ?</div>
+    <div class="patch-question">⏱ Combien d'heures as-tu porté ton cache aujourd'hui ?</div>
     <div id="saisie-form">
       <div class="obj-row">
         <span>Heures de port</span>
@@ -370,7 +415,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
   <!-- JOURS NON VALIDÉS -->
   <div id="pending-section">
-    <div class="section-title">⏳ Jours non renseignés</div>
+    <div class="section-title">📋 Jours à compléter</div>
     <div style="margin:0 16px" id="pending-list"></div>
   </div>
 
@@ -378,21 +423,76 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
   <div class="section-title">📅 Calendrier mensuel</div>
   <div class="card">
     <div class="cal-hd">
-      <div>
-        <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;">Observance cache</div>
-        <div style="font-size:.74rem;color:var(--text-m);margin-top:2px;">Février 2026</div>
+      <div class="cal-nav">
+        <button class="cal-nav-btn" onclick="calPrev()">‹</button>
+        <div class="cal-month-label" id="cal-month-label">Février 2026</div>
+        <button class="cal-nav-btn" onclick="calNext()">›</button>
       </div>
-      <div><div class="cal-score-val">84%</div><div class="cal-score-label">ce mois</div></div>
+      <div><div class="cal-score-val" id="cal-score-val">84%</div><div class="cal-score-label">observance</div></div>
     </div>
     <div class="cal-day-labels"><div class="cdl">L</div><div class="cdl">M</div><div class="cdl">M</div><div class="cdl">J</div><div class="cdl">V</div><div class="cdl">S</div><div class="cdl">D</div></div>
     <div class="cal-grid" id="cal-grid"></div>
-    <div class="cal-legend">
-      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--green)"></div>Objectif ✓</div>
-      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--orange)"></div>Partiel</div>
-      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--red-l);border:1.5px solid #FECACA"></div>Manqué</div>
-    </div>
-  </div>
+    <!-- Légende 2 dimensions -->
+    <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:14px;">
 
+      <!-- Dimension 1 : couleur fond = quel œil -->
+      <div>
+        <div style="font-family:'Nunito',sans-serif;font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-m);margin-bottom:8px;">Couleur de la case = quel œil</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <!-- OD -->
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:30px;height:30px;border-radius:8px;background:#4A90D9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex-shrink:0;">
+              <span style="font-size:.56rem;font-weight:800;color:white;line-height:1;">12</span>
+              <span style="font-size:.38rem;font-weight:900;background:rgba(255,255,255,.25);border-radius:2px;padding:0 2px;color:white;line-height:1.4;">OD</span>
+              <div style="width:9px;height:9px;border-radius:50%;background:#5BBF8E;border:1.5px solid rgba(58,143,104,.5);margin-top:1px;"></div>
+            </div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Œil <strong>Droit</strong><br><span style="color:var(--text-m);font-size:.65rem;font-weight:600;">lun + mar</span></span>
+          </div>
+          <!-- OG -->
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:30px;height:30px;border-radius:8px;background:#3ABFBF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex-shrink:0;">
+              <span style="font-size:.56rem;font-weight:800;color:white;line-height:1;">15</span>
+              <span style="font-size:.38rem;font-weight:900;background:rgba(255,255,255,.25);border-radius:2px;padding:0 2px;color:white;line-height:1.4;">OG</span>
+              <div style="width:9px;height:9px;border-radius:50%;background:#5BBF8E;border:1.5px solid rgba(58,143,104,.5);margin-top:1px;"></div>
+            </div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Œil <strong>Gauche</strong><br><span style="color:var(--text-m);font-size:.65rem;font-weight:600;">mer + jeu + ven</span></span>
+          </div>
+          <!-- Weekend -->
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:30px;height:30px;border-radius:8px;background:#CBD5E1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex-shrink:0;">
+              <span style="font-size:.56rem;font-weight:800;color:#64748B;line-height:1;">8</span>
+              <span style="font-size:.38rem;font-weight:900;background:rgba(0,0,0,.1);border-radius:2px;padding:0 2px;color:#64748B;line-height:1.4;">—</span>
+              <div style="width:9px;height:9px;border-radius:50%;background:transparent;border:1.5px solid transparent;margin-top:1px;"></div>
+            </div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Pas de cache<br><span style="color:var(--text-m);font-size:.65rem;font-weight:600;">sam + dim</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dimension 2 : point rond = observance -->
+      <div>
+        <div style="font-family:'Nunito',sans-serif;font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-m);margin-bottom:8px;">Point en bas = observance du jour</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:13px;height:13px;border-radius:50%;background:#5BBF8E;border:1.5px solid rgba(58,143,104,.4);flex-shrink:0;"></div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Objectif <strong style="color:#3A8F68">rempli</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:13px;height:13px;border-radius:50%;background:#F0C040;border:1.5px solid rgba(184,134,11,.4);flex-shrink:0;"></div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);"><strong style="color:#9A7D0A">Partiel</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:13px;height:13px;border-radius:50%;background:#E74C3C;border:1.5px solid rgba(192,57,43,.4);flex-shrink:0;"></div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);"><strong style="color:#E74C3C">Manqué</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:13px;height:13px;border-radius:50%;background:rgba(100,116,139,.2);border:1.5px solid rgba(100,116,139,.5);display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:900;color:#64748B;flex-shrink:0;">?</div>
+            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Non renseigné</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   <!-- AJOUTER ÉVÉNEMENT -->
   <div style="margin:10px 16px 0;">
     <button class="add-event-btn" onclick="showToast('Bientôt disponible 🚧','blue')">
@@ -744,13 +844,13 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       <p>🔔 Active les notifications d'abord !</p>
       <button onclick="demanderPermission()">🔔 Activer</button>
     </div>
-    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--blue);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(74,144,217,.3);" onclick="envoyerNotif('cache')">
+    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--blue);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(74,144,217,.3);" onclick="envoyerNotifDelai('cache',this)">
       <span style="font-size:1.4rem">🏴‍☠️</span>
-      <span>Rappel : mettre le cache<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Envoie une notif à Jules maintenant</span></span>
+      <span>Rappel : mettre le cache<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Envoi dans 5 secondes…</span></span>
     </button>
-    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--green);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(91,191,142,.3);" onclick="envoyerNotif('retirer')">
+    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--green);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(91,191,142,.3);" onclick="envoyerNotifDelai('retirer',this)">
       <span style="font-size:1.4rem">🎉</span>
-      <span>Prêt à remplir l'observance<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Notifie Jules de retirer son cache</span></span>
+      <span>Prêt à remplir l'observance<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Envoi dans 5 secondes…</span></span>
     </button>
     <div class="notif-status" id="notif-status">💤 En attente</div>
   </div>
@@ -800,10 +900,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
 <!-- ── BOTTOM NAV ── -->
 <nav class="bottom-nav">
-  <button class="bnav active" onclick="goPage('page-agenda')"><span class="bnav-icon">📅</span><span class="bnav-label">Mon agenda</span></button>
-  <button class="bnav" onclick="goPage('page-progres')"><span class="bnav-icon">📈</span><span class="bnav-label">Mes progrès</span></button>
-  <button class="bnav" onclick="goPage('page-docs')"><span class="bnav-icon">📚</span><span class="bnav-label">Mes Docs</span></button>
-  <button class="bnav" onclick="goPage('page-reglages')"><span class="bnav-icon">⚙️</span><span class="bnav-label">Réglages</span></button>
+  <button class="bnav active" id="bnav-0" onclick="goPage('page-agenda')"><img class="bnav-img" src="calendrier.png" alt="agenda"><span class="bnav-label">Mon agenda</span></button>
+  <button class="bnav" id="bnav-1" onclick="goPage('page-progres')"><img class="bnav-img" src="progres.png" alt="progrès"><span class="bnav-label">Mes progrès</span></button>
+  <button class="bnav" id="bnav-2" onclick="goPage('page-docs')"><img class="bnav-img" src="docs.png" alt="docs"><span class="bnav-label">Mes Docs</span></button>
+  <button class="bnav" id="bnav-3" onclick="goPage('page-reglages')"><img class="bnav-img" src="reglages.png" alt="réglages"><span class="bnav-label">Réglages</span></button>
 </nav>
 
 <!-- CONFETTI -->
@@ -857,9 +957,179 @@ function initDate() {
   const d = new Date();
   const J = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
   const M = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  const el = document.getElementById('rappel-date');
-  if(el) el.textContent = J[d.getDay()] + ' ' + d.getDate() + ' ' + M[d.getMonth()] + ' ' + d.getFullYear();
+  const str = J[d.getDay()] + ' ' + d.getDate() + ' ' + M[d.getMonth()] + ' ' + d.getFullYear();
+  const el = document.getElementById('hero-date-str');
+  if(el) el.textContent = str;
+  const el2 = document.getElementById('rappel-date');
+  if(el2) el2.textContent = str;
+  updateDayBar();
+  setInterval(updateDayBar, 60000);
 }
+
+function updateDayBar() {
+  const now = new Date();
+  const startMin = 8*60, endMin = 18*60;
+  const nowMin = now.getHours()*60 + now.getMinutes();
+  let pct = 0;
+  if (nowMin >= startMin && nowMin <= endMin) pct = Math.round((nowMin-startMin)/(endMin-startMin)*100);
+  else if (nowMin > endMin) pct = 100;
+  const bar = document.getElementById('hero-day-bar');
+  const marker = document.getElementById('hero-day-marker');
+  const label = document.getElementById('hero-now-label');
+  if(bar) setTimeout(()=>{ bar.style.width=pct+'%'; }, 400);
+  if(marker) setTimeout(()=>{ marker.style.left=pct+'%'; }, 400);
+  if(label) { const hh=now.getHours(),mm=String(now.getMinutes()).padStart(2,'0'); label.textContent=hh+'h'+mm; }
+}
+
+// ── Prescription : Lun+Mar = OD, Mer+Jeu+Ven = OG, Sam+Dim = pas de cache
+const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+// Prochain RDV : 3 mars 2026 → on remplit jusqu'au 3 mars inclus
+const NEXT_RDV = new Date(2026, 2, 3); // 3 mars 2026
+
+function eyeForDate(date) {
+  const dow = date.getDay(); // 0=dim, 1=lun, 2=mar, 3=mer, 4=jeu, 5=ven, 6=sam
+  if (dow === 1 || dow === 2) return 'OD';      // lun + mar
+  if (dow === 3 || dow === 4 || dow === 5) return 'OG'; // mer + jeu + ven
+  return 'none'; // sam + dim
+}
+
+function buildDayEntry(year, month, d) {
+  const date = new Date(year, month, d);
+  const today = new Date(); today.setHours(0,0,0,0);
+  date.setHours(0,0,0,0);
+  const isToday = date.getTime() === today.getTime();
+  const isFuture = date > today;
+  const pastRdv = date > NEXT_RDV;
+
+  if (isToday) return {d, s:'today', eye: eyeForDate(date), obs:'?'};
+  if (isFuture || pastRdv) return {d, s:'future'};
+
+  const eye = eyeForDate(date);
+  // Observance simulée : quelques partiels et un manqué pour la démo
+  const dateKey = year*10000 + (month+1)*100 + d;
+  const partials = [20260204, 20260207, 20260214, 20260218, 20260221];
+  const missed   = [20260209];
+  const unknown  = [20260219, 20260221, 20260222]; // jours non renseignés
+
+  let obs;
+  if (unknown.includes(dateKey)) obs = '?';
+  else if (missed.includes(dateKey)) obs = 'miss';
+  else if (partials.includes(dateKey)) obs = 'partial';
+  else obs = 'ok';
+
+  // Statut global de la case
+  const s = obs === 'miss' ? 'miss' : obs === 'partial' ? 'partial' : obs === '?' ? 'unknown' : 'ok';
+  return {d, s, eye, obs};
+}
+
+function generateRichMonth(year, month) {
+  const firstDate = new Date(year, month, 1);
+  const dow = firstDate.getDay();
+  const firstDow = (dow === 0 ? 6 : dow - 1);
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const days = [];
+  for (let i = 0; i < firstDow; i++) days.push(null);
+  for (let d = 1; d <= daysInMonth; d++) days.push(buildDayEntry(year, month, d));
+  // Calcul score (jours passés non-weekend avec obs=ok ou partial)
+  const today = new Date(); today.setHours(0,0,0,0);
+  let total = 0, ok = 0;
+  days.forEach(day => {
+    if (!day) return;
+    const date = new Date(year, month, day.d); date.setHours(0,0,0,0);
+    if (date >= today || day.s === 'future') return;
+    if (day.eye === 'none') return; // weekend = pas de prescription
+    total++;
+    if (day.obs === 'ok') ok++;
+    else if (day.obs === 'partial') ok += 0.5;
+  });
+  const score = total > 0 ? Math.round(ok/total*100) : null;
+  return {days, score};
+}
+
+const CAL_CACHE = {};
+function getCalData(year, month) {
+  const key = year+'-'+String(month+1).padStart(2,'0');
+  if (!CAL_CACHE[key]) CAL_CACHE[key] = generateRichMonth(year, month);
+  return CAL_CACHE[key];
+}
+
+let calYear=2026, calMonth=1;
+
+function buildCalendar() {
+  const data = getCalData(calYear, calMonth);
+  const label = document.getElementById('cal-month-label');
+  if(label) label.textContent = MONTHS_FR[calMonth]+' '+calYear;
+  const scoreEl = document.getElementById('cal-score-val');
+  if(scoreEl) scoreEl.textContent = data.score != null ? data.score+'%' : '—';
+  const grid = document.getElementById('cal-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  data.days.forEach(day => {
+    const el = document.createElement('div');
+    el.style.cssText = 'aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Nunito,sans-serif;font-size:.62rem;font-weight:700;transition:transform .15s;position:relative;cursor:default;gap:1px;';
+
+    if (!day) {
+      el.style.background = 'none';
+      grid.appendChild(el); return;
+    }
+    if (day.s === 'future') {
+      el.style.cssText += 'background:var(--bg);color:var(--text-l);';
+      el.innerHTML = '<span style="font-size:.6rem;line-height:1;color:var(--text-l)">'+day.d+'</span>';
+      grid.appendChild(el); return;
+    }
+    if (day.s === 'today') {
+      el.style.cssText += 'background:#2E6DB4;color:white;box-shadow:0 3px 10px rgba(74,144,217,.45);';
+      const eyeLbl = day.eye==='OD'?'OD':day.eye==='OG'?'OG':'—';
+      el.innerHTML =
+        '<span style="font-size:.68rem;font-weight:900;line-height:1;color:white">'+day.d+'</span>'+
+        '<span style="font-size:.5rem;font-weight:900;background:rgba(255,255,255,.3);border-radius:3px;padding:1px 3px;color:white;line-height:1.5;">'+eyeLbl+'</span>'+
+        '<div style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.45);border:2px solid rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:900;color:white;margin-top:1px;">?</div>';
+      el.addEventListener('mouseenter', ()=>el.style.transform='scale(1.1)');
+      el.addEventListener('mouseleave', ()=>el.style.transform='');
+      grid.appendChild(el); return;
+    }
+
+    // Couleur fond = quel œil
+    let bgColor, textColor, eyeLabel, eyeBg, eyeTextC;
+    if (day.eye === 'OD') {
+      bgColor='#4A90D9'; textColor='white'; eyeLabel='OD';
+      eyeBg='rgba(255,255,255,.3)'; eyeTextC='white';
+    } else if (day.eye === 'OG') {
+      bgColor='#3ABFBF'; textColor='white'; eyeLabel='OG';
+      eyeBg='rgba(255,255,255,.3)'; eyeTextC='white';
+    } else {
+      bgColor='#CBD5E1'; textColor='#475569'; eyeLabel='—';
+      eyeBg='rgba(0,0,0,.12)'; eyeTextC='#475569';
+    }
+
+    // Point observance — plus grand, texte lisible
+    let dotBg, dotBorder, dotContent='', dotColor='white', dotSize='11px';
+    if (day.obs === 'ok')       { dotBg='#27AE60'; dotBorder='rgba(39,174,96,.5)'; }
+    else if (day.obs==='partial'){ dotBg='#F39C12'; dotBorder='rgba(243,156,18,.5)'; }
+    else if (day.obs==='miss')  { dotBg='#E74C3C'; dotBorder='rgba(231,76,60,.5)'; }
+    else if (day.obs==='?')     {
+      dotBg='rgba(255,255,255,.45)'; dotBorder='rgba(255,255,255,.8)';
+      dotContent='?'; dotColor= day.eye==='none'?'#475569':'white';
+    }
+    else { dotBg='transparent'; dotBorder='transparent'; dotSize='0px'; }
+
+    el.style.cssText += 'background:'+bgColor+';color:'+textColor+';';
+    el.innerHTML =
+      // Numéro du jour — grand et lisible
+      '<span style="font-size:.68rem;font-weight:900;line-height:1;color:'+textColor+'">'+day.d+'</span>'+
+      // Badge œil — fond blanc semi-transparent, texte blanc gras
+      '<span style="font-size:.5rem;font-weight:900;background:'+eyeBg+';border-radius:3px;padding:1px 3px;color:'+eyeTextC+';line-height:1.5;letter-spacing:.02em;">'+eyeLabel+'</span>'+
+      // Dot observance — 11px, couleur forte, texte ? si inconnu
+      '<div style="width:'+dotSize+';height:'+dotSize+';border-radius:50%;background:'+dotBg+';border:2px solid '+dotBorder+';display:flex;align-items:center;justify-content:center;font-size:.38rem;font-weight:900;color:'+dotColor+';margin-top:1px;flex-shrink:0;">'+dotContent+'</div>';
+
+    el.addEventListener('mouseenter', ()=>el.style.transform='scale(1.1)');
+    el.addEventListener('mouseleave', ()=>el.style.transform='');
+    grid.appendChild(el);
+  });
+}
+
+function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} buildCalendar(); }
+function calNext() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} buildCalendar(); }
 
 function buildHoursGrid() {
   const grid = document.getElementById('hours-grid');
@@ -920,47 +1190,54 @@ function validerSaisie() {
   }
 }
 
-function buildCalendar() {
-  const data = [
-    null,null,null,null,null,null,
-    {d:1,s:'ok',h:'4h'},{d:2,s:'ok',h:'5h'},{d:3,s:'ok',h:'4h'},
-    {d:4,s:'partial',h:'2h'},{d:5,s:'ok',h:'4h'},{d:6,s:'ok',h:'4h'},
-    {d:7,s:'partial',h:'3h'},{d:8,s:'ok',h:'4h'},{d:9,s:'miss',h:'0h'},
-    {d:10,s:'ok',h:'4h'},{d:11,s:'ok',h:'4h'},{d:12,s:'ok',h:'5h'},
-    {d:13,s:'ok',h:'4h'},{d:14,s:'partial',h:'2h'},{d:15,s:'ok',h:'4h'},
-    {d:16,s:'ok',h:'4h'},{d:17,s:'ok',h:'3h'},{d:18,s:'ok',h:'4h'},
-    {d:19,s:'ok',h:'4h'},{d:20,s:'ok',h:'4h'},{d:21,s:'partial',h:'3h'},
-    {d:22,s:'ok',h:'4h'},{d:23,s:'today',h:'?'},
-    {d:24,s:'future'},{d:25,s:'future'},{d:26,s:'future'},{d:27,s:'future'},{d:28,s:'future'},
-  ];
-  const grid = document.getElementById('cal-grid');
-  if(!grid) return;
-  data.forEach(day => {
-    const el = document.createElement('div');
-    if (!day) { el.className = 'cday empty'; }
-    else {
-      el.className = 'cday ' + day.s;
-      el.innerHTML = '<span class="cday-num">'+day.d+'</span>' + (day.h?'<span class="cday-h">'+day.h+'</span>':'');
-    }
-    grid.appendChild(el);
-  });
-}
 
-const PENDING = [{d:19,label:'Jeudi 19 fév'},{d:21,label:'Sam. 21 fév'},{d:22,label:'Dim. 22 fév'}];
+const PENDING = [
+  {d:23, label:"Aujourd'hui", month:'Fév', isToday:true},
+  {d:19, label:'Jeudi 19 fév', month:'Fév', isToday:false},
+  {d:21, label:'Sam. 21 fév', month:'Fév', isToday:false},
+];
 let pendingDone = 0;
 function buildPending() {
   const list = document.getElementById('pending-list');
   if(!list) return;
+  const now = new Date();
+  const after18 = now.getHours() >= 18;
+
   PENDING.forEach((day, i) => {
+    const isLocked = day.isToday && !after18;
     const el = document.createElement('div');
     el.className = 'pending-item';
     el.id = 'pi-' + i;
     el.style.cssText = 'background:white;border-radius:16px;border:2px solid var(--orange-l);padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;box-shadow:var(--shadow);flex-wrap:wrap;transition:opacity .4s,transform .4s;';
+
+    const dateBg = day.isToday ? 'var(--blue)' : 'var(--orange-l)';
+    const dateBorder = day.isToday ? 'var(--blue)' : 'var(--orange)';
+    const dateTxtColor = day.isToday ? 'white' : 'var(--orange-d)';
+    const dayNum = day.isToday ? '📅' : day.d;
+
+    let btnHtml;
+    if (isLocked) {
+      btnHtml = '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">' +
+        '<button style="padding:6px 12px;border-radius:10px;background:var(--bg);border:1.5px solid var(--border);color:var(--text-l);font-family:Nunito,sans-serif;font-weight:700;font-size:.74rem;cursor:not-allowed;" disabled>🔒 Après 18h</button>' +
+        '<span style="font-size:.6rem;color:var(--text-m);">disponible ce soir</span>' +
+        '</div>';
+    } else {
+      btnHtml = '<button style="padding:6px 12px;border-radius:10px;background:var(--blue-l);border:1.5px solid var(--blue);color:var(--blue);font-family:Nunito,sans-serif;font-weight:700;font-size:.74rem;cursor:pointer;" onclick="togglePi('+i+')">Renseigner →</button>';
+    }
+
     el.innerHTML =
-      '<div style="width:42px;height:46px;border-radius:12px;background:var(--orange-l);border:2px solid var(--orange);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;"><div style="font-family:Nunito,sans-serif;font-weight:900;font-size:1rem;color:var(--orange-d);line-height:1;">'+day.d+'</div><div style="font-size:.58rem;font-weight:700;color:var(--orange-d);text-transform:uppercase">Fév</div></div>'+
-      '<div style="flex:1"><div style="font-family:Nunito,sans-serif;font-weight:800;font-size:.85rem;">'+day.label+'</div><div style="font-size:.7rem;color:var(--text-m);margin-top:2px;">Cache OD · objectif '+OBJ+'h</div></div>'+
-      '<button style="padding:6px 12px;border-radius:10px;background:var(--blue-l);border:1.5px solid var(--blue);color:var(--blue);font-family:Nunito,sans-serif;font-weight:700;font-size:.74rem;cursor:pointer;" onclick="togglePi('+i+')">Renseigner →</button>'+
+      '<div style="width:42px;height:46px;border-radius:12px;background:'+dateBg+';border:2px solid '+dateBorder+';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">' +
+        '<div style="font-family:Nunito,sans-serif;font-weight:900;font-size:'+(day.isToday?'1.3':'1')+'rem;color:'+dateTxtColor+';line-height:1;">'+dayNum+'</div>' +
+        (day.isToday ? '' : '<div style="font-size:.58rem;font-weight:700;color:'+dateTxtColor+';text-transform:uppercase">'+day.month+'</div>') +
+      '</div>'+
+      '<div style="flex:1">'+
+        '<div style="font-family:Nunito,sans-serif;font-weight:800;font-size:.85rem;color:'+(day.isToday?'var(--blue)':'var(--text)')+'">'+day.label+'</div>'+
+        '<div style="font-size:.7rem;color:var(--text-m);margin-top:2px;">Cache OD · objectif '+OBJ+'h</div>'+
+        (isLocked ? '<div style="font-size:.65rem;color:var(--orange-d);margin-top:3px;font-weight:600;">⏰ Disponible après 18h00</div>' : '') +
+      '</div>'+
+      btnHtml+
       '<div id="piw-'+i+'" style="width:100%;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:none;">'+
+        '<div style="font-size:.75rem;color:var(--text-m);margin-bottom:8px;font-weight:600;">Heures portées ce jour :</div>'+
         '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px" id="pig-'+i+'"></div>'+
         '<button id="piv-'+i+'" style="width:100%;padding:11px;border-radius:12px;border:none;background:var(--green);color:white;font-family:Nunito,sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;opacity:.5;pointer-events:none;" onclick="resolvePi('+i+')">✓ Valider ce jour</button>'+
       '</div>';
@@ -1057,6 +1334,25 @@ function toggleKit(el) {
 }
 
 // NOTIFICATIONS
+function envoyerNotifDelai(type, btn) {
+  let secs = 5;
+  const originalHTML = btn.querySelector('span:last-child').innerHTML;
+  btn.disabled = true;
+  btn.style.opacity = '.7';
+  btn.querySelector('span:last-child').innerHTML = 'Envoi dans <strong>'+secs+'s</strong>…<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Prends ton téléphone !</span>';
+  const interval = setInterval(() => {
+    secs--;
+    if (secs > 0) {
+      btn.querySelector('span:last-child').innerHTML = 'Envoi dans <strong>'+secs+'s</strong>…<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Prends ton téléphone !</span>';
+    } else {
+      clearInterval(interval);
+      btn.querySelector('span:last-child').innerHTML = originalHTML;
+      btn.disabled = false; btn.style.opacity = '1';
+      envoyerNotif(type);
+    }
+  }, 1000);
+}
+
 async function envoyerNotif(type) {
   const statusEl = document.getElementById('notif-status');
   if (!('Notification' in window)) { showToast('⚠️ Non supporté sur ce navigateur','orange'); return; }
