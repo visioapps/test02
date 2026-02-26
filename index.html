@@ -117,30 +117,34 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 .cdl{text-align:center;font-family:'Nunito',sans-serif;font-size:.6rem;font-weight:700;color:var(--text-l);text-transform:uppercase;}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
 .cday{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:.62rem;font-weight:700;transition:transform .15s;position:relative;cursor:default;}
-/* ── CDAY : fond = œil, point = observance ── */
+/* Toutes les cases = bleu clair uniforme */
 .cday.empty{background:none;}
-.cday.future{background:var(--bg);color:var(--text-l);}
-/* Œil droit → bleu */
-.cday.od-day  { background:#4A90D9; color:white; }
-/* Œil gauche → teal */
-.cday.og-day  { background:#3ABFBF; color:white; }
-/* Pas de cache → gris neutre */
-.cday.no-day  { background:#CBD5E1; color:#64748B; }
-/* Aujourd'hui → anneau bleu foncé */
-.cday.today   { background:#2E6DB4; color:white; box-shadow:0 3px 10px rgba(74,144,217,.45); }
-.cday.od-day:hover,.cday.og-day:hover,.cday.no-day:hover,.cday.today:hover{ transform:scale(1.1); }
-
-/* Point observance sous la date */
-.cday-obs-dot {
-  width:6px; height:6px; border-radius:50%; margin-top:2px; flex-shrink:0;
-  border:1px solid rgba(255,255,255,.5);
+.cday.future{background:#F0F7FF;color:var(--text-l);}
+.cday.cal-normal, .cday.today { background:#C8E4FA; color:#1A3A5C; }
+.cday.today { background:#4A90D9; color:white; box-shadow:0 2px 8px rgba(74,144,217,.4); }
+.cday.cal-normal:hover,.cday.today:hover{ transform:scale(1.08); }
+/* Badge intérieur : couleur de l'œil */
+.cday-eye-badge{
+  font-size:.42rem; font-weight:900; line-height:1.4;
+  padding:1px 3px; border-radius:3px; margin-top:2px;
 }
-.cday-obs-dot.dot-ok      { background:#5BBF8E; }   /* objectif rempli → vert */
-.cday-obs-dot.dot-partial { background:#F0C040; }   /* partiel → ambre */
-.cday-obs-dot.dot-miss    { background:#E74C3C; }   /* pas de cache → rouge */
-.cday-obs-dot.dot-none    { background:transparent; border-color:transparent; }
+.eye-badge-od  { background:#4A90D9; color:white; }  /* bleu */
+.eye-badge-og  { background:#2EAFAF; color:white; }  /* teal doux */
+.eye-badge-none{ background:#94A3B8; color:white; }  /* gris */
+/* Point observance — coin haut droit */
+.cday-obs-dot {
+  position:absolute; top:3px; right:3px;
+  width:7px; height:7px; border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.7);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.32rem;font-weight:900;
+}
+.dot-ok      { background:#27AE60; }
+.dot-partial { background:#F39C12; }
+.dot-miss    { background:#E74C3C; }
+.dot-unknown { background:rgba(100,116,139,.35); border-color:rgba(100,116,139,.6); color:#64748B; }
+.dot-none    { display:none; }
 .cday-num{font-size:.6rem;line-height:1;font-weight:800;}
-.cday-eye{font-size:.44rem;font-weight:900;background:rgba(255,255,255,.25);border-radius:3px;padding:0 2px;line-height:1.4;margin-top:1px;}
 /* Légende */
 .cal-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:12px;}
 .cal-leg{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--text-m);font-weight:600;}
@@ -363,16 +367,17 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       <div id="mascot" style="font-size:2.8rem;animation:bounce 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));flex-shrink:0">🦸</div>
     </div>
     <!-- Message du jour -->
-    <div class="hero-msg" id="hero-msg-day">
-      Nous sommes <strong id="hero-date-str">...</strong><br>
-      Aujourd'hui : cache sur<br><span style="font-size:1.15rem;font-weight:900;letter-spacing:.01em;">👁 ton œil droit</span><br><span style="font-size:.85rem;opacity:.9;">de 8h à 18h · objectif 10h 🎯</span>
-      <span style="margin-top:4px;display:block">Bon courage champion ! 💪</span>
+    <div class="hero-msg" id="hero-msg-day" style="text-align:center;">
+      Aujourd'hui, colle le cache sur ton :<br>
+      <span style="font-size:1.1rem;font-weight:900;letter-spacing:.05em;display:block;margin:8px 0 6px;text-shadow:0 2px 8px rgba(0,0,0,.18);">👁 &nbsp;ŒIL DROIT</span>
+      <span style="font-size:.88rem;font-weight:600;opacity:.92;">de 8h à 18h &nbsp;·&nbsp; Objectif 10h 🚀</span>
+      <span style="margin-top:6px;display:block;font-size:.82rem;opacity:.85;">Bon courage champion !</span>
     </div>
     <!-- Barre de progression de la journée -->
     <div class="hero-day-progress">
       <div class="hero-day-label">
         <span>8h00</span>
-        <span id="hero-now-label">maintenant</span>
+        <span></span>
         <span>18h00</span>
       </div>
       <div class="hero-day-bar-bg">
@@ -381,9 +386,9 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       </div>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-val">🔥 12</div><div class="hstat-label">Jours d'affilée</div></div>
-      <div class="hstat"><div class="hstat-val">84%</div><div class="hstat-label">Ce mois</div></div>
-      <div class="hstat"><div class="hstat-val">⭐ 47</div><div class="hstat-label">Étoiles</div></div>
+      <div class="hstat"><div style="font-size:.6rem;font-weight:700;opacity:.75;margin-bottom:2px;">J'ai réussi à porter le cache :</div><div class="hstat-val">🔥 12</div><div class="hstat-label">Jours d'affilée</div></div>
+      <div class="hstat"><div style="font-size:.6rem;font-weight:700;opacity:.75;margin-bottom:2px;">J'ai atteint :</div><div class="hstat-val">84%</div><div class="hstat-label">de mes objectifs ce mois-ci</div></div>
+      <div class="hstat"><div style="font-size:.6rem;font-weight:700;opacity:.75;margin-bottom:2px;">J'ai gagné :</div><div class="hstat-val">⭐ 47</div><div class="hstat-label">Étoiles</div></div>
     </div>
   </div>
 
@@ -417,48 +422,21 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     </div>
     <div class="cal-day-labels"><div class="cdl">L</div><div class="cdl">M</div><div class="cdl">M</div><div class="cdl">J</div><div class="cdl">V</div><div class="cdl">S</div><div class="cdl">D</div></div>
     <div class="cal-grid" id="cal-grid"></div>
-    <!-- Légende 2 dimensions -->
-    <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:14px;">
-      <div>
-        <div style="font-family:'Nunito',sans-serif;font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-m);margin-bottom:8px;">Couleur de la case = quel œil</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <div style="display:flex;align-items:center;gap:5px;">
-            <div style="width:30px;height:30px;border-radius:8px;background:#4A90D9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex-shrink:0;">
-              <span style="font-size:.56rem;font-weight:800;color:white;line-height:1;">12</span>
-              <span style="font-size:.38rem;font-weight:900;background:rgba(255,255,255,.25);border-radius:2px;padding:0 2px;color:white;line-height:1.4;">OD</span>
-              <div style="width:9px;height:9px;border-radius:50%;background:#5BBF8E;border:1.5px solid rgba(58,143,104,.5);margin-top:1px;"></div>
-            </div>
-            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Œil <strong>Droit</strong><br><span style="color:var(--text-m);font-size:.65rem;font-weight:600;">lun + mar</span></span>
-          </div>
-          <div style="display:flex;align-items:center;gap:5px;">
-            <div style="width:30px;height:30px;border-radius:8px;background:#3ABFBF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex-shrink:0;">
-              <span style="font-size:.56rem;font-weight:800;color:white;line-height:1;">15</span>
-              <span style="font-size:.38rem;font-weight:900;background:rgba(255,255,255,.25);border-radius:2px;padding:0 2px;color:white;line-height:1.4;">OG</span>
-              <div style="width:9px;height:9px;border-radius:50%;background:#5BBF8E;border:1.5px solid rgba(58,143,104,.5);margin-top:1px;"></div>
-            </div>
-            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Œil <strong>Gauche</strong><br><span style="color:var(--text-m);font-size:.65rem;font-weight:600;">mer + jeu + ven</span></span>
-          </div>
-          <div style="display:flex;align-items:center;gap:5px;">
-            <div style="width:30px;height:30px;border-radius:8px;background:#CBD5E1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex-shrink:0;">
-              <span style="font-size:.56rem;font-weight:800;color:#64748B;line-height:1;">8</span>
-              <span style="font-size:.38rem;font-weight:900;background:rgba(0,0,0,.1);border-radius:2px;padding:0 2px;color:#64748B;line-height:1.4;">—</span>
-              <div style="width:9px;height:9px;border-radius:50%;background:transparent;border:1.5px solid transparent;margin-top:1px;"></div>
-            </div>
-            <span style="font-size:.75rem;font-weight:700;color:var(--text);">Pas de cache<br><span style="color:var(--text-m);font-size:.65rem;font-weight:600;">sam + dim</span></span>
-          </div>
-        </div>
+    <!-- Légende calendrier simplifiée -->
+    <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:700;color:var(--text);display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4A90D9;flex-shrink:0;"></span> OD</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2EAFAF;flex-shrink:0;"></span> OG</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#94A3B8;flex-shrink:0;"></span> Pause</div>
       </div>
-      <div>
-        <div style="font-family:'Nunito',sans-serif;font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-m);margin-bottom:8px;">Point en bas = observance du jour</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:6px;"><div style="width:13px;height:13px;border-radius:50%;background:#27AE60;border:1.5px solid rgba(39,174,96,.4);flex-shrink:0;"></div><span style="font-size:.75rem;font-weight:700;color:var(--text);">Objectif <strong style="color:#27AE60">rempli</strong></span></div>
-          <div style="display:flex;align-items:center;gap:6px;"><div style="width:13px;height:13px;border-radius:50%;background:#F39C12;border:1.5px solid rgba(243,156,18,.4);flex-shrink:0;"></div><span style="font-size:.75rem;font-weight:700;color:var(--text);"><strong style="color:#9A7D0A">Partiel</strong></span></div>
-          <div style="display:flex;align-items:center;gap:6px;"><div style="width:13px;height:13px;border-radius:50%;background:#E74C3C;border:1.5px solid rgba(231,76,60,.4);flex-shrink:0;"></div><span style="font-size:.75rem;font-weight:700;color:var(--text);"><strong style="color:#E74C3C">Manqué</strong></span></div>
-          <div style="display:flex;align-items:center;gap:6px;"><div style="width:13px;height:13px;border-radius:50%;background:rgba(100,116,139,.2);border:1.5px solid rgba(100,116,139,.5);display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:900;color:#64748B;flex-shrink:0;">?</div><span style="font-size:.75rem;font-weight:700;color:var(--text);">Non renseigné</span></div>
-        </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#27AE60;flex-shrink:0;"></span> Objectif rempli</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#F39C12;flex-shrink:0;"></span> Objectif partiel</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#E74C3C;flex-shrink:0;"></span> Objectif manqué</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(100,116,139,.3);border:1px solid #94A3B8;font-size:.4rem;font-weight:900;color:#64748B;display:flex;align-items:center;justify-content:center;flex-shrink:0;">?</span> Non renseigné</div>
       </div>
     </div>
-  </div>
+    </div>
 
   <div style="margin:10px 16px 0;">
     <button class="add-event-btn" onclick="showToast('Bientôt disponible 🚧','blue')">
@@ -579,14 +557,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
   <!-- BADGES -->
   <div class="section-title">🏆 Badges & récompenses</div>
-  <div class="card">
-    <div class="card-title">⭐ Étoiles gagnées</div>
-    <div class="stars-row" id="stars-row"></div>
-    <div class="stars-sub">47 étoiles sur 50 — continue comme ça Jules ! 💪</div>
-    <div class="badges-grid" id="badges-grid"></div>
-  </div>
-
-  <div style="margin:10px 16px;display:flex;flex-direction:column;gap:8px;" id="badges-list-prog"></div>
+  <div class="card" id="badges-section"></div>
   <div style="height:8px"></div>
 
 </div>
@@ -860,6 +831,14 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       <div class="settings-arrow">›</div>
     </div>
   </div>
+  <!-- RÉCOMPENSES PARENTALES -->
+  <div class="section-title">🎁 Les récompenses</div>
+  <div class="card">
+    <div style="font-family:'Nunito',sans-serif;font-size:.82rem;color:var(--text-m);font-weight:600;margin-bottom:12px;line-height:1.5;">
+      Définissez les récompenses que Jules gagnera à chaque badge débloqué. C'est facultatif !
+    </div>
+    <div id="rewards-form"></div>
+  </div>
   <div style="height:8px"></div>
 
 </div>
@@ -901,6 +880,7 @@ window.addEventListener('load', async () => {
     buildCalendar();
     buildStars('stars-row', 47, 10);
     buildBadgesGrid();
+    buildRewardsForm();
     buildBadgesList('badges-list-prog');
     buildPending();
     setTimeout(() => { const b = document.getElementById('obs-bar'); if(b) b.style.width = '84%'; }, 400);
@@ -1039,63 +1019,43 @@ function buildCalendar() {
   grid.innerHTML = '';
   data.days.forEach(day => {
     const el = document.createElement('div');
-    el.style.cssText = 'aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Nunito,sans-serif;font-size:.62rem;font-weight:700;transition:transform .15s;position:relative;cursor:default;gap:1px;';
+    el.className = 'cday';
 
     if (!day) {
-      el.style.background = 'none';
+      el.classList.add('empty');
       grid.appendChild(el); return;
     }
     if (day.s === 'future') {
-      el.style.cssText += 'background:var(--bg);color:var(--text-l);';
-      el.innerHTML = '<span style="font-size:.6rem;line-height:1;color:var(--text-l)">'+day.d+'</span>';
+      el.classList.add('future');
+      el.innerHTML = '<span style="font-size:.58rem;line-height:1;color:var(--text-l)">'+day.d+'</span>';
       grid.appendChild(el); return;
     }
+
+    // Toutes les cases = bleu clair uniforme
+    el.classList.add('cal-normal');
     if (day.s === 'today') {
-      el.style.cssText += 'background:#2E6DB4;color:white;box-shadow:0 3px 10px rgba(74,144,217,.45);';
-      const eyeLbl = day.eye==='OD'?'OD':day.eye==='OG'?'OG':'—';
-      el.innerHTML =
-        '<span style="font-size:.68rem;font-weight:900;line-height:1;color:white">'+day.d+'</span>'+
-        '<span style="font-size:.5rem;font-weight:900;background:rgba(255,255,255,.3);border-radius:3px;padding:1px 3px;color:white;line-height:1.5;">'+eyeLbl+'</span>'+
-        '<div style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.45);border:2px solid rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:900;color:white;margin-top:1px;">?</div>';
-      el.addEventListener('mouseenter', ()=>el.style.transform='scale(1.1)');
-      el.addEventListener('mouseleave', ()=>el.style.transform='');
-      grid.appendChild(el); return;
+      el.classList.remove('cal-normal');
+      el.classList.add('today');
     }
 
-    // Couleur fond = quel œil
-    let bgColor, textColor, eyeLabel, eyeBg, eyeTextC;
-    if (day.eye === 'OD') {
-      bgColor='#4A90D9'; textColor='white'; eyeLabel='OD';
-      eyeBg='rgba(255,255,255,.3)'; eyeTextC='white';
-    } else if (day.eye === 'OG') {
-      bgColor='#3ABFBF'; textColor='white'; eyeLabel='OG';
-      eyeBg='rgba(255,255,255,.3)'; eyeTextC='white';
-    } else {
-      bgColor='#CBD5E1'; textColor='#475569'; eyeLabel='—';
-      eyeBg='rgba(0,0,0,.12)'; eyeTextC='#475569';
-    }
+    // Badge de l'œil (couleur distincte)
+    const eyeLabel = day.eye==='OD' ? 'OD' : day.eye==='OG' ? 'OG' : '—';
+    const eyeBadgeClass = day.eye==='OD' ? 'eye-badge-od' : day.eye==='OG' ? 'eye-badge-og' : 'eye-badge-none';
 
-    // Point observance — plus grand, texte lisible
-    let dotBg, dotBorder, dotContent='', dotColor='white', dotSize='11px';
-    if (day.obs === 'ok')       { dotBg='#27AE60'; dotBorder='rgba(39,174,96,.5)'; }
-    else if (day.obs==='partial'){ dotBg='#F39C12'; dotBorder='rgba(243,156,18,.5)'; }
-    else if (day.obs==='miss')  { dotBg='#E74C3C'; dotBorder='rgba(231,76,60,.5)'; }
-    else if (day.obs==='?')     {
-      dotBg='rgba(255,255,255,.45)'; dotBorder='rgba(255,255,255,.8)';
-      dotContent='?'; dotColor= day.eye==='none'?'#475569':'white';
-    }
-    else { dotBg='transparent'; dotBorder='transparent'; dotSize='0px'; }
+    // Dot observance (coin haut droit via CSS position:absolute)
+    const dotClass = day.obs==='ok' ? 'dot-ok'
+      : day.obs==='partial' ? 'dot-partial'
+      : day.obs==='miss' ? 'dot-miss'
+      : day.obs==='?' ? 'dot-unknown'
+      : 'dot-none';
+    const dotContent = day.obs==='?' ? '?' : '';
 
-    el.style.cssText += 'background:'+bgColor+';color:'+textColor+';';
     el.innerHTML =
-      // Numéro du jour — grand et lisible
-      '<span style="font-size:.68rem;font-weight:900;line-height:1;color:'+textColor+'">'+day.d+'</span>'+
-      // Badge œil — fond blanc semi-transparent, texte blanc gras
-      '<span style="font-size:.5rem;font-weight:900;background:'+eyeBg+';border-radius:3px;padding:1px 3px;color:'+eyeTextC+';line-height:1.5;letter-spacing:.02em;">'+eyeLabel+'</span>'+
-      // Dot observance — 11px, couleur forte, texte ? si inconnu
-      '<div style="width:'+dotSize+';height:'+dotSize+';border-radius:50%;background:'+dotBg+';border:2px solid '+dotBorder+';display:flex;align-items:center;justify-content:center;font-size:.38rem;font-weight:900;color:'+dotColor+';margin-top:1px;flex-shrink:0;">'+dotContent+'</div>';
+      '<div class="cday-obs-dot '+dotClass+'">'+dotContent+'</div>' +
+      '<span class="cday-num">'+day.d+'</span>' +
+      '<span class="cday-eye-badge '+eyeBadgeClass+'">'+eyeLabel+'</span>';
 
-    el.addEventListener('mouseenter', ()=>el.style.transform='scale(1.1)');
+    el.addEventListener('mouseenter', ()=>el.style.transform='scale(1.08)');
     el.addEventListener('mouseleave', ()=>el.style.transform='');
     grid.appendChild(el);
   });
@@ -1185,8 +1145,8 @@ function buildPending() {
 
   PENDING.forEach((day, i) => {
     const isLocked = day.isToday && !after18;
-    const eyeColor = day.eye === 'OD' ? '#4A90D9' : '#3ABFBF';
-    const eyeBg    = day.eye === 'OD' ? '#EBF4FB' : '#E8F8F8';
+    const eyeColor = '#4A90D9';
+  const eyeBg    = '#EBF4FB';
     const el = document.createElement('div');
     el.id = 'pi-' + i;
     el.style.cssText = 'border-radius:16px;border:2px solid '+eyeColor+'33;padding:14px;margin-bottom:10px;background:'+eyeBg+';transition:opacity .4s,transform .4s;';
@@ -1384,49 +1344,91 @@ function resolvePi(i) {
 function togglePi(i) { /* legacy compat */ }
 function buildPiGrid(i) { /* legacy compat */ }
 
-// BADGES
+// BADGES — 1 badge tous les 10 étoiles (1 étoile/jour si observance > 80%)
+const TOTAL_STARS = 47; // étoiles actuelles Jules
+const STARS_PER_BADGE = 10;
 const BADGES = [
-  {icon:'🦸',name:'Super Héros',desc:'7 jours d\'affilée',unlocked:true},
-  {icon:'🏆',name:'Champion',desc:'10 jours streak',unlocked:true},
-  {icon:'🌟',name:'Étoile filante',desc:'30 étoiles',unlocked:true},
-  {icon:'💪',name:'Persévérant',desc:'20 jours ce mois',unlocked:true},
-  {icon:'👑',name:'Roi du cache',desc:'Objectif 7j/7',unlocked:false},
-  {icon:'🚀',name:'Décollage',desc:'1er mois complet',unlocked:false},
-  {icon:'🌈',name:'Arc-en-ciel',desc:'50 étoiles',unlocked:false},
-  {icon:'🎯',name:'Précision',desc:'100% en 1 semaine',unlocked:false},
+  {icon:'🌱',name:'Courageux',    desc:'10 étoiles',  stars:10,  unlocked:true},
+  {icon:'💪',name:'Persévérant', desc:'20 étoiles',  stars:20,  unlocked:true},
+  {icon:'🎯',name:'Déterminé',   desc:'30 étoiles',  stars:30,  unlocked:true},
+  {icon:'🏅',name:'Champion',    desc:'40 étoiles',  stars:40,  unlocked:true},
+  {icon:'⭐',name:'Héros',        desc:'50 étoiles',  stars:50,  unlocked:false},
+  {icon:'🦸',name:'Super-Héros', desc:'60 étoiles',  stars:60,  unlocked:false},
+  {icon:'🔬',name:'Expert',       desc:'70 étoiles',  stars:70,  unlocked:false},
+  {icon:'🎓',name:'Maître',       desc:'80 étoiles',  stars:80,  unlocked:false},
+  {icon:'👑',name:'Grand Maître', desc:'90 étoiles',  stars:90,  unlocked:false},
+  {icon:'🌟',name:'Légende',      desc:'100 étoiles', stars:100, unlocked:false},
 ];
 
-function buildStars(id, total, max) {
-  const row = document.getElementById(id); if(!row) return;
-  const filled = Math.min(total % max || max, max);
-  for (let i = 0; i < max; i++) {
-    const s = document.createElement('span');
-    s.className = 'star'+(i<filled?' filled':'');
-    s.textContent = i<filled ? '⭐' : '☆';
-    s.style.animationDelay = (i*.06)+'s';
-    row.appendChild(s);
+// Récompenses parentales (stockées localement)
+function loadRewards() {
+  try { return JSON.parse(localStorage.getItem('amblyup_rewards') || '{}'); } catch(e) { return {}; }
+}
+function saveReward(idx, text) {
+  const r = loadRewards(); r[idx] = text;
+  try { localStorage.setItem('amblyup_rewards', JSON.stringify(r)); } catch(e) {}
+}
+
+function buildStars(id, total, max) { /* legacy */ }
+
+function buildBadgesSection() {
+  const wrap = document.getElementById('badges-section'); if(!wrap) return;
+  const stars = TOTAL_STARS;
+  const currentBadgeIdx = BADGES.filter(b => b.unlocked).length - 1;
+  const nextBadge = BADGES.find(b => !b.unlocked);
+  const starsInLevel = stars % STARS_PER_BADGE || STARS_PER_BADGE;
+  const starsToNext = nextBadge ? (nextBadge.stars - stars) : 0;
+  const rewards = loadRewards();
+
+  // Grande étoile centrale
+  let html = '<div style="text-align:center;padding:8px 0 4px;">' +
+    '<div style="font-size:3rem;font-weight:900;font-family:Nunito,sans-serif;color:#F39C12;line-height:1;">⭐ '+stars+'</div>' +
+    '<div style="font-size:.8rem;color:#64748B;font-weight:600;margin-top:4px;">gagné</div>';
+
+  if (nextBadge) {
+    html += '<div style="font-size:.78rem;color:#4A90D9;font-weight:700;margin-top:10px;background:#EBF4FB;border-radius:10px;padding:8px 12px;">' +
+      '⭐ Plus que <strong>'+starsToNext+' étoile'+(starsToNext>1?'s':'')+'</strong> avant le badge <strong>'+nextBadge.name+' '+nextBadge.icon+'</strong></div>';
   }
+  html += '</div>';
+
+  // Séparateur
+  html += '<div style="border-top:1px solid #E8F0F8;margin:14px 0 10px;"></div>';
+
+  // Titre badges
+  html += '<div style="font-family:Nunito,sans-serif;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#94A3B8;margin-bottom:10px;">Mes badges</div>';
+
+  // Liste badges
+  BADGES.forEach((b, i) => {
+    const reward = rewards[i] || '';
+    if (b.unlocked) {
+      html += '<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:linear-gradient(135deg,#EBF4FB,#E8F8F4);border:1.5px solid #4A90D933;margin-bottom:8px;">' +
+        '<div style="font-size:1.8rem;flex-shrink:0;">'+b.icon+'</div>' +
+        '<div style="flex:1;">' +
+          '<div style="font-family:Nunito,sans-serif;font-weight:900;font-size:.9rem;color:#2E6DB4;">'+b.name+'</div>' +
+          '<div style="font-size:.7rem;color:#64748B;margin-top:1px;">'+b.desc+' · ✓ Obtenu</div>' +
+          (reward ? '<div style="font-size:.72rem;color:#27AE60;font-weight:700;margin-top:4px;">🎁 Récompense : '+reward+'</div>' : '') +
+        '</div>' +
+        '<div style="font-size:1rem;color:#27AE60;font-weight:900;">✓</div>' +
+      '</div>';
+    } else if (i <= currentBadgeIdx + 5) {
+      // Afficher les 5 prochains non débloqués
+      html += '<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:#F8FAFC;border:1.5px dashed #CBD5E1;margin-bottom:8px;opacity:.75;">' +
+        '<div style="font-size:1.8rem;flex-shrink:0;filter:grayscale(80%);">'+b.icon+'</div>' +
+        '<div style="flex:1;">' +
+          '<div style="font-family:Nunito,sans-serif;font-weight:800;font-size:.9rem;color:#64748B;">'+b.name+'</div>' +
+          '<div style="font-size:.7rem;color:#94A3B8;margin-top:1px;">'+b.desc+' · 🔒 À débloquer</div>' +
+          (reward ? '<div style="font-size:.72rem;color:#F39C12;font-weight:700;margin-top:4px;">🎁 Récompense prévue : '+reward+'</div>' : '') +
+        '</div>' +
+        '<div style="font-size:1rem;color:#CBD5E1;">🔒</div>' +
+      '</div>';
+    }
+  });
+
+  wrap.innerHTML = html;
 }
 
-function buildBadgesGrid() {
-  const grid = document.getElementById('badges-grid'); if(!grid) return;
-  BADGES.forEach(b => {
-    const el = document.createElement('div');
-    el.className = 'badge-item'+(b.unlocked?' unlocked':'');
-    el.innerHTML = '<span class="badge-icon">'+b.icon+'</span><span class="badge-name">'+b.name+'</span>';
-    grid.appendChild(el);
-  });
-}
-
-function buildBadgesList(id) {
-  const list = document.getElementById(id); if(!list) return;
-  BADGES.forEach(b => {
-    const el = document.createElement('div');
-    el.className = 'badge-row'+(b.unlocked?' unlocked':'');
-    el.innerHTML = '<div class="badge-row-icon">'+b.icon+'</div><div class="badge-row-info"><div class="badge-row-name">'+b.name+'</div><div class="badge-row-desc">'+b.desc+'</div></div><div class="badge-row-status">'+(b.unlocked?'✓ Obtenu':'🔒')+'</div>';
-    list.appendChild(el);
-  });
-}
+function buildBadgesGrid() { buildBadgesSection(); }
+function buildBadgesList(id) { /* merged into buildBadgesSection */ }
 
 // DOCS accordion
 function toggleDoc(el) {
@@ -1494,6 +1496,35 @@ function lancerConfetti() {
   }
   setTimeout(() => { wrap.classList.remove('show'); wrap.innerHTML=''; }, 3000);
 }
+
+// RÉCOMPENSES PARENTALES
+function buildRewardsForm() {
+  const wrap = document.getElementById('rewards-form'); if(!wrap) return;
+  const rewards = loadRewards();
+  const currentBadgeIdx = BADGES.filter(b=>b.unlocked).length - 1;
+  let html = '';
+  for (let i = currentBadgeIdx; i < Math.min(currentBadgeIdx + 7, BADGES.length); i++) {
+    const b = BADGES[i];
+    if (!b) continue;
+    const val = rewards[i] || '';
+    const isNext = (i === currentBadgeIdx + 1);
+    html += '<div style="margin-bottom:12px;">' +
+      '<label style="display:flex;align-items:center;gap:8px;font-family:Nunito,sans-serif;font-weight:800;font-size:.82rem;color:var(--text);margin-bottom:5px;">' +
+        '<span style="font-size:1.2rem;">'+b.icon+'</span>' +
+        '<span>'+b.name+'</span>' +
+        (isNext ? '<span style="font-size:.65rem;background:var(--blue);color:white;border-radius:6px;padding:1px 6px;font-weight:700;">Prochain</span>' : '') +
+        '<span style="font-size:.65rem;color:var(--text-m);font-weight:600;">'+b.desc+'</span>' +
+      '</label>' +
+      '<input type="text" placeholder="Ex: sortie ciné, jouet surprise… (facultatif)" value="'+val+'" '+
+        'data-idx="'+i+'" '+
+        'oninput="saveReward(this.dataset.idx, this.value); buildBadgesSection();" '+
+        'style="width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);font-family:Nunito,sans-serif;font-size:.8rem;font-weight:600;color:var(--text);background:var(--bg);outline:none;" '+
+        'onfocus="this.style.borderColor=\'var(--blue)\'" onblur="this.style.borderColor=\'var(--border)\'">' +
+    '</div>';
+  }
+  wrap.innerHTML = html;
+}
+
 
 // TOAST
 function showToast(msg, color) {
