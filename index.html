@@ -131,6 +131,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 .eye-badge-od  { background:#4A90D9; color:white; }  /* bleu */
 .eye-badge-og  { background:#2EAFAF; color:white; }  /* teal doux */
 .eye-badge-none{ background:#94A3B8; color:white; }  /* gris */
+.eye-badge-pause{ background:transparent; color:#94A3B8; font-size:.7rem !important; line-height:1; } /* tasse café */
 /* Point observance — coin haut droit */
 .cday-obs-dot {
   position:absolute; top:3px; right:3px;
@@ -385,10 +386,12 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
         <div class="hero-day-marker" id="hero-day-marker" style="left:0%"></div>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="hstat"><div style="font-size:.6rem;font-weight:700;opacity:.75;margin-bottom:2px;">J'ai réussi à porter le cache :</div><div class="hstat-val">🔥 12</div><div class="hstat-label">Jours d'affilée</div></div>
-      <div class="hstat"><div style="font-size:.6rem;font-weight:700;opacity:.75;margin-bottom:2px;">J'ai atteint :</div><div class="hstat-val">84%</div><div class="hstat-label">de mes objectifs ce mois-ci</div></div>
-      <div class="hstat"><div style="font-size:.6rem;font-weight:700;opacity:.75;margin-bottom:2px;">J'ai gagné :</div><div class="hstat-val">⭐ 47</div><div class="hstat-label">Étoiles</div></div>
+    <!-- Info rythme prescrit -->
+    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:8px 12px;font-size:.67rem;font-weight:600;opacity:.92;line-height:1.7;position:relative;z-index:1;">
+      Rythme en cours depuis le 15 jan. 2026 :<br>
+      <span style="font-weight:800;">Lundi · Mardi</span> → Œil droit &nbsp;·&nbsp;
+      <span style="font-weight:800;">Mercredi · Jeudi · Vendredi</span> → Œil gauche &nbsp;·&nbsp;
+      <span style="font-weight:800;">Samedi · Dimanche</span> → Pause
     </div>
   </div>
 
@@ -427,13 +430,14 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
         <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4A90D9;flex-shrink:0;"></span> OD</div>
         <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2EAFAF;flex-shrink:0;"></span> OG</div>
-        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#94A3B8;flex-shrink:0;"></span> Pause</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#94A3B8;flex-shrink:0;"></span> Pause ☕</div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
         <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#27AE60;flex-shrink:0;"></span> Objectif rempli</div>
         <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#F39C12;flex-shrink:0;"></span> Objectif partiel</div>
         <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#E74C3C;flex-shrink:0;"></span> Objectif manqué</div>
         <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(100,116,139,.3);border:1px solid #94A3B8;font-size:.4rem;font-weight:900;color:#64748B;display:flex;align-items:center;justify-content:center;flex-shrink:0;">?</span> Non renseigné</div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;border:2px solid #F39C12;flex-shrink:0;font-size:.55rem;display:flex;align-items:center;justify-content:center;">🏥</span> RDV médical</div>
       </div>
     </div>
     </div>
@@ -446,31 +450,58 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
   <!-- RDV -->
   <div class="section-title">🗓 Mes rendez-vous</div>
-  <div class="rdv-list">
-    <div class="rdv-item">
-      <div class="rdv-date-box next"><div class="rdv-day">03</div><div class="rdv-mois">Mar</div></div>
-      <div class="rdv-info">
-        <div class="rdv-type">Bilan orthoptique</div>
-        <div class="rdv-detail">14h00 · Mme Lecomte <span class="rdv-badge next">Dans 8 jours</span></div>
+  <div style="margin:0 16px;display:flex;flex-direction:column;gap:8px;">
+
+    <!-- RDV prochain : orthoptiste -->
+    <div style="background:white;border-radius:16px;border:2px solid #4A90D9;box-shadow:0 4px 14px rgba(74,144,217,.18);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s;" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform=''">
+      <div style="width:48px;height:52px;border-radius:13px;background:#4A90D9;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(74,144,217,.35);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1.15rem;color:white;line-height:1;">03</div>
+        <div style="font-size:.6rem;font-weight:700;color:rgba(255,255,255,.88);text-transform:uppercase;">Mar</div>
       </div>
-      <div class="rdv-arrow">›</div>
-    </div>
-    <div class="rdv-item">
-      <div class="rdv-date-box fut"><div class="rdv-day">07</div><div class="rdv-mois" style="color:var(--text-m)">Avr</div></div>
-      <div class="rdv-info">
-        <div class="rdv-type">Contrôle ophtalmologue</div>
-        <div class="rdv-detail">10h30 · Dr. Benali <span class="rdv-badge ok">Confirmé ✓</span></div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+          <span style="font-size:1rem;">🏥</span>
+          <span style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;color:#1A3A5C;">Bilan orthoptique</span>
+        </div>
+        <div style="font-size:.75rem;color:#64748B;">14h00 · Mme Lecomte</div>
+        <div style="margin-top:4px;"><span style="font-size:.65rem;background:#EBF4FB;color:#2E6DB4;border-radius:6px;padding:2px 7px;font-weight:700;border:1px solid #C8E4FA;">📅 Dans 5 jours</span></div>
       </div>
-      <div class="rdv-arrow">›</div>
+      <div style="font-size:1.2rem;color:#4A90D9;">›</div>
     </div>
-    <div class="rdv-item">
-      <div class="rdv-date-box warn"><div class="rdv-day" style="color:var(--orange-d)">?</div><div class="rdv-mois" style="color:var(--orange-d)">Jun</div></div>
-      <div class="rdv-info">
-        <div class="rdv-type">Prochain suivi</div>
-        <div class="rdv-detail"><span class="rdv-badge attente">À planifier</span></div>
+
+    <!-- RDV ophtalmo -->
+    <div style="background:white;border-radius:16px;border:2px solid #2EAFAF;box-shadow:0 3px 10px rgba(46,175,175,.12);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s;" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform=''">
+      <div style="width:48px;height:52px;border-radius:13px;background:#2EAFAF;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(46,175,175,.25);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1.15rem;color:white;line-height:1;">07</div>
+        <div style="font-size:.6rem;font-weight:700;color:rgba(255,255,255,.88);text-transform:uppercase;">Avr</div>
       </div>
-      <div class="rdv-arrow">›</div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+          <span style="font-size:1rem;">👁</span>
+          <span style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;color:#1A3A5C;">Contrôle ophtalmologue</span>
+        </div>
+        <div style="font-size:.75rem;color:#64748B;">10h30 · Dr. Benali</div>
+        <div style="margin-top:4px;"><span style="font-size:.65rem;background:#E8F8F8;color:#1A7A7A;border-radius:6px;padding:2px 7px;font-weight:700;border:1px solid #B2E8E8;">✓ Confirmé</span></div>
+      </div>
+      <div style="font-size:1.2rem;color:#2EAFAF;">›</div>
     </div>
+
+    <!-- RDV à planifier -->
+    <div style="background:white;border-radius:16px;border:2px dashed #F39C12;box-shadow:0 3px 10px rgba(243,156,18,.1);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s;" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform=''">
+      <div style="width:48px;height:52px;border-radius:13px;background:#FEF3C7;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:2px dashed #F39C12;">
+        <div style="font-size:1.4rem;">📋</div>
+      </div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+          <span style="font-size:1rem;">🩺</span>
+          <span style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;color:#1A3A5C;">Prochain suivi</span>
+        </div>
+        <div style="font-size:.75rem;color:#64748B;">Juin · Dr. Benali</div>
+        <div style="margin-top:4px;"><span style="font-size:.65rem;background:#FEF3C7;color:#92400E;border-radius:6px;padding:2px 7px;font-weight:700;border:1px solid #FDE68A;">⏰ À planifier</span></div>
+      </div>
+      <div style="font-size:1.2rem;color:#F39C12;">›</div>
+    </div>
+
   </div>
 
   <!-- PRENDRE RDV -->
@@ -491,6 +522,65 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
   </div>
 
+  <!-- ENCART BADGE ACTUEL -->
+  <div style="margin:0 16px 0;border-radius:18px;background:#5BBF8E;padding:20px;box-shadow:0 6px 20px rgba(91,191,142,.28);color:white;position:relative;overflow:hidden;"><div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.12);border-radius:50%;pointer-events:none;"></div><div style="position:absolute;bottom:-20px;left:20px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none;"></div>
+    <div style="font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;opacity:.85;margin-bottom:10px;">Badge actuel</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <div style="font-size:3rem;filter:drop-shadow(0 3px 6px rgba(0,0,0,.15));">🏅</div>
+      <div>
+        <div style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">Champion</div>
+        <div style="font-size:.8rem;opacity:.88;margin-top:3px;">40 étoiles atteintes ✓</div>
+      </div>
+    </div>
+    <!-- Ronds KPI -->
+    <div style="display:flex;justify-content:space-around;gap:8px;position:relative;z-index:1;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+        <span style="font-size:.68rem;font-weight:800;opacity:.9;text-align:center;line-height:1.4;">J'ai réussi à<br>porter le cache :</span>
+        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);">
+          <span style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">12</span>
+        </div>
+        <span style="font-size:.65rem;font-weight:700;opacity:.88;text-align:center;">jours d'affilée</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+        <span style="font-size:.68rem;font-weight:800;opacity:.9;text-align:center;line-height:1.4;">J'ai atteint :<br>&nbsp;</span>
+        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);">
+          <span style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">84%</span>
+        </div>
+        <span style="font-size:.65rem;font-weight:700;opacity:.88;text-align:center;">de mes objectifs<br>ce mois-ci</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+        <span style="font-size:.68rem;font-weight:800;opacity:.9;text-align:center;line-height:1.4;">J'ai gagné :<br>&nbsp;</span>
+        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);">
+          <span style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">47</span>
+        </div>
+        <span style="font-size:.65rem;font-weight:700;opacity:.88;text-align:center;">étoiles ⭐</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCHAIN BADGE -->
+  <div style="margin:10px 16px 0;border-radius:16px;background:white;border:2px dashed #5BBF8E;padding:16px;box-shadow:0 3px 12px rgba(91,191,142,.12);">
+    <div style="font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#27AE60;margin-bottom:10px;">🎯 Prochain objectif</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="font-size:2rem;filter:grayscale(60%);">⭐</div>
+        <div>
+          <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:#1A3A5C;">Héros</div>
+          <div style="font-size:.72rem;color:#64748B;margin-top:2px;">50 étoiles · encore <strong style="color:#27AE60;">3 étoiles</strong></div>
+          <div id="next-badge-reward" style="font-size:.7rem;color:#F39C12;font-weight:700;margin-top:3px;display:none;">🎁 <span id="next-reward-text"></span></div>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:.65rem;color:#94A3B8;font-weight:600;">Progression</div>
+        <div style="font-size:1.1rem;font-weight:900;color:#27AE60;">47/50</div>
+      </div>
+    </div>
+    <!-- Mini barre de progression vers prochain badge -->
+    <div style="margin-top:10px;background:#EAF9F1;border-radius:10px;height:8px;overflow:hidden;">
+      <div style="height:100%;width:94%;background:linear-gradient(90deg,#27AE60,#2ECC71);border-radius:10px;transition:width 1s ease;"></div>
+    </div>
+  </div>
+
   <!-- COURBE VISION -->
   <div class="section-title">👁 Courbe d'acuité visuelle</div>
   <div class="card">
@@ -503,7 +593,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       </div>
     </div>
     <div class="vision-eyes">
-      <div class="eye-stat eye-od"><div class="eye-label">Œil droit (OD)</div><div class="eye-val">5/10</div><div class="eye-prog">↑ +2/10 depuis déc.</div></div>
+      <div class="eye-stat eye-od"><div class="eye-label">Œil droit (OD)</div><div class="eye-val">6/10</div><div class="eye-prog">↑ +2/10 depuis déc.</div></div>
       <div class="eye-stat eye-og"><div class="eye-label">Œil gauche (OG)</div><div class="eye-val">9/10</div><div class="eye-prog">↑ +1/10 depuis déc.</div></div>
     </div>
     <div class="chart-wrap">
@@ -519,18 +609,20 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
           <line x1="0" y1="48" x2="340" y2="48" stroke="#EAF4FF" stroke-width="1"/>
           <line x1="0" y1="72" x2="340" y2="72" stroke="#EAF4FF" stroke-width="1"/>
           <line x1="0" y1="96" x2="340" y2="96" stroke="#EAF4FF" stroke-width="1"/>
-          <polygon points="0,67 56,67 113,58 170,58 226,48 340,48 340,100 0,100" fill="url(#gOD)"/>
-          <polyline points="0,67 56,67 113,58 170,58 226,48 340,48" fill="none" stroke="#4A90D9" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-          <circle cx="0" cy="67" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="113" cy="58" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="226" cy="48" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="340" cy="48" r="5" fill="#4A90D9" stroke="white" stroke-width="2.5"/>
-          <text x="326" y="41" font-size="9" fill="#2E6DB4" font-weight="800" font-family="Nunito">5/10</text>
-          <polygon points="0,19 56,19 113,19 170,10 226,10 340,10 340,50 0,50" fill="url(#gOG)"/>
-          <polyline points="0,19 56,19 113,19 170,10 226,10 340,10" fill="none" stroke="#5BBF8E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-          <circle cx="0" cy="19" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="113" cy="19" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="226" cy="10" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="340" cy="10" r="5" fill="#5BBF8E" stroke="white" stroke-width="2.5"/>
-          <text x="326" y="6" font-size="9" fill="#3A8F68" font-weight="800" font-family="Nunito">9/10</text>
-          <text x="0" y="115" font-size="8" fill="#C8E4FA" font-family="Nunito" font-weight="700" text-anchor="middle">Nov</text>
-          <text x="113" y="115" font-size="8" fill="#C8E4FA" font-family="Nunito" font-weight="700" text-anchor="middle">Jan</text>
-          <text x="226" y="115" font-size="8" fill="#C8E4FA" font-family="Nunito" font-weight="700" text-anchor="middle">Mar</text>
-          <text x="340" y="115" font-size="8" fill="#7F8C8D" font-family="Nunito" font-weight="800" text-anchor="middle">Auj.</text>
+          <polygon points="0,108 68,96 136,72 204,84 272,72 340,48 340,120 0,120" fill="url(#gOD)"/>
+          <polyline points="0,108 68,96 136,72 204,84 272,72 340,48" fill="none" stroke="#4A90D9" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="0" cy="108" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="68" cy="96" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="136" cy="72" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="204" cy="84" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="272" cy="72" r="4" fill="#4A90D9" stroke="white" stroke-width="2"/><circle cx="340" cy="48" r="5" fill="#4A90D9" stroke="white" stroke-width="2.5"/>
+          <text x="326" y="41" font-size="9" fill="#2E6DB4" font-weight="800" font-family="Nunito">6/10</text>
+          <polygon points="0,12 68,6 136,0 204,6 272,12 340,12 340,50 0,50" fill="url(#gOG)"/>
+          <polyline points="0,12 68,6 136,0 204,6 272,12 340,12" fill="none" stroke="#5BBF8E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="0" cy="12" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="68" cy="6" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="136" cy="0" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="204" cy="6" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="272" cy="12" r="4" fill="#5BBF8E" stroke="white" stroke-width="2"/><circle cx="340" cy="12" r="5" fill="#5BBF8E" stroke="white" stroke-width="2.5"/>
+          <text x="326" y="8" font-size="9" fill="#3A8F68" font-weight="800" font-family="Nunito">9/10</text>
+          <text x="0" y="115" font-size="8" fill="#94A3B8" font-family="Nunito" font-weight="700" text-anchor="middle">Nov</text>
+          <text x="68" y="115" font-size="8" fill="#94A3B8" font-family="Nunito" font-weight="700" text-anchor="middle">Déc</text>
+          <text x="136" y="115" font-size="8" fill="#94A3B8" font-family="Nunito" font-weight="700" text-anchor="middle">Jan</text>
+          <text x="204" y="115" font-size="8" fill="#94A3B8" font-family="Nunito" font-weight="700" text-anchor="middle">Fév</text>
+          <text x="272" y="115" font-size="8" fill="#94A3B8" font-family="Nunito" font-weight="700" text-anchor="middle">Mar</text>
+          <text x="340" y="115" font-size="8" fill="#4A90D9" font-family="Nunito" font-weight="800" text-anchor="middle">Auj.</text>
         </svg>
       </div>
     </div>
@@ -785,7 +877,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       <span style="font-size:1.4rem">🏴‍☠️</span>
       <span>Rappel : mettre le cache<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Envoi dans 5 secondes…</span></span>
     </button>
-    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--green);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(91,191,142,.3);" onclick="envoyerNotifDelai('retirer',this)">
+    <button class="rappel-btn-test" style="width:100%;border:none;border-radius:14px;padding:16px;margin-bottom:8px;background:var(--green);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;box-shadow:0 4px 14px rgba(91,191,142,.3);" onclick="envoyerNotifDelai('soir',this)">
       <span style="font-size:1.4rem">🎉</span>
       <span>Prêt à remplir l'observance<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Envoi dans 5 secondes…</span></span>
     </button>
@@ -863,38 +955,64 @@ let calYear = 2026, calMonth = 1;
 const CAL_CACHE = {};
 const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 const NEXT_RDV = new Date(2026, 2, 3); // 3 mars 2026
+// RDV médicaux à afficher dans le calendrier
+const RDV_DAYS = {
+  '2026-3-3':  {icon:'🏥', label:'Orthoptiste'},
+  '2026-4-7':  {icon:'👁',  label:'Ophtalmo'},
+};
 
 window.addEventListener('load', async () => {
   try {
     if ('serviceWorker' in navigator) {
-      try { swReg = await navigator.serviceWorker.register('sw.js'); } catch(e) {}
+      try {
+        swReg = await navigator.serviceWorker.register('sw.js');
+        // Attend que le SW soit actif puis programme les alarmes si permission déjà accordée
+        const waitActive = () => {
+          const sw = swReg.installing || swReg.waiting || swReg.active;
+          if (!sw) return;
+          if (sw.state === 'activated') {
+            if (Notification.permission === 'granted') {
+              sw.postMessage('SCHEDULE_NOTIFS');
+            }
+          } else {
+            sw.addEventListener('statechange', () => {
+              if (sw.state === 'activated' && Notification.permission === 'granted') {
+                sw.postMessage('SCHEDULE_NOTIFS');
+              }
+            });
+          }
+        };
+        waitActive();
+      } catch(e) { console.warn('SW registration failed:', e); }
     }
+
     if ('Notification' in window && Notification.permission === 'default') {
       const b1 = document.getElementById('perm-banner');
       const b2 = document.getElementById('perm-banner-2');
-      if(b1) b1.style.display = 'block';
-      if(b2) b2.style.display = 'block';
+      if (b1) b1.style.display = 'block';
+      if (b2) b2.style.display = 'block';
     }
+
+    checkDeepLink();
     initDate();
     buildHoursGrid();
     buildCalendar();
-    buildStars('stars-row', 47, 10);
-    buildBadgesGrid();
+    buildBadgesSection();
     buildRewardsForm();
-    buildBadgesList('badges-list-prog');
     buildPending();
+    // Show next badge reward if defined
+    const rewards = loadRewards();
+    const nextIdx = BADGES.findIndex(b => !b.unlocked);
+    if (nextIdx !== -1 && rewards[nextIdx]) {
+      const el = document.getElementById('next-badge-reward');
+      const txt = document.getElementById('next-reward-text');
+      if (el && txt) { txt.textContent = rewards[nextIdx]; el.style.display = 'block'; }
+    }
     setTimeout(() => { const b = document.getElementById('obs-bar'); if(b) b.style.width = '84%'; }, 400);
   } catch(e) { console.error('Init error:', e); }
 });
 
-async function demanderPermission() {
-  const perm = await Notification.requestPermission();
-  if (perm === 'granted') {
-    document.getElementById('perm-banner').style.display = 'none';
-    document.getElementById('perm-banner-2').style.display = 'none';
-    showToast('🔔 Notifications activées !','green');
-  }
-}
+// demanderPermission définie plus bas avec le système complet
 
 function goPage(id) {
   const target = document.getElementById(id);
@@ -957,7 +1075,11 @@ function buildDayEntry(year, month, d) {
   const pastRdv = date > NEXT_RDV;
 
   if (isToday) return {d, s:'today', eye: eyeForDate(date), obs:'?'};
-  if (isFuture || pastRdv) return {d, s:'future'};
+  if (isFuture) {
+    // Toujours inclure l'œil pour les jours futurs (affichage du rythme prescrit)
+    return {d, s:'future', eye: eyeForDate(date)};
+  }
+  if (pastRdv) return {d, s:'future', eye: eyeForDate(date)};
 
   const eye = eyeForDate(date);
   // Observance simulée : quelques partiels et un manqué pour la démo
@@ -1025,33 +1147,61 @@ function buildCalendar() {
       el.classList.add('empty');
       grid.appendChild(el); return;
     }
+
+    // Check RDV médical ce jour
+    const rdvKey = calYear+'-'+(calMonth+1)+'-'+day.d;
+    const rdv = RDV_DAYS[rdvKey];
+
     if (day.s === 'future') {
       el.classList.add('future');
-      el.innerHTML = '<span style="font-size:.58rem;line-height:1;color:var(--text-l)">'+day.d+'</span>';
+      if (rdv) { el.style.outline='2.5px solid #F39C12'; el.style.outlineOffset='1px'; el.style.borderRadius='9px'; }
+
+      const eyeLbl = day.eye==='OD' ? 'OD' : day.eye==='OG' ? 'OG' : '';
+      const eyeBadgeClass = day.eye==='OD' ? 'eye-badge-od' : day.eye==='OG' ? 'eye-badge-og' : 'eye-badge-pause';
+
+      // Marquer le rythme jusqu'au prochain RDV (3 mars 2026)
+      const nextRdvDate = new Date(2026, 2, 3);
+      const thisDate = new Date(calYear, calMonth, day.d);
+      const isBeforeRdv = thisDate <= nextRdvDate;
+
+      if (isBeforeRdv) {
+        const isPauseFut = day.eye === 'none';
+        const badgeBg = day.eye==='OD' ? '#4A90D9' : day.eye==='OG' ? '#2EAFAF' : 'transparent';
+        const badgeColor = isPauseFut ? '#94A3B8' : 'white';
+        const badgeContent = isPauseFut ? '☕' : eyeLbl;
+        el.innerHTML =
+          (rdv ? '<span style="position:absolute;top:2px;left:3px;font-size:.6rem;line-height:1;">'+rdv.icon+'</span>' : '') +
+          '<span class="cday-num" style="color:#475569;font-weight:900;">'+day.d+'</span>' +
+          (badgeContent ? '<span class="cday-eye-badge" style="background:'+badgeBg+';color:'+badgeColor+';font-size:'+(isPauseFut?'.7':'.42')+'rem;font-weight:900;padding:1px 3px;border-radius:3px;">'+badgeContent+'</span>' : '');
+      } else {
+        el.innerHTML =
+          (rdv ? '<span style="position:absolute;top:2px;left:3px;font-size:.6rem;line-height:1;">'+rdv.icon+'</span>' : '') +
+          '<span class="cday-num" style="color:#94A3B8;">'+day.d+'</span>' +
+          (eyeLbl ? '<span class="cday-eye-badge '+eyeBadgeClass+'" style="opacity:.45;">'+eyeLbl+'</span>' : '');
+      }
       grid.appendChild(el); return;
     }
 
-    // Toutes les cases = bleu clair uniforme
+    // Cases passées = bleu clair uniforme
     el.classList.add('cal-normal');
-    if (day.s === 'today') {
-      el.classList.remove('cal-normal');
-      el.classList.add('today');
-    }
+    if (day.s === 'today') { el.classList.remove('cal-normal'); el.classList.add('today'); }
+    if (rdv) { el.style.outline='2.5px solid #F39C12'; el.style.outlineOffset='1px'; }
 
-    // Badge de l'œil (couleur distincte)
-    const eyeLabel = day.eye==='OD' ? 'OD' : day.eye==='OG' ? 'OG' : '—';
-    const eyeBadgeClass = day.eye==='OD' ? 'eye-badge-od' : day.eye==='OG' ? 'eye-badge-og' : 'eye-badge-none';
-
-    // Dot observance (coin haut droit via CSS position:absolute)
-    const dotClass = day.obs==='ok' ? 'dot-ok'
+    const isPause = day.eye === 'none';
+    const eyeLabel = day.eye==='OD' ? 'OD' : day.eye==='OG' ? 'OG' : '☕';
+    const eyeBadgeClass = day.eye==='OD' ? 'eye-badge-od' : day.eye==='OG' ? 'eye-badge-og' : 'eye-badge-pause';
+    // Pas de point d'observance les jours pause (pas de cache)
+    const dotClass = isPause ? 'dot-none'
+      : day.obs==='ok' ? 'dot-ok'
       : day.obs==='partial' ? 'dot-partial'
       : day.obs==='miss' ? 'dot-miss'
       : day.obs==='?' ? 'dot-unknown'
       : 'dot-none';
-    const dotContent = day.obs==='?' ? '?' : '';
+    const dotContent = (!isPause && day.obs==='?') ? '?' : '';
 
     el.innerHTML =
       '<div class="cday-obs-dot '+dotClass+'">'+dotContent+'</div>' +
+      (rdv ? '<span style="position:absolute;top:2px;left:3px;font-size:.6rem;line-height:1;">'+rdv.icon+'</span>' : '') +
       '<span class="cday-num">'+day.d+'</span>' +
       '<span class="cday-eye-badge '+eyeBadgeClass+'">'+eyeLabel+'</span>';
 
@@ -1382,7 +1532,7 @@ function buildBadgesSection() {
 
   // Grande étoile centrale
   let html = '<div style="text-align:center;padding:8px 0 4px;">' +
-    '<div style="font-size:3rem;font-weight:900;font-family:Nunito,sans-serif;color:#F39C12;line-height:1;">⭐ '+stars+'</div>' +
+    '<div style="font-size:3rem;font-weight:900;font-family:Nunito,sans-serif;color:#F39C12;line-height:1;">'+stars+' ⭐</div>' +
     '<div style="font-size:.8rem;color:#64748B;font-weight:600;margin-top:4px;">gagné</div>';
 
   if (nextBadge) {
@@ -1441,47 +1591,120 @@ function toggleKit(el) {
   el.classList.toggle('open');
 }
 
-// NOTIFICATIONS
+// ══════════════════════════════════════════════════
+// NOTIFICATIONS — système complet 7h55 + 18h00
+// ══════════════════════════════════════════════════
+
+// Ouvre la section "Jours à compléter" et scroll dessus
+function openPendingSection() {
+  goPage('page-agenda');
+  setTimeout(() => {
+    const el = document.getElementById('pending-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 200);
+}
+
+// Deep link au chargement si ouvert depuis notif soir
+function checkDeepLink() {
+  if (window.location.search.includes('open=pending') ||
+      window.location.hash === '#pending') {
+    setTimeout(() => openPendingSection(), 600);
+  }
+}
+
+// Réception du message du SW (app déjà ouverte + notif soir cliquée)
+navigator.serviceWorker && navigator.serviceWorker.addEventListener('message', event => {
+  if (event.data && event.data.action === 'OPEN_PENDING') {
+    openPendingSection();
+  }
+});
+
+async function demanderPermission() {
+  if (!('Notification' in window)) {
+    showToast('⚠️ Notifications non supportées', 'orange'); return false;
+  }
+  const result = await Notification.requestPermission();
+  const b1 = document.getElementById('perm-banner');
+  const b2 = document.getElementById('perm-banner-2');
+  if (result === 'granted') {
+    if (b1) b1.style.display = 'none';
+    if (b2) b2.style.display = 'none';
+    showToast('🔔 Notifications activées !', 'blue');
+    // Demande au SW de programmer les alarmes réelles
+    if (swReg && swReg.active) {
+      swReg.active.postMessage('SCHEDULE_NOTIFS');
+    }
+    return true;
+  } else {
+    showToast('⚠️ Permission refusée', 'orange'); return false;
+  }
+}
+
+// Bouton test avec compte à rebours — utilise le SW pour coller au vrai flux
 function envoyerNotifDelai(type, btn) {
   let secs = 5;
   const originalHTML = btn.querySelector('span:last-child').innerHTML;
-  btn.disabled = true;
-  btn.style.opacity = '.7';
-  btn.querySelector('span:last-child').innerHTML = 'Envoi dans <strong>'+secs+'s</strong>…<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Prends ton téléphone !</span>';
-  const interval = setInterval(() => {
+  btn.disabled = true; btn.style.opacity = '.7';
+  btn.querySelector('span:last-child').innerHTML =
+    'Envoi dans <strong>' + secs + 's</strong>…<br>' +
+    '<span style="font-size:.75rem;opacity:.85;font-weight:500">Prends ton téléphone !</span>';
+  const iv = setInterval(() => {
     secs--;
     if (secs > 0) {
-      btn.querySelector('span:last-child').innerHTML = 'Envoi dans <strong>'+secs+'s</strong>…<br><span style="font-size:.75rem;opacity:.85;font-weight:500">Prends ton téléphone !</span>';
+      btn.querySelector('span:last-child').innerHTML =
+        'Envoi dans <strong>' + secs + 's</strong>…<br>' +
+        '<span style="font-size:.75rem;opacity:.85;font-weight:500">Prends ton téléphone !</span>';
     } else {
-      clearInterval(interval);
+      clearInterval(iv);
       btn.querySelector('span:last-child').innerHTML = originalHTML;
       btn.disabled = false; btn.style.opacity = '1';
-      envoyerNotif(type);
+      envoyerNotifTest(type);
     }
   }, 1000);
 }
 
-async function envoyerNotif(type) {
+async function envoyerNotifTest(type) {
   const statusEl = document.getElementById('notif-status');
-  if (!('Notification' in window)) { showToast('⚠️ Non supporté sur ce navigateur','orange'); return; }
-  if (Notification.permission === 'default') await demanderPermission();
-  if (Notification.permission !== 'granted') {
-    if(statusEl) { statusEl.innerHTML='⚠️ Permission refusée'; statusEl.style.background='var(--orange-l)'; statusEl.style.color='var(--orange-d)'; }
-    setTimeout(() => { if(statusEl){statusEl.innerHTML='💤 En attente';statusEl.style='';} }, 4000);
-    return;
+
+  // Vérifie/demande permission
+  if (!('Notification' in window)) {
+    showToast('⚠️ Non supporté', 'orange'); return;
   }
-  const notifs = {
-    cache:   {title:'Cache-œil de Jules 🏴‍☠️', body:"Bonjour Jules, aujourd'hui mets le cache sur l'OD 👁️", url:window.location.href},
-    retirer: {title:'Bravo Jules ! 🎉', body:"Tu peux retirer ton cache ! Dis-nous combien d'heures 🌟", url:window.location.href+'#saisie'},
-  };
-  const n = notifs[type] || notifs.cache;
+  if (Notification.permission !== 'granted') {
+    const ok = await demanderPermission();
+    if (!ok) return;
+  }
+
   try {
-    if (swReg) await swReg.showNotification(n.title, {body:n.body,icon:'icon-192.png',badge:'icon-192.png',vibrate:[200,100,200],tag:type,data:{url:n.url}});
-    else new Notification(n.title, {body:n.body});
-    if(statusEl) { statusEl.innerHTML='✅ Notification envoyée !'; statusEl.style.background='var(--green-l)'; statusEl.style.color='var(--green-d)'; }
-  } catch(e) { if(statusEl) statusEl.innerHTML='❌ '+e.message; }
-  setTimeout(() => { if(statusEl){statusEl.innerHTML='💤 En attente';statusEl.style.background='';statusEl.style.color='';} }, 4000);
+    if (swReg && swReg.active) {
+      // Passe par le SW → même flux que la vraie notification
+      swReg.active.postMessage(type === 'cache' ? 'TEST_MATIN' : 'TEST_SOIR');
+    } else {
+      // Fallback direct (hors SW)
+      const msg = type === 'cache'
+        ? { title: '🏴‍☠️ Cache-œil de Jules ! [TEST]', body: 'Mets le cache maintenant !' }
+        : { title: '🎉 Bravo Jules ! [TEST]', body: "Retire le cache et remplis ton rythme !" };
+      new Notification(msg.title, { body: msg.body, icon: 'amblyup-logo.png' });
+    }
+    if (statusEl) {
+      statusEl.innerHTML = '✅ Notification envoyée !';
+      statusEl.style.background = 'var(--green-l)';
+      statusEl.style.color = 'var(--green-d)';
+    }
+  } catch(e) {
+    if (statusEl) statusEl.innerHTML = '❌ ' + e.message;
+  }
+  setTimeout(() => {
+    if (statusEl) {
+      statusEl.innerHTML = '💤 En attente';
+      statusEl.style.background = '';
+      statusEl.style.color = '';
+    }
+  }, 4000);
 }
+
+// Alias pour compatibilité boutons existants
+async function envoyerNotif(type) { return envoyerNotifTest(type); }
 
 // CONFETTI
 function lancerConfetti() {
