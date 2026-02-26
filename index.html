@@ -46,7 +46,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 /* ── CARD ── */
 .card{background:var(--white);border-radius:var(--r);padding:18px;margin:10px 16px 0;box-shadow:var(--shadow);}
 .card-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);margin-bottom:12px;}
-.section-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);padding:14px 16px 6px;}
+.section-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);padding:22px 16px 6px;}
 /* ── TITRE DE PAGE ── */
 .page-title{display:flex;align-items:center;gap:10px;padding:10px 16px 4px;margin-bottom:2px;}
 .page-title-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
@@ -359,11 +359,8 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 ════════════════════════════════════════════ -->
 <div class="page active" id="page-agenda">
 
-  <div class="app-header">
+  <div class="app-header" style="justify-content:center;">
     <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
-    <div class="header-right">
-      <button class="notif-btn" onclick="envoyerNotif('cache')">🔔<div class="notif-dot" id="notif-dot"></div></button>
-    </div>
   </div>
 
   <!-- TITRE PAGE -->
@@ -384,7 +381,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     <!-- Message du jour -->
     <div class="hero-msg" id="hero-msg-day" style="text-align:center;">
       Aujourd'hui, colle le cache sur ton :<br>
-      <span style="font-size:1.1rem;font-weight:900;letter-spacing:.05em;display:block;margin:8px 0 6px;text-shadow:0 2px 8px rgba(0,0,0,.18);">👁 &nbsp;ŒIL DROIT</span>
+      <span style="font-size:1.1rem;font-weight:900;letter-spacing:.05em;display:block;margin:8px 0 6px;text-shadow:0 2px 8px rgba(0,0,0,.18);">👁 &nbsp;ŒIL GAUCHE</span>
       <span style="font-size:.88rem;font-weight:600;opacity:.92;">de 8h à 18h &nbsp;·&nbsp; Objectif 10h 🚀</span>
       <span style="margin-top:6px;display:block;font-size:.82rem;opacity:.85;">Bon courage champion !</span>
     </div>
@@ -402,9 +399,9 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
       </div>
     </div>
     <!-- Semaine type -->
-    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:10px 12px;position:relative;z-index:1;">
-      <div style="font-size:.62rem;font-weight:800;opacity:.85;margin-bottom:8px;letter-spacing:.05em;">Semaine type</div>
-      <div style="display:flex;gap:4px;"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#4A90D9;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OD</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Lu</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#4A90D9;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OD</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Ma</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Me</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Je</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Ve</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">☕</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Sa</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">☕</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Di</span></div></div>
+    <div style="font-size:.62rem;font-weight:800;opacity:.82;letter-spacing:.05em;margin-bottom:6px;position:relative;z-index:1;">Semaine type :</div>
+    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:8px 10px;position:relative;z-index:1;">
+      <div style="display:flex;gap:4px;"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#4A90D9;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OD</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Lu</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#4A90D9;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OD</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Ma</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Me</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);outline:2.5px solid rgba(255,255,255,.95);outline-offset:2px;">OG</div><span style="font-size:.55rem;font-weight:900;opacity:1;">Je</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Ve</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">☕</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Sa</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">☕</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Di</span></div></div>
     </div>
   </div>
 
@@ -415,7 +412,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
   </div>
 
   <!-- JOURS À COMPLÉTER -->
-  <div id="pending-section">
+  <div id="pending-section" style="margin-top:8px;">
     <div class="section-title">📋 Jours à compléter</div>
     <div class="card" style="margin:0 16px;">
       <div style="font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:14px;line-height:1.5;">
@@ -510,7 +507,12 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
           <span style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;color:#1A3A5C;">Prochain suivi</span>
         </div>
         <div style="font-size:.75rem;color:#64748B;">Juin · Dr. Benali</div>
-        <div style="margin-top:4px;"><span style="font-size:.65rem;background:#FEF3C7;color:#92400E;border-radius:6px;padding:2px 7px;font-weight:700;border:1px solid #FDE68A;">⏰ À planifier</span></div>
+        <div style="margin-top:6px;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:.65rem;background:#FEF3C7;color:#92400E;border-radius:6px;padding:2px 7px;font-weight:700;border:1px solid #FDE68A;">⏰ À planifier</span>
+          <button onclick="showToast('Ouverture Doctolib…','blue')" style="background:#0596DE;color:white;border:none;border-radius:8px;padding:3px 10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.65rem;cursor:pointer;display:flex;align-items:center;gap:4px;box-shadow:0 2px 6px rgba(5,150,222,.3);">
+            📅 Prendre RDV
+          </button>
+        </div>
       </div>
       <div style="font-size:1.2rem;color:#F39C12;">›</div>
     </div>
@@ -530,6 +532,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
      PAGE : MES PROGRÈS
 ════════════════════════════════════════════ -->
 <div class="page" id="page-progres">
+
+  <div class="app-header" style="justify-content:center;">
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+  </div>
 
   <!-- TITRE PAGE -->
   <div class="page-title">
@@ -578,11 +584,17 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     </div>
 
     <!-- Séparateur -->
-    <div style="border-top:1px solid rgba(255,255,255,.25);margin-bottom:12px;"></div>
+    <div style="border-top:1px solid rgba(255,255,255,.25);margin-bottom:10px;"></div>
 
-    <!-- Prochain objectif — même style que Semaine type -->
-    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:10px 12px;position:relative;z-index:1;">
-      <div style="font-size:.62rem;font-weight:800;opacity:.85;margin-bottom:8px;letter-spacing:.05em;">Prochain objectif</div>
+    <!-- Prochain objectif -->
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px;position:relative;z-index:1;">
+      <span style="font-size:.62rem;font-weight:800;opacity:.82;letter-spacing:.05em;white-space:nowrap;">Prochain objectif :</span>
+      <span style="font-size:.72rem;font-weight:900;opacity:1;text-align:right;line-height:1.2;">Badge «Héros»<br>dans 3 ⭐</span>
+    </div>
+    <div style="background:rgba(255,255,255,.2);border-radius:10px;height:6px;overflow:hidden;margin-bottom:10px;position:relative;z-index:1;">
+      <div style="height:100%;width:94%;background:rgba(255,255,255,.85);border-radius:10px;transition:width 1s ease;"></div>
+    </div>
+    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:8px 10px;position:relative;z-index:1;">
       <div style="display:flex;gap:4px;">
         <!-- Badge actuel : mis en avant -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
@@ -615,13 +627,6 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
           <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;filter:grayscale(60%);box-shadow:0 1px 4px rgba(0,0,0,.1);">🌟</div>
           <span style="font-size:.48rem;font-weight:700;opacity:.65;text-align:center;line-height:1.2;">Légende</span>
         </div>
-      </div>
-      <!-- Jauge progression vers prochain badge -->
-      <div style="margin-top:8px;display:flex;align-items:center;gap:6px;">
-        <div style="flex:1;background:rgba(255,255,255,.2);border-radius:10px;height:6px;overflow:hidden;">
-          <div style="height:100%;width:94%;background:rgba(255,255,255,.85);border-radius:10px;transition:width 1s ease;"></div>
-        </div>
-        <span style="font-size:.62rem;font-weight:900;opacity:.95;white-space:nowrap;">encore 3 ⭐</span>
       </div>
       <div id="next-badge-reward" style="font-size:.68rem;color:#FFF9C4;font-weight:700;margin-top:6px;display:none;">🎁 <span id="next-reward-text"></span></div>
     </div>
@@ -704,6 +709,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
      PAGE : MES DOCS
 ════════════════════════════════════════════ -->
 <div class="page" id="page-docs">
+
+  <div class="app-header" style="justify-content:center;">
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+  </div>
 
   <!-- TITRE PAGE -->
   <div class="page-title">
@@ -877,6 +886,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
      PAGE : RÉGLAGES
 ════════════════════════════════════════════ -->
 <div class="page" id="page-reglages">
+
+  <div class="app-header" style="justify-content:center;">
+    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+  </div>
 
   <!-- TITRE PAGE -->
   <div class="page-title">
