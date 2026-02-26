@@ -47,6 +47,11 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 .card{background:var(--white);border-radius:var(--r);padding:18px;margin:10px 16px 0;box-shadow:var(--shadow);}
 .card-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);margin-bottom:12px;}
 .section-title{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-m);padding:14px 16px 6px;}
+/* ── TITRE DE PAGE ── */
+.page-title{display:flex;align-items:center;gap:10px;padding:10px 16px 4px;margin-bottom:2px;}
+.page-title-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.page-title-text{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.25rem;color:var(--text);line-height:1;}
+.page-title-sub{font-size:.7rem;color:var(--text-m);font-weight:600;margin-top:1px;}
 
 /* ── HERO ── */
 .hero{margin:12px 16px 0;background:var(--blue);border-radius:var(--r);padding:22px 20px 20px;color:white;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(74,144,217,.35);}
@@ -323,11 +328,14 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
 /* ── BOTTOM NAV ── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1.5px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 16px;z-index:100;}
-.bnav{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px;border:none;background:none;font-family:'Quicksand',sans-serif;position:relative;transition:all .15s;}
+.bnav{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 8px;border:none;background:none;font-family:'Quicksand',sans-serif;position:relative;transition:all .15s;border-radius:12px;}
+.bnav.active{background:var(--blue-l);}
+.bnav::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:0;height:3px;background:var(--blue);border-radius:0 0 3px 3px;transition:width .2s ease;}
+.bnav.active::before{width:24px;}
 .bnav-img{width:28px;height:28px;object-fit:contain;transition:transform .2s cubic-bezier(.34,1.56,.64,1);}
-.bnav-label{font-size:.58rem;font-weight:700;color:var(--text-m);}
-.bnav.active .bnav-img{transform:scale(1.2);}
-.bnav.active .bnav-label{color:var(--blue);font-weight:800;}
+.bnav-label{font-size:.6rem;font-weight:700;color:var(--text-m);transition:color .15s;}
+.bnav.active .bnav-img{transform:scale(1.15);}
+.bnav.active .bnav-label{color:var(--blue);font-weight:900;}
 .bnav-badge{position:absolute;top:0;right:50%;margin-right:-18px;background:var(--red);color:white;font-size:.5rem;font-weight:800;padding:2px 5px;border-radius:10px;font-family:'Nunito',sans-serif;min-width:16px;text-align:center;}
 
 /* ── CONFETTI ── */
@@ -358,6 +366,12 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     </div>
   </div>
 
+  <!-- TITRE PAGE -->
+  <div class="page-title">
+    <div class="page-title-icon" style="background:#EBF4FB;"><img src="calendrier.png" style="width:24px;height:24px;object-fit:contain;" alt="agenda"></div>
+    <div><div class="page-title-text">Mon agenda</div><div class="page-title-sub">Suivi quotidien du cache</div></div>
+  </div>
+
   <!-- HERO -->
   <div class="hero">
     <div class="hero-top">
@@ -376,6 +390,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     </div>
     <!-- Barre de progression de la journée -->
     <div class="hero-day-progress">
+      <div style="font-size:.62rem;font-weight:800;opacity:.82;letter-spacing:.05em;margin-bottom:6px;position:relative;z-index:1;">Journée en cours :</div>
       <div class="hero-day-label">
         <span>8h00</span>
         <span></span>
@@ -386,12 +401,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
         <div class="hero-day-marker" id="hero-day-marker" style="left:0%"></div>
       </div>
     </div>
-    <!-- Info rythme prescrit -->
-    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:8px 12px;font-size:.67rem;font-weight:600;opacity:.92;line-height:1.7;position:relative;z-index:1;">
-      Rythme en cours depuis le 15 jan. 2026 :<br>
-      <span style="font-weight:800;">Lundi · Mardi</span> → Œil droit &nbsp;·&nbsp;
-      <span style="font-weight:800;">Mercredi · Jeudi · Vendredi</span> → Œil gauche &nbsp;·&nbsp;
-      <span style="font-weight:800;">Samedi · Dimanche</span> → Pause
+    <!-- Semaine type -->
+    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:10px 12px;position:relative;z-index:1;">
+      <div style="font-size:.62rem;font-weight:800;opacity:.85;margin-bottom:8px;letter-spacing:.05em;">Semaine type</div>
+      <div style="display:flex;gap:4px;"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#4A90D9;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OD</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Lu</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#4A90D9;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OD</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Ma</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Me</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Je</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:#2EAFAF;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">OG</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Ve</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">☕</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Sa</span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:900;color:white;box-shadow:0 1px 4px rgba(0,0,0,.15);">☕</div><span style="font-size:.55rem;font-weight:700;opacity:.8;">Di</span></div></div>
     </div>
   </div>
 
@@ -518,66 +531,99 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 ════════════════════════════════════════════ -->
 <div class="page" id="page-progres">
 
-  <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+  <!-- TITRE PAGE -->
+  <div class="page-title">
+    <div class="page-title-icon" style="background:#E8F8F4;"><img src="progres.png" style="width:24px;height:24px;object-fit:contain;" alt="progrès"></div>
+    <div><div class="page-title-text">Mes progrès</div><div class="page-title-sub">Vision, observance & badges</div></div>
   </div>
 
-  <!-- ENCART BADGE ACTUEL -->
-  <div style="margin:0 16px 0;border-radius:18px;background:#5BBF8E;padding:20px;box-shadow:0 6px 20px rgba(91,191,142,.28);color:white;position:relative;overflow:hidden;"><div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.12);border-radius:50%;pointer-events:none;"></div><div style="position:absolute;bottom:-20px;left:20px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none;"></div>
-    <div style="font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;opacity:.85;margin-bottom:10px;">Badge actuel</div>
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <div style="font-size:3rem;filter:drop-shadow(0 3px 6px rgba(0,0,0,.15));">🏅</div>
-      <div>
-        <div style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">Champion</div>
-        <div style="font-size:.8rem;opacity:.88;margin-top:3px;">40 étoiles atteintes ✓</div>
+  <!-- ENCART BADGE ACTUEL + PROCHAIN OBJECTIF fusionnés -->
+  <div style="margin:0 16px 0;border-radius:18px;background:#5BBF8E;padding:18px 20px;box-shadow:0 6px 20px rgba(91,191,142,.28);color:white;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.12);border-radius:50%;pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-20px;left:20px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none;"></div>
+
+    <!-- Badge actuel -->
+    <div style="font-family:'Nunito',sans-serif;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;opacity:.8;margin-bottom:8px;">Badge actuel</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+      <div style="font-size:2.4rem;filter:drop-shadow(0 3px 6px rgba(0,0,0,.15));flex-shrink:0;">🏅</div>
+      <div style="flex:1;">
+        <div style="font-family:'Nunito',sans-serif;font-size:1.35rem;font-weight:900;line-height:1;">Champion</div>
+        <div style="font-size:.75rem;opacity:.88;margin-top:2px;">40 étoiles atteintes ✓</div>
       </div>
     </div>
+
     <!-- Ronds KPI -->
-    <div style="display:flex;justify-content:space-around;gap:8px;position:relative;z-index:1;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
-        <span style="font-size:.68rem;font-weight:800;opacity:.9;text-align:center;line-height:1.4;">J'ai réussi à<br>porter le cache :</span>
-        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);">
-          <span style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">12</span>
+    <div style="display:flex;justify-content:space-around;gap:6px;position:relative;z-index:1;margin-bottom:14px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
+        <span style="font-size:.6rem;font-weight:800;opacity:.88;text-align:center;line-height:1.3;">J'ai réussi à<br>porter le cache :</span>
+        <div style="width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.12);">
+          <span style="font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;line-height:1;">12</span>
         </div>
-        <span style="font-size:.65rem;font-weight:700;opacity:.88;text-align:center;">jours d'affilée</span>
+        <span style="font-size:.58rem;font-weight:700;opacity:.85;text-align:center;">jours d'affilée</span>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
-        <span style="font-size:.68rem;font-weight:800;opacity:.9;text-align:center;line-height:1.4;">J'ai atteint :<br>&nbsp;</span>
-        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);">
-          <span style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">84%</span>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
+        <span style="font-size:.6rem;font-weight:800;opacity:.88;text-align:center;line-height:1.3;">J'ai atteint :<br>&nbsp;</span>
+        <div style="width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.12);">
+          <span style="font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;line-height:1;">84%</span>
         </div>
-        <span style="font-size:.65rem;font-weight:700;opacity:.88;text-align:center;">de mes objectifs<br>ce mois-ci</span>
+        <span style="font-size:.58rem;font-weight:700;opacity:.85;text-align:center;">de mes objectifs<br>ce mois-ci</span>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
-        <span style="font-size:.68rem;font-weight:800;opacity:.9;text-align:center;line-height:1.4;">J'ai gagné :<br>&nbsp;</span>
-        <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);">
-          <span style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;line-height:1;">47</span>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
+        <span style="font-size:.6rem;font-weight:800;opacity:.88;text-align:center;line-height:1.3;">J'ai gagné :<br>&nbsp;</span>
+        <div style="width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.12);">
+          <span style="font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;line-height:1;">47</span>
         </div>
-        <span style="font-size:.65rem;font-weight:700;opacity:.88;text-align:center;">étoiles ⭐</span>
+        <span style="font-size:.58rem;font-weight:700;opacity:.85;text-align:center;">étoiles ⭐</span>
       </div>
     </div>
-  </div>
 
-  <!-- PROCHAIN BADGE -->
-  <div style="margin:10px 16px 0;border-radius:16px;background:white;border:2px dashed #5BBF8E;padding:16px;box-shadow:0 3px 12px rgba(91,191,142,.12);">
-    <div style="font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#27AE60;margin-bottom:10px;">🎯 Prochain objectif</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div style="font-size:2rem;filter:grayscale(60%);">⭐</div>
-        <div>
-          <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:#1A3A5C;">Héros</div>
-          <div style="font-size:.72rem;color:#64748B;margin-top:2px;">50 étoiles · encore <strong style="color:#27AE60;">3 étoiles</strong></div>
-          <div id="next-badge-reward" style="font-size:.7rem;color:#F39C12;font-weight:700;margin-top:3px;display:none;">🎁 <span id="next-reward-text"></span></div>
+    <!-- Séparateur -->
+    <div style="border-top:1px solid rgba(255,255,255,.25);margin-bottom:12px;"></div>
+
+    <!-- Prochain objectif — même style que Semaine type -->
+    <div style="background:rgba(255,255,255,.13);border-radius:10px;padding:10px 12px;position:relative;z-index:1;">
+      <div style="font-size:.62rem;font-weight:800;opacity:.85;margin-bottom:8px;letter-spacing:.05em;">Prochain objectif</div>
+      <div style="display:flex;gap:4px;">
+        <!-- Badge actuel : mis en avant -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:.9rem;box-shadow:0 1px 4px rgba(0,0,0,.15);">🏅</div>
+          <span style="font-size:.48rem;font-weight:900;opacity:1;text-align:center;line-height:1.2;">Cham-<br>pion</span>
+        </div>
+        <!-- Prochain : Héros -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:.9rem;box-shadow:0 1px 4px rgba(0,0,0,.15);border:2px solid rgba(255,255,255,.6);">⭐</div>
+          <span style="font-size:.48rem;font-weight:800;opacity:.9;text-align:center;line-height:1.2;">Héros<br><span style="opacity:.75;">-3⭐</span></span>
+        </div>
+        <!-- Suivants grisés -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;filter:grayscale(60%);box-shadow:0 1px 4px rgba(0,0,0,.1);">🦸</div>
+          <span style="font-size:.48rem;font-weight:700;opacity:.65;text-align:center;line-height:1.2;">Super-<br>Héros</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;filter:grayscale(60%);box-shadow:0 1px 4px rgba(0,0,0,.1);">🔬</div>
+          <span style="font-size:.48rem;font-weight:700;opacity:.65;text-align:center;line-height:1.2;">Expert</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;filter:grayscale(60%);box-shadow:0 1px 4px rgba(0,0,0,.1);">🎓</div>
+          <span style="font-size:.48rem;font-weight:700;opacity:.65;text-align:center;line-height:1.2;">Maître</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;filter:grayscale(60%);box-shadow:0 1px 4px rgba(0,0,0,.1);">👑</div>
+          <span style="font-size:.48rem;font-weight:700;opacity:.65;text-align:center;line-height:1.2;">Grand<br>Maître</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;filter:grayscale(60%);box-shadow:0 1px 4px rgba(0,0,0,.1);">🌟</div>
+          <span style="font-size:.48rem;font-weight:700;opacity:.65;text-align:center;line-height:1.2;">Légende</span>
         </div>
       </div>
-      <div style="text-align:right;">
-        <div style="font-size:.65rem;color:#94A3B8;font-weight:600;">Progression</div>
-        <div style="font-size:1.1rem;font-weight:900;color:#27AE60;">47/50</div>
+      <!-- Jauge progression vers prochain badge -->
+      <div style="margin-top:8px;display:flex;align-items:center;gap:6px;">
+        <div style="flex:1;background:rgba(255,255,255,.2);border-radius:10px;height:6px;overflow:hidden;">
+          <div style="height:100%;width:94%;background:rgba(255,255,255,.85);border-radius:10px;transition:width 1s ease;"></div>
+        </div>
+        <span style="font-size:.62rem;font-weight:900;opacity:.95;white-space:nowrap;">encore 3 ⭐</span>
       </div>
-    </div>
-    <!-- Mini barre de progression vers prochain badge -->
-    <div style="margin-top:10px;background:#EAF9F1;border-radius:10px;height:8px;overflow:hidden;">
-      <div style="height:100%;width:94%;background:linear-gradient(90deg,#27AE60,#2ECC71);border-radius:10px;transition:width 1s ease;"></div>
+      <div id="next-badge-reward" style="font-size:.68rem;color:#FFF9C4;font-weight:700;margin-top:6px;display:none;">🎁 <span id="next-reward-text"></span></div>
     </div>
   </div>
 
@@ -659,8 +705,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 ════════════════════════════════════════════ -->
 <div class="page" id="page-docs">
 
-  <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+  <!-- TITRE PAGE -->
+  <div class="page-title">
+    <div class="page-title-icon" style="background:#FEF3C7;"><img src="docs.png" style="width:24px;height:24px;object-fit:contain;" alt="docs"></div>
+    <div><div class="page-title-text">Mes documents</div><div class="page-title-sub">Ordonnances & ressources</div></div>
   </div>
 
   <!-- ORDONNANCES -->
@@ -830,8 +878,10 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 ════════════════════════════════════════════ -->
 <div class="page" id="page-reglages">
 
-  <div class="app-header">
-    <img src="amblyup-logo.png" alt="Amblyup" class="header-logo">
+  <!-- TITRE PAGE -->
+  <div class="page-title">
+    <div class="page-title-icon" style="background:#F1F5F9;"><img src="reglages.png" style="width:24px;height:24px;object-fit:contain;" alt="réglages"></div>
+    <div><div class="page-title-text">Réglages</div><div class="page-title-sub">Profil & préférences</div></div>
   </div>
 
   <!-- PROFIL -->
