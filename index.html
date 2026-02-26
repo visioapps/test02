@@ -964,26 +964,27 @@ const RDV_DAYS = {
 window.addEventListener('load', async () => {
   try {
     if ('serviceWorker' in navigator) {
-      try {
-        swReg = await navigator.serviceWorker.register('sw.js');
-        // Attend que le SW soit actif puis programme les alarmes si permission déjà accordée
-        const waitActive = () => {
-          const sw = swReg.installing || swReg.waiting || swReg.active;
-          if (!sw) return;
-          if (sw.state === 'activated') {
-            if (Notification.permission === 'granted') {
-              sw.postMessage('SCHEDULE_NOTIFS');
-            }
-          } else {
-            sw.addEventListener('statechange', () => {
-              if (sw.state === 'activated' && Notification.permission === 'granted') {
-                sw.postMessage('SCHEDULE_NOTIFS');
-              }
-            });
-          }
-        };
-        waitActive();
-      } catch(e) { console.warn('SW registration failed:', e); }
+      // SW uniquement sur HTTPS ou localhost — silencieux sinon
+      const needsHttps = location.protocol !== 'https:' && location.hostname !== 'localhost';
+      if (!needsHttps) {
+        try {
+          swReg = await navigator.serviceWorker.register('sw.js');
+          const waitActive = () => {
+            const sw = swReg.installing || swReg.waiting || swReg.active;
+            if (!sw) return;
+            const activate = () => {
+              if (Notification.permission === 'granted') sw.postMessage('SCHEDULE_NOTIFS');
+            };
+            if (sw.state === 'activated') { activate(); }
+            else { sw.addEventListener('statechange', () => { if (sw.state === 'activated') activate(); }); }
+          };
+          waitActive();
+        } catch(e) {
+          console.log('Amblyup SW: ' + e.message);
+        }
+      } else {
+        console.log('Amblyup: notifications disponibles après déploiement HTTPS (Netlify).');
+      }
     }
 
     if ('Notification' in window && Notification.permission === 'default') {
