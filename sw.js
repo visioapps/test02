@@ -2459,8 +2459,15 @@ function demanderPermission() {
     if (p === 'granted') {
       if (status) status.innerHTML = '✅ Notifications activées';
       if (banner) banner.style.display = 'none';
+      // Démarre les rappels automatiques 7h55 + 18h dans le SW
+      navigator.serviceWorker.ready.then(reg => {
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage('SCHEDULE_NOTIFS');
+        }
+      });
     } else {
       if (status) status.innerHTML = '❌ Permission refusée';
+      if (banner) banner.style.display = 'block';
     }
   });
 }
