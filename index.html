@@ -2475,39 +2475,82 @@ function envoyerNotifDelai(type, btn) {
     return;
   }
   if (banner) banner.style.display = 'none';
+
+  // Annule timer déjà en cours
   if (notifTimers[type]) {
     clearInterval(notifTimers[type].iv);
     clearTimeout(notifTimers[type].to);
     delete notifTimers[type];
+    btn.style.opacity = '1';
+    return; // 2ème clic = annulation
   }
+
   const statusEl = document.getElementById('notif-status');
   const configs = {
-    cache: { title:'🏴‍☠️ AmblyUp', body:'N\'oublie pas de mettre ton cache aujourd\'hui !' },
-    soir:  { title:'🎉 AmblyUp',  body:'Prêt à valider ton observance du jour ?' }
+    cache: { title:'🏴‍☠️ AmblyUp — Rappel cache', body:'N\'oublie pas de mettre ton cache aujourd\'hui !' },
+    soir:  { title:'🎉 AmblyUp — Bonne soirée !',  body:'Prêt à valider ton observance du jour ?' }
   };
   const cfg = configs[type];
   let countdown = 5;
-  const origHTML = btn.innerHTML;
   btn.style.opacity = '0.75';
-  const updateBtn = () => {
-    const spans = btn.querySelectorAll('span');
-    if (spans[1]) {
-      const sub = spans[1].querySelector('span');
-      if (sub) sub.textContent = `Envoi dans ${countdown}s…`;
-    }
+
+  // Fonction qui met à jour l'affichage
+  function updateDisplay() {
     if (statusEl) statusEl.innerHTML = `⏳ Envoi dans ${countdown}s…`;
-  };
-  updateBtn();
-  const iv = setInterval(() => { countdown--; updateBtn(); }, 1000);
+    // Cherche le <span> secondaire dans le bouton
+    const allSpans = btn.querySelectorAll('span');
+    allSpans.forEach(s => {
+      if (s.textContent.includes('Envoi') || s.textContent.includes('secondes')) {
+        s.textContent = `Envoi dans ${countdown}s…`;
+      }
+    });
+  }
+
+  updateDisplay(); // affichage immédiat
+
+  const iv = setInterval(() => {
+    countdown--;
+    if (countdown > 0) {
+      updateDisplay();
+    }
+  }, 1000);
+
   const to = setTimeout(() => {
     clearInterval(iv);
-    new Notification(cfg.title, { body: cfg.body, icon: 'amblyup-logo.png' });
-    btn.innerHTML = origHTML;
+
+    // Vérifie une dernière fois la permission au moment d'envoyer
+    if (Notification.permission === 'granted') {
+      try {
+        new Notification(cfg.title, {
+          body: cfg.body,
+          icon: 'amblyup-logo.png'
+        });
+        if (statusEl) statusEl.innerHTML = '✅ Notification envoyée !';
+        showToast('Notification envoyée !', 'green');
+      } catch(e) {
+        if (statusEl) statusEl.innerHTML = '❌ Erreur envoi';
+        showToast('Erreur : ' + e.message, 'orange');
+        console.error('Notif error:', e);
+      }
+    } else {
+      if (statusEl) statusEl.innerHTML = '❌ Permission perdue';
+    }
+
+    // Remet le bouton dans son état d'origine
+    const allSpans = btn.querySelectorAll('span');
+    allSpans.forEach(s => {
+      if (s.textContent.includes('Envoi') || s.textContent.includes('secondes')) {
+        s.textContent = 'Envoi dans 5 secondes…';
+      }
+    });
     btn.style.opacity = '1';
-    if (statusEl) statusEl.innerHTML = '✅ Notification envoyée !';
+
     delete notifTimers[type];
-    setTimeout(() => { if (statusEl) statusEl.innerHTML = '💤 En attente'; }, 4000);
+    setTimeout(() => {
+      if (statusEl) statusEl.innerHTML = '💤 En attente';
+    }, 4000);
   }, 5000);
+
   notifTimers[type] = { iv, to };
 }
 
