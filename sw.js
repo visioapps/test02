@@ -592,6 +592,8 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
 </style>
 </head>
+
+
 <body>
 
 <div id="toast-el" class="toast"></div>
@@ -1195,7 +1197,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     </div>
     <div class="doc-item" onclick="toggleDoc(this)">
       <div class="doc-item-hd"><div class="doc-item-icon orange">💡</div><div class="doc-item-info"><div class="doc-item-title">Conseils pratiques</div><div class="doc-item-sub">Poser, enlever, motiver, routine</div></div><div class="doc-item-arrow">›</div></div>
-      <div class="doc-item-body"><div class="doc-sub-list"><div class="doc-sub-item"><span class="doc-sub-icon">🌅</span><span class="doc-sub-text">Les premiers jours : annoncer & préparer</span></div><div class="doc-sub-item"><span class="doc-sub-icon">🩹</span><span class="doc-sub-text">Poser le patch / filtre (infographie)</span><span class="doc-sub-badge new">Infographie</span></div><div class="doc-sub-item"><span class="doc-sub-icon">🌸</span><span class="doc-sub-text">Enlever le patch en douceur</span></div><div class="doc-sub-item"><span class="doc-sub-icon">🎯</span><span class="doc-sub-text">Customiser le patch</span><span class="doc-sub-badge new">Idées</span></div></div></div>
+      <div class="doc-item-body"><div class="doc-sub-list"><div class="doc-sub-item" onclick="ouvrirArticle('premiers-jours')"><span class="doc-sub-icon">🌅</span><span class="doc-sub-text">Les premiers jours : annoncer & préparer</span></div><div class="doc-sub-item"><span class="doc-sub-icon">🩹</span><span class="doc-sub-text">Poser le patch / filtre (infographie)</span><span class="doc-sub-badge new">Infographie</span></div><div class="doc-sub-item"><span class="doc-sub-icon">🌸</span><span class="doc-sub-text">Enlever le patch en douceur</span></div><div class="doc-sub-item"><span class="doc-sub-icon">🎯</span><span class="doc-sub-text">Customiser le patch</span><span class="doc-sub-badge new">Idées</span></div></div></div>
     </div>
     <div class="doc-item" onclick="toggleDoc(this)">
       <div class="doc-item-hd"><div class="doc-item-icon green">🎮</div><div class="doc-item-info"><div class="doc-item-title">Motiver & créer la routine</div><div class="doc-item-sub">Idées, poster, tableau de récompenses</div></div><div class="doc-item-arrow">›</div></div>
@@ -2323,6 +2325,17 @@ function setDocsFilter(filter) {
   window.scrollTo(0, 0);
 }
 
+function ouvrirArticle(id) {
+  const el = document.getElementById('article-' + id);
+  if (!el) return;
+  el.style.display = 'flex';
+  el.scrollTop = 0;
+  el.onclick = e => { if (e.target === el) fermerArticle(id); };
+}
+function fermerArticle(id) {
+  const el = document.getElementById('article-' + id);
+  if (el) el.style.display = 'none';
+}
 
 // ── Docs & Kits ──
 function toggleDoc(el){
@@ -2610,5 +2623,148 @@ function ouvrirContactPopup(nom, tel, mail) {
 
 
 </script>
+
+<!-- MODALE ARTICLE : Les premiers jours -->
+<div id="article-premiers-jours" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9990;align-items:flex-start;justify-content:center;overflow-y:auto;">
+  <div style="background:white;border-radius:22px;margin:16px;max-width:500px;width:calc(100% - 32px);padding:24px 20px 40px;box-shadow:0 12px 40px rgba(0,0,0,.2);position:relative;">
+    
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
+      <div>
+        <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text-m);margin-bottom:4px;">💡 Conseils pratiques</div>
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1.15rem;color:var(--text);line-height:1.3;">🌅 Les premiers jours : installer la confiance</div>
+      </div>
+      <button onclick="fermerArticle('premiers-jours')" style="flex-shrink:0;background:var(--bg);border:none;border-radius:50%;width:32px;height:32px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+
+    <!-- Contenu -->
+    <div style="font-size:.85rem;color:var(--text);line-height:1.7;">
+
+      <div style="background:var(--orange-l);border-radius:12px;padding:13px 15px;margin-bottom:16px;border-left:4px solid var(--orange);">
+        Les premiers jours sont souvent les plus difficiles. C'est normal.<br>
+        Avec son bon œil caché, votre enfant voit flou. Cela peut être très gênant au début.<br>
+        <strong>Ce flou ne signifie pas que le traitement ne fonctionne pas. Il signifie que le cerveau travaille.</strong>
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">🧠 1. Avant d'en parler à votre enfant : préparez-vous</div>
+      <p style="margin-bottom:10px;">Avant toute annonce, parlez-en entre adultes.</p>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+        <div style="background:var(--blue-l);border-radius:11px;padding:12px 14px;">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;margin-bottom:4px;">✔ Choisissez vos mots</div>
+          Décidez ensemble des phrases que vous utiliserez. Simples, courtes, répétables. Un message clair et constant rassure.
+        </div>
+        <div style="background:var(--blue-l);border-radius:11px;padding:12px 14px;">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;margin-bottom:4px;">✔ Ritualisez dès le début</div>
+          La régularité est une des clés de la réussite.
+          <ul style="margin:6px 0 0 16px;color:var(--text-m);">
+            <li>Même heure chaque jour</li>
+            <li>Même moment pour le retirer</li>
+            <li>Même routine</li>
+          </ul>
+        </div>
+        <div style="background:var(--blue-l);border-radius:11px;padding:12px 14px;">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;margin-bottom:4px;">✔ Prévenez l'école et l'entourage</div>
+          <ul style="margin:6px 0 0 16px;color:var(--text-m);">
+            <li>Informez la maîtresse (voir fiche École)</li>
+            <li>Expliquez à la fratrie</li>
+            <li>Demandez du soutien, pas de moquerie</li>
+          </ul>
+          <div style="margin-top:8px;background:white;border-radius:8px;padding:8px 10px;font-size:.78rem;color:var(--text-m);">
+            💡 Proposer aux frères et sœurs d'essayer un cache quelques minutes peut créer de l'empathie.
+          </div>
+        </div>
+        <div style="background:var(--blue-l);border-radius:11px;padding:12px 14px;">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;margin-bottom:4px;">✔ Option : préparez les récompenses</div>
+          Activez dans les réglages des petites récompenses à chaque badge. Cela crée des étapes motivantes.
+        </div>
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">💬 2. L'annonce</div>
+      <p style="margin-bottom:8px;">Choisissez des mots adaptés à l'âge. Des phrases courtes. Un ton calme. Une attitude confiante.</p>
+      <div style="background:var(--red-l);border-radius:11px;padding:11px 14px;margin-bottom:8px;">
+        <div style="font-family:'Nunito',sans-serif;font-weight:800;margin-bottom:4px;color:var(--red);">Évitez :</div>
+        <ul style="margin:0 0 0 16px;color:var(--text-m);">
+          <li>le ton inquiet</li>
+          <li>le ton dramatique</li>
+          <li>le ton trop triste</li>
+        </ul>
+      </div>
+      <p>Votre enfant va observer votre posture plus que vos mots.</p>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">👁 3. Expliquer le traitement</div>
+      <div style="background:var(--green-l);border-radius:11px;padding:12px 14px;margin-bottom:10px;border-left:4px solid var(--green);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:800;margin-bottom:4px;">Vous pouvez dire par exemple :</div>
+        <em>"Chaque jour, on va mettre un cache sur cet œil pour que l'autre s'entraîne."</em>
+      </div>
+      <ul style="margin:0 0 10px 16px;color:var(--text-m);">
+        <li>La routine choisie</li>
+        <li>Le flou du début (normal)</li>
+        <li>L'amélioration progressive</li>
+        <li>Les contrôles réguliers</li>
+        <li>La diminution progressive du cache</li>
+      </ul>
+      <div style="background:var(--blue-l);border-radius:11px;padding:11px 14px;margin-bottom:10px;">
+        Vous pouvez comparer à un plâtre : réparer prend du temps.<br>
+        <strong>On fait équipe. On avance ensemble.</strong>
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">⚠️ À savoir</div>
+      <p style="margin-bottom:6px;">Au début, votre enfant peut :</p>
+      <ul style="margin:0 0 10px 16px;color:var(--text-m);">
+        <li>se sentir maladroit</li>
+        <li>être frustré</li>
+        <li>se fatiguer plus vite</li>
+      </ul>
+      <p>Cela ne signifie pas qu'il ne veut pas faire le traitement. <strong>Cela signifie qu'il s'adapte.</strong></p>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">🗓 Le premier jour</div>
+      <p style="margin-bottom:8px;">Votre orthoptiste vous indiquera si l'amblyopie est profonde. Si le cache est difficile à supporter :</p>
+      <ul style="margin:0 0 8px 16px;color:var(--text-m);">
+        <li>Commencez progressivement</li>
+        <li>1h le premier jour</li>
+        <li>Puis augmentez rapidement</li>
+      </ul>
+      <div style="background:var(--orange-l);border-radius:9px;padding:9px 12px;font-size:.8rem;border-left:3px solid var(--orange);">
+        ⚠ Ne restez pas plusieurs jours à 10–15 minutes. Le rythme doit monter.
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">💡 Astuce importante</div>
+      <p style="margin-bottom:6px;">Privilégiez les activités de près au début :</p>
+      <ul style="margin:0 0 10px 16px;color:var(--text-m);">
+        <li>coloriage</li>
+        <li>lecture</li>
+        <li>jeux calmes</li>
+        <li>dessin</li>
+      </ul>
+      <p>La vision de près est souvent mieux tolérée au départ.</p>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;color:var(--text);margin:16px 0 8px;">🌸 Protéger la peau</div>
+      <ul style="margin:0 0 10px 16px;color:var(--text-m);">
+        <li>Alternez les zones de pose</li>
+        <li>Hydratez le soir</li>
+        <li>Changez de marque si rougeur importante</li>
+      </ul>
+
+      <!-- Récapitulatif -->
+      <div style="background:linear-gradient(135deg,var(--green-l),var(--blue-l));border-radius:13px;padding:14px 16px;margin-top:16px;border:1.5px solid var(--border);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;margin-bottom:8px;">🎯 À retenir</div>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:.82rem;">
+          <div>✔ Les premiers jours sont souvent les plus difficiles</div>
+          <div>✔ Le flou est normal</div>
+          <div>✔ La régularité est essentielle</div>
+          <div>✔ Votre posture influence énormément l'acceptation</div>
+          <div>✔ On avance en équipe</div>
+        </div>
+      </div>
+
+    </div><!-- /contenu -->
+
+    <!-- Bouton fermer bas -->
+    <button onclick="fermerArticle('premiers-jours')" style="width:100%;margin-top:22px;padding:13px;border-radius:14px;border:none;background:var(--blue);color:white;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;cursor:pointer;box-shadow:0 4px 14px rgba(74,144,217,.28);">
+      ✓ J'ai lu
+    </button>
+  </div>
+</div>
 </body>
 </html>
