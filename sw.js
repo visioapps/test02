@@ -2071,6 +2071,7 @@ function resolvePi(i){
       const sec=document.getElementById('pending-section');
       if(sec)sec.style.display='none';
     }
+    updateSectionCounts(); // ← AJOUT
   },380);
 }
 
@@ -2345,6 +2346,38 @@ function toggleDoc(el){
 }
 function toggleKit(el){el.classList.toggle('open');}
 
+function toggleAccordion(id) {
+  const content = document.getElementById(id);
+  const arrow   = document.getElementById('arrow-' + id);
+  if (!content) return;
+  const isClosed = content.classList.contains('closed');
+  content.classList.toggle('closed', !isClosed);
+  if (arrow) arrow.classList.toggle('closed', !isClosed);
+}
+
+function updateSectionCounts() {
+  // Action du jour
+  let actionCount = 0;
+  const prescCard = document.getElementById('action-presc-card');
+  const todayCard = document.getElementById('action-card-today');
+  if (prescCard && prescCard.style.display !== 'none') actionCount++;
+  if (todayCard && todayCard.style.display !== 'none') actionCount++;
+  const countAction = document.getElementById('count-action');
+  if (countAction) countAction.textContent = actionCount;
+
+  // Jours à compléter
+  const pendingCount = PENDING.filter((_, i) => !piState[i].validated).length;
+  const countPending = document.getElementById('count-pending');
+  if (countPending) countPending.textContent = pendingCount;
+
+  // RDV
+  const countRdv = document.getElementById('count-rdv');
+  if (countRdv) {
+    const rdvCount = document.querySelectorAll('.rdv-unified .rdv2-card').length;
+    countRdv.textContent = rdvCount;
+  }
+}
+
 function initApp() {
   buildHeroSemainier();
   updateHeroInstruction();
@@ -2358,6 +2391,7 @@ function initApp() {
   buildBadgesTimeline();
   buildBadgesSection();
   buildRewardsForm();
+  updateSectionCounts();
 
 
 
