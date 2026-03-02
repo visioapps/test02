@@ -634,7 +634,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
   <!-- HERO - MODIFICATION 1 : instruction dynamique + semainier cliquable -->
   <div class="hero">
     <div class="hero-row1">
-      <div><div class="hero-greeting">👋 Bonjour</div><div class="hero-name">Jules !</div></div>
+      <div><div class="hero-greeting">👋 Bonjour</div><div class="hero-name"><span class="prenom-enfant">Jules</span> !</div></div>
       <div class="hero-mascot" id="mascot">🦸</div>
     </div>
     <!-- Instruction selon l'œil du jour sélectionné -->
@@ -651,13 +651,13 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     </div>
     <!-- Semainier cliquable (démo) -->
     <div style="position:relative;z-index:1;margin-top:10px;">
-      <div style="font-size:.6rem;font-weight:800;opacity:.78;letter-spacing:.04em;margin-bottom:6px;">La semaine en cours</div>
+      <div style="font-size:.6rem;font-weight:800;opacity:.78;letter-spacing:.04em;margin-bottom:6px;">La semaine en cours : (version démo : cliquez sur les j de la semaine)</div>
       <div id="hero-semainier" style="display:flex;gap:4px;"></div>
     </div>
   </div>
 
   <!-- MODIFICATION 2 : titre sans tiret inutile + MODIFICATION 3 : verrou 18h -->
-  <div class="section-title"><div class="section-title-icon" style="background:var(--blue-l);">🩹</div>Action du jour</div>
+  <div class="section-title"><div class="section-title-icon" style="background:var(--blue-l);">🩹</div>Action du jour<span id="count-action" style="margin-left:auto;font-size:.68rem;font-weight:800;background:var(--orange);color:white;border-radius:20px;padding:2px 8px;font-family:'Nunito',sans-serif;">2</span></div>
 
   <!-- ENCART PRESCRIPTION EN PREMIER -->
   <div class="action-card-presc" id="action-presc-card">
@@ -723,7 +723,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
 
   <!-- Jours à compléter : 3 jours précédant aujourd'hui, générés en JS -->
-  <div class="section-title"><div class="section-title-icon" style="background:var(--orange-l);">📋</div>Jours à compléter</div>
+  <div class="section-title"><div class="section-title-icon" style="background:var(--orange-l);">📋</div>Jours à compléter<span id="count-pending" style="margin-left:auto;font-size:.68rem;font-weight:800;background:var(--orange);color:white;border-radius:20px;padding:2px 8px;font-family:'Nunito',sans-serif;">3</span></div>
   <div class="pending-section" id="pending-list"></div>
 
   <!-- CALENDRIER -->
@@ -754,7 +754,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
   </div>
 
   <!-- RDV -->
-  <div class="section-title"><div class="section-title-icon" style="background:var(--teal-l);">🗓</div>Mes rendez-vous</div>
+  <div class="section-title"><div class="section-title-icon" style="background:var(--teal-l);">🗓</div>Mes rendez-vous<span id="count-rdv" style="margin-left:auto;font-size:.68rem;font-weight:800;background:var(--teal);color:white;border-radius:20px;padding:2px 8px;font-family:'Nunito',sans-serif;">3</span></div>
   <div class="rdv-unified">
 
     <!-- RDV 1 : Bilan orthoptique (bleu) -->
@@ -815,56 +815,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
   </div><!-- /rdv-unified -->
 
-  <!-- CONTACTS -->
-  <div class="section-title"><div class="section-title-icon" style="background:var(--teal-l);">📞</div>Mes contacts</div>
-  <div class="rdv-unified">
 
-    <!-- Orthoptiste -->
-        <div class="contact-card2" style="display:flex;align-items:center;gap:12px;">
-          <div class="contact2-avatar" style="background:linear-gradient(135deg,var(--blue),#6aaee8);flex-shrink:0;">🩹</div>
-          <div class="contact2-main" style="flex:1;min-width:0;">
-            <div class="contact2-role">Orthoptiste</div>
-            <div class="contact2-name">Mme F.Lecomte</div>
-            <div class="contact2-addr">📍 68 rue du Palais Gallien, 33000 Bordeaux</div>
-          </div>
-          <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:6px;flex-shrink:0;padding:0 4px;">
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="ouvrirContactPopup('Mme F.Lecomte','tel:+33556000000','mailto:F.Lecomte@cabinet-ortho.fr')">📬 Contacter</button>
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Ouverture Doctolib…','teal')">📅 Prendre RDV</button>
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="window.location.href='https://maps.google.com/?q=68+rue+du+Palais+Gallien+Bordeaux'">🗺️ Itinéraire</button>
-          </div>
-        </div>
-
-        <!-- Ophtalmologue -->
-        <div class="contact-card2" style="display:flex;align-items:center;gap:12px;">
-          <div class="contact2-avatar" style="background:linear-gradient(135deg,var(--teal),#5dd5d5);flex-shrink:0;">👓</div>
-          <div class="contact2-main" style="flex:1;min-width:0;">
-            <div class="contact2-role">Ophtalmologue</div>
-            <div class="contact2-name">Dr. C.Paya</div>
-            <div class="contact2-addr">📍 68 rue du Palais Gallien, 33000 Bordeaux</div>
-          </div>
-          <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:6px;flex-shrink:0;padding:0 4px;">
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="ouvrirContactPopup('Dr. C.Paya','tel:+33556000001','mailto:C.Paya@opg.fr')">📬 Contacter</button>
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Ouverture Doctolib…','teal')">📅 Prendre RDV</button>
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="window.location.href='https://maps.google.com/?q=5+avenue+Victor+Hugo+Bordeaux'">🗺️ Itinéraire</button>
-          </div>
-        </div>
-
-        <!-- Médecin traitant -->
-        <div class="contact-card2" style="display:flex;align-items:center;gap:12px;">
-          <div class="contact2-avatar" style="background:linear-gradient(135deg,#9B59B6,#b07fd4);flex-shrink:0;">🩺</div>
-          <div class="contact2-main" style="flex:1;min-width:0;">
-            <div class="contact2-role">Médecin traitant</div>
-            <div class="contact2-name">Dr. F.Martin</div>
-            <div class="contact2-addr">📍 1 place Gambetta, 33000 Bordeaux</div>
-          </div>
-          <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:6px;flex-shrink:0;padding:0 4px;">
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Numéro à renseigner','orange')">📬 Contacter</button>
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Ouverture Doctolib…','teal')">📅 Prendre RDV</button>
-            <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Adresse à renseigner','orange')">🗺️ Itinéraire</button>
-          </div>
-        </div>
-
-  </div>
   <div style="height:10px;"></div>
 </div><!-- /page-agenda -->
 
@@ -1250,14 +1201,14 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
   </div>
   <div class="page-title">
     <div class="page-title-icon" style="background:#F1F5F9;"><img src="reglages.png" style="width:22px;height:22px;object-fit:contain;" alt="réglages"></div>
-    <div><div class="page-title-text">Réglages</div><div class="page-title-sub">Profil & préférences</div></div>
+    <div><div class="page-title-text">Réglages</div><div class="page-title-sub">Profil, contacts & préférences</div></div>
   </div>
 
   <div class="section-title"><div class="section-title-icon" style="background:var(--blue-l);">👤</div> Profil</div>
   <div class="card" style="display:flex;align-items:center;gap:13px;">
     <div style="width:52px;height:52px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;font-family:'Nunito',sans-serif;font-weight:900;flex-shrink:0;">J</div>
     <div style="flex:1">
-      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.98rem;">Jules</div>
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.98rem;" class="prenom-enfant">Jules</div>
       <div style="font-size:.72rem;color:var(--text-m);margin-top:2px;">8 ans · Amblyopie OD </div>
     </div>
     <button style="background:var(--blue-l);border:none;border-radius:9px;padding:6px 11px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.72rem;color:var(--blue);cursor:pointer;">Modifier</button>
@@ -1308,7 +1259,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     <div class="toggle-row"><div class="toggle-info"><div class="toggle-title">Rappel matin - mettre le cache</div><div class="toggle-sub">Chaque jour à 8h00</div></div><label class="toggle"><input type="checkbox" checked id="t-matin"><span class="toggle-slider"></span></label></div>
     <div class="toggle-row"><div class="toggle-info"><div class="toggle-title">Rappel soir - valider l'observance</div><div class="toggle-sub">Chaque jour à 18h00</div></div><label class="toggle"><input type="checkbox" checked id="t-soir"><span class="toggle-slider"></span></label></div>
     <div class="toggle-row"><div class="toggle-info"><div class="toggle-title">Rappels de rendez-vous</div><div class="toggle-sub">J-2 et J-1 avant chaque RDV</div></div><label class="toggle"><input type="checkbox" checked id="t-rdv"><span class="toggle-slider"></span></label></div>
-    <div class="toggle-row"><div class="toggle-info"><div class="toggle-title">Notifications badges & étoiles</div><div class="toggle-sub">Quand Jules débloque une récompense</div></div><label class="toggle"><input type="checkbox" checked id="t-badges"><span class="toggle-slider"></span></label></div>
+    <div class="toggle-row"><div class="toggle-info"><div class="toggle-title">Notifications badges & étoiles</div><div class="toggle-sub">Quand <span class="prenom-enfant">Jules</span> débloque une récompense</div></div><label class="toggle"><input type="checkbox" checked id="t-badges"><span class="toggle-slider"></span></label></div>
   </div>
 
   <div class="section-title"><div class="section-title-icon" style="background:var(--blue-l);">📣</div> Tester les rappels (version démo)</div>
@@ -1325,6 +1276,55 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     <div class="notif-status" id="notif-status">💤 En attente</div>
   </div>
 
+<div class="section-title"><div class="section-title-icon" style="background:var(--teal-l);">👨‍⚕️</div> Mon équipe médicale</div>
+<div class="rdv-unified" style="margin-bottom:4px;">
+
+  <!-- Orthoptiste -->
+  <div class="contact-card2" style="display:flex;align-items:center;gap:12px;">
+    <div class="contact2-avatar" style="background:linear-gradient(135deg,var(--blue),#6aaee8);flex-shrink:0;">🩹</div>
+    <div class="contact2-main" style="flex:1;min-width:0;">
+      <div class="contact2-role">Orthoptiste</div>
+      <div class="contact2-name">Mme F.Lecomte</div>
+      <div class="contact2-addr">📍 68 rue du Palais Gallien, 33000 Bordeaux</div>
+    </div>
+    <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:6px;flex-shrink:0;padding:0 4px;">
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="ouvrirContactPopup('Mme F.Lecomte','tel:+33556000000','mailto:F.Lecomte@cabinet-ortho.fr')">📬 Contacter</button>
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Ouverture Doctolib…','teal')">📅 Prendre rdv</button>
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="window.location.href='https://maps.google.com/?q=68+rue+du+Palais+Gallien+Bordeaux'">🗺️ Itinéraire</button>
+    </div>
+  </div>
+
+  <!-- Ophtalmologue -->
+  <div class="contact-card2" style="display:flex;align-items:center;gap:12px;">
+    <div class="contact2-avatar" style="background:linear-gradient(135deg,var(--teal),#5dd5d5);flex-shrink:0;">👓</div>
+    <div class="contact2-main" style="flex:1;min-width:0;">
+      <div class="contact2-role">Ophtalmologue</div>
+      <div class="contact2-name">Dr. C.Paya</div>
+      <div class="contact2-addr">📍 68 rue du Palais Gallien, 33000 Bordeaux</div>
+    </div>
+    <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:6px;flex-shrink:0;padding:0 4px;">
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="ouvrirContactPopup('Dr. C.Paya','tel:+33556000001','mailto:C.Paya@opg.fr')">📬 Contacter</button>
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Ouverture Doctolib…','teal')">📅 Prendre rdv</button>
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="window.location.href='https://maps.google.com/?q=5+avenue+Victor+Hugo+Bordeaux'">🗺️ Itinéraire</button>
+    </div>
+  </div>
+
+  <!-- Médecin traitant -->
+  <div class="contact-card2" style="display:flex;align-items:center;gap:12px;">
+    <div class="contact2-avatar" style="background:linear-gradient(135deg,#9B59B6,#b07fd4);flex-shrink:0;">🩺</div>
+    <div class="contact2-main" style="flex:1;min-width:0;">
+      <div class="contact2-role">Médecin traitant</div>
+      <div class="contact2-name">Dr. F.Martin</div>
+      <div class="contact2-addr">📍 1 place Gambetta, 33000 Bordeaux</div>
+    </div>
+    <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:6px;flex-shrink:0;padding:0 4px;">
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Numéro à renseigner','orange')">📬 Contacter</button>
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Ouverture Doctolib…','teal')">📅 Prendre rdv</button>
+      <button class="rdv2-act-btn rdv2-plan-btn" style="width:auto !important;" onclick="showToast('Adresse à renseigner','orange')">🗺️ Itinéraire</button>
+    </div>
+  </div>
+
+</div>
 
   <div class="section-title"><div class="section-title-icon" style="background:var(--bg);">🔧</div> Compte</div>
   <div class="settings-section">
@@ -1335,7 +1335,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
 
   <div class="section-title"><div class="section-title-icon" style="background:var(--orange-l);">🎁</div> Les récompenses</div>
   <div class="card">
-    <div style="font-family:'Nunito',sans-serif;font-size:.8rem;color:var(--text-m);font-weight:600;margin-bottom:11px;line-height:1.5;">Définissez les récompenses que Jules gagnera à chaque badge débloqué.</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:.8rem;color:var(--text-m);font-weight:600;margin-bottom:11px;line-height:1.5;">Définissez les récompenses que <span class="prenom-enfant">Jules</span> gagnera à chaque badge débloqué.</div>
     <div id="rewards-form"></div>
   </div>
   <div style="height:10px;"></div>
@@ -1662,7 +1662,7 @@ function validerSaisie() {
   const hEnd = 6 + (sliderEndPct / 100) * 16;
   const hours = Math.max(0, Math.round(hEnd - hStart));
   let emoji, title, sub, doConfetti;
-  if (hours >= 10) { emoji='🏆'; title='Objectif atteint !'; sub='Bravo Jules, '+hours+'h portées ! 💪'; doConfetti=true; }
+  if (hours >= 10) { emoji='🏆'; title='Objectif atteint !'; sub='Bravo '+PRENOM_ENFANT+', '+hours+'h portées ! 💪'; doConfetti=true; }
   else if (hours >= 7) { emoji='👍'; title='Bonne journée !'; sub=hours+'h portées · presque l\'objectif 😊'; doConfetti=false; }
   else if (hours > 0) { emoji='💪'; title="C'est un début !"; sub=hours+'h portées · on peut faire mieux !'; doConfetti=false; }
   else { emoji='😔'; title='Pas de cache ce jour…'; sub='Pas grave, on rattrape demain ! 💙'; doConfetti=false; }
@@ -1893,7 +1893,9 @@ function doLogin(name) {
   const bar = document.getElementById('lgBar');
   const step = document.getElementById('lgStep');
   const pct = document.getElementById('lgPct');
-  document.getElementById('lgOvName').textContent = name + ' !';
+  // Nettoie le prénom : capitalise la première lettre
+  PRENOM_ENFANT = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  document.getElementById('lgOvName').textContent = PRENOM_ENFANT + ' !';
   overlay.classList.add('on');
 
   const steps = ['Connexion sécurisée…','Chargement du profil…','Synchronisation…','C\'est parti ! 🚀'];
@@ -2041,7 +2043,7 @@ function validatePiDay(i){
   const track=document.querySelector('#pi-hs-'+i)?.parentElement;
   if(track)track.style.display='none';
   let emoji,title,sub,doConfetti;
-  if(hours>=10){emoji='🏆';title='Objectif atteint !';sub='Bravo Jules, '+hours+'h portées ! 💪';doConfetti=true;}
+  if(hours>=10){emoji='🏆';title='Objectif atteint !';sub='Bravo '+PRENOM_ENFANT+', '+hours+'h portées ! 💪';doConfetti=true;}
   else if(hours>=7){emoji='👍';title='Bonne journée !';sub=hours+'h portées · presque l\'objectif 😊';doConfetti=false;}
   else if(hours>0){emoji='💪';title="C'est un début !";sub=hours+'h portées · on peut faire mieux !';doConfetti=false;}
   else{emoji='😔';title='Pas de cache ce jour…';sub='Pas grave, on rattrape demain ! 💙';doConfetti=false;}
@@ -2185,8 +2187,8 @@ function sauvegarderCR(){
 // PRESCRIPTIONS
 // ════════════════════════════════════════════════════════
 const PRESC_DATA = [
-  {id:'pr1',medecin:'Dr. C.Paya',seances:'20 séances',dateDebut:'2025-07-15',dateFin:'2026-01-15',hasPhoto:false,photoSrc:null},
-  {id:'pr2',medecin:'Dr. C.Paya',seances:'20 séances',dateDebut:'2026-01-15',dateFin:'2026-07-15',hasPhoto:false,photoSrc:null},
+  {id:'pr1',medecin:'Dr. C.Paya',seances:'20 séances',dateDebut:'2025-07-15',dateFin:'2025-01-15',hasPhoto:false,photoSrc:null},
+  {id:'pr2',medecin:'Dr. C.Paya',seances:'20 séances',dateDebut:'2026-01-15',dateFin:'2026-01-15',hasPhoto:false,photoSrc:null},
 ];
 let prescPhotoData=null;
 let prescFileIsPdf=false;
@@ -2346,6 +2348,11 @@ function toggleDoc(el){
 function toggleKit(el){el.classList.toggle('open');}
 
 function initApp() {
+  // ← AJOUTER EN PREMIER :
+  // Met à jour tous les endroits où Jules apparaît
+  document.querySelectorAll('.prenom-enfant').forEach(el => {
+    el.textContent = PRENOM_ENFANT;
+  });
   buildHeroSemainier();
   updateHeroInstruction();
   initActionDuJour();
@@ -2383,6 +2390,8 @@ const BADGES_DATA = [
 const STARS_CURRENT = 47;
 const rewardsData = {};
 const notifTimers = {};
+
+let PRENOM_ENFANT = 'Jules'; // sera remplacé au login
 
 function deconnexion() {
   document.getElementById('app-root').classList.remove('show');
@@ -2524,7 +2533,7 @@ function envoyerNotifDelai(type, btn) {
         } else {
           // Dernier recours : showNotification direct depuis la page
           reg.showNotification(
-            type === 'cache' ? '🏴‍☠️ Cache-œil de Jules ! [TEST]' : '🎉 Bravo Jules ! [TEST]',
+            type === 'cache' ? '🏴‍☠️ Cache-œil de '+PRENOM_ENFANT+' ! [TEST]' : '🎉 Bravo '+PRENOM_ENFANT+' ! [TEST]',
             { body: type === 'cache' ? 'Mets le cache maintenant !' : "Valide ton observance du jour !", icon: 'amblyup-logo.png' }
           );
         }
