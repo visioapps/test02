@@ -760,19 +760,19 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
     <!-- RDV 1 : Bilan orthoptique (bleu) -->
         <div class="rdv2-card" style="--rdv-color:var(--blue);--rdv-bg:var(--blue-l);--rdv-border:var(--blue-mid);">
           <div class="rdv2-pill" style="background:var(--blue);flex-shrink:0;">
-            <div class="rdv2-day">03</div>
-            <div class="rdv2-mois">Mar</div>
+            <div class="rdv2-day" id="rdv-ortho-day">--</div>
+            <div class="rdv2-mois" id="rdv-ortho-mois">---</div>
           </div>
           <div class="rdv2-body" style="flex:1;">
             <div class="rdv2-who">🩹 Bilan orthoptique</div>
             <div class="rdv2-detail">14h00 · Mme F.Lecomte</div>
             <div class="rdv2-tag-row" style="margin-top:6px;">
-              <span class="rdv2-tag" style="background:var(--blue-l);color:var(--blue-d);">📅 Dans 3 jours</span>
+              <span class="rdv2-tag" style="background:var(--blue-l);color:var(--blue-d);" id="rdv-ortho-tag">📅 Dans 3 jours</span>
             </div>
-            </div>
-                      <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;padding:0 8px;gap:6px;flex-shrink:0;">
-                        <button class="rdv2-act-btn rdv2-plan-btn" onclick="ouvrirContactPopup('Mme F.Lecomte','tel:+33556000000','mailto:F.Lecomte@cabinet.fr')">📬 Contacter</button>
-                        <button class="rdv2-act-btn rdv2-plan-btn" onclick="window.open('https://www.doctolib.fr','_blank')">✏️ Modifier</button>
+          </div>
+          <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;padding:0 8px;gap:6px;flex-shrink:0;">
+            <button class="rdv2-act-btn rdv2-plan-btn" onclick="ouvrirContactPopup('Mme F.Lecomte','tel:+33556000000','mailto:F.Lecomte@cabinet.fr')">📬 Contacter</button>
+            <button class="rdv2-act-btn rdv2-plan-btn" onclick="window.open('https://www.doctolib.fr','_blank')">✏️ Modifier</button>
           </div>
         </div>
 
@@ -786,7 +786,7 @@ body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);m
             <div class="rdv2-who">👓 Contrôle ophtalmologique</div>
             <div class="rdv2-detail">10h30 · Dr. C.Paya</div>
             <div class="rdv2-tag-row" style="margin-top:6px;">
-              <span class="rdv2-tag" style="background:var(--blue-l);color:var(--blue-d);">📅 Dans 37 jours</span>
+              <span class="rdv2-tag" style="background:var(--blue-l);color:var(--blue-d);" id="rdv-ophtalmo-tag">📅 Dans 37 jours</span>
             </div>
           </div>
           <div style="display:flex;flex-direction:row;align-items:center;align-self:stretch;padding:0 8px;gap:6px;flex-shrink:0;">
@@ -1736,9 +1736,17 @@ function eyeForDate(d) {
   return eyeForDow(dow);
 }
 
+// Calcule la date du RDV orthoptiste = aujourd'hui + 3 jours
+const rdvOrthoDate = new Date();
+rdvOrthoDate.setDate(rdvOrthoDate.getDate() + 3);
+
 const RDV_CAL = {
-  '2026-2-3':  {emoji:'🩹', praticien:'Orthoptiste', nom:'Mme Lecomte', heure:'14h00', lieu:'68 rue du Palais Gallien, Bordeaux', type:'ortho'},
-  '2026-3-7':  {emoji:'👓', praticien:'Ophtalmologue', nom:'Dr. Paya', heure:'10h30', lieu:'5 av. Victor Hugo, Bordeaux', type:'ophtalmo'},
+  // RDV ortho dynamique
+  [`${rdvOrthoDate.getFullYear()}-${rdvOrthoDate.getMonth()}-${rdvOrthoDate.getDate()}`]:
+    {emoji:'🩹', praticien:'Orthoptiste', nom:'Mme Lecomte', heure:'14h00', lieu:'68 rue du Palais Gallien, Bordeaux', type:'ortho'},
+  // RDV ophtalmo fixe 7 avril
+  '2026-3-7':
+    {emoji:'👓', praticien:'Ophtalmologue', nom:'Dr. Paya', heure:'10h30', lieu:'5 av. Victor Hugo, Bordeaux', type:'ophtalmo'},
 };
 
 function buildCalendar() {
@@ -1921,12 +1929,37 @@ function doLogin(name) {
 }
 
 // ── Pending (jours à compléter) ──
-const PENDING=[
-  {d:19,label:'Jeu 19 fév', month:'Fév',isToday:false,eye:'OD',defaultStart:8,defaultEnd:18},
-  {d:21,label:'Sam 21 fév', month:'Fév',isToday:false,eye:'OG',defaultStart:8,defaultEnd:18},
-];
-let pendingDone=0;
-const piState=PENDING.map(d=>({start:d.defaultStart,end:d.defaultEnd,validated:false}));
+const DAYS_FR = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+
+function buildPendingData() {
+  const today = new Date();
+  const result = [];
+  // J-2 et J-1 uniquement
+  for (let offset = 2; offset >= 1; offset--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - offset);
+    const dow = d.getDay();
+    const eye = eyeForDow(dow);
+    const label = DAYS_FR[dow] + ' ' + d.getDate() + ' ' + MONTHS_SHORT[d.getMonth()];
+    result.push({
+      d: d.getDate(),
+      label: label,
+      month: MONTHS_SHORT[d.getMonth()],
+      isToday: false,
+      eye: eye === 'pause' ? 'Pause' : eye,
+      isPause: eye === 'pause',
+      defaultStart: 8,
+      defaultEnd: 18,
+      dateObj: d
+    });
+  }
+  return result;
+}
+
+const PENDING = buildPendingData();
+let pendingDone = 0;
+const piState = PENDING.map(d => ({start:d.defaultStart, end:d.defaultEnd, validated:false}));
 function hToPos(h){return((h-6)/16)*100;}
 function posToH(pct){return Math.round(pct/100*16+6);}
 function fmtH(h){return h+'h00';}
@@ -2347,6 +2380,28 @@ function toggleDoc(el){
 }
 function toggleKit(el){el.classList.toggle('open');}
 
+function initRdvDates() {
+  const MOIS_COURTS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+
+  // RDV Orthoptiste — toujours dans 3 jours
+  const ortho = new Date();
+  ortho.setDate(ortho.getDate() + 3);
+  const dayEl   = document.getElementById('rdv-ortho-day');
+  const moisEl  = document.getElementById('rdv-ortho-mois');
+  const tagEl   = document.getElementById('rdv-ortho-tag');
+  if (dayEl)  dayEl.textContent  = ortho.getDate();
+  if (moisEl) moisEl.textContent = MOIS_COURTS[ortho.getMonth()];
+  if (tagEl)  tagEl.textContent  = '📅 Dans 3 jours';
+
+  // RDV Ophtalmologue — calcule les jours restants depuis aujourd'hui
+  const ophtalmo = new Date(2026, 3, 7); // 7 avril 2026
+  const today    = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.ceil((ophtalmo - today) / (1000*60*60*24));
+  const tagOphEl = document.getElementById('rdv-ophtalmo-tag');
+  if (tagOphEl) tagOphEl.textContent = `📅 Dans ${diff} jours`;
+}
+
 function initApp() {
   // ← AJOUTER EN PREMIER :
   // Met à jour tous les endroits où Jules apparaît
@@ -2365,6 +2420,8 @@ function initApp() {
   buildBadgesTimeline();
   buildBadgesSection();
   buildRewardsForm();
+  initRdvDates();
+  updateSectionCounts();
 
 
 
